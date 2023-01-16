@@ -62,28 +62,29 @@ OBJS		= $(addprefix $(OBJ_DIR), ${SRCS:.c=.o})
 INCLUDES 	= libft.h
 #---------------------------------------------------#
 
-all: $(NAME)
+all: 
+	@$(MAKE) -j $(NAME)
 
 $(NAME): $(OBJ_DIR) $(SRCS) $(OBJS) $(INCLUDES) 
-	ar rc $(NAME) $(OBJS) 
+	@ar rc $(NAME) $(OBJS) 
 
 $(OBJ_DIR)%.o : %.c Makefile $(INCLUDES)
-	$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
 
 $(OBJ_DIR):
-	mkdir $(OBJ_DIR)
+	@mkdir $(OBJ_DIR)
 
 clean:
-	rm -rf $(OBJS) $(BONUS_OBJS)
-	rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJS) $(BONUS_OBJS)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re:	fclean all
 
 bonus: $(OBJ_DIR) $(SRCS) $(OBJS) $(INCLUDES) $(BONUS_SRCS) $(BONUS_OBJS)
-	ar rc $(NAME) $(OBJS) $(BONUS_OBJS)
+	@ar rc $(NAME) $(OBJS) $(BONUS_OBJS)
 
 .PHONY: all bonus clean fclean re
 #---------------------------------------------------#
