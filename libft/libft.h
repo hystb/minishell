@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 17:06:53 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/16 13:33:51 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/01/20 13:00:28 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@
 
 typedef struct s_list
 {
-	void			*content;
+	void			**content;
 	struct s_list	*next;
+	struct s_list	*previous;
 }				t_list;
 
 int		ft_isalpha(int c);
