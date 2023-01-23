@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/23 13:57:13 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/01/23 16:26:39 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ void	split_map(char ***map_cmd, char *input, t_cmds data);
 void	prepare_input(char *input, t_cmds *data_cmd);
 void	make_map_pipe(char ***map_cmd, char **splited, int end, int start);
 void	make_map(char ***map_cmd, char **splited, int end, int start);
+int		last_pipe(char **splited, int i);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:07:01 by nmilan            #+#    #+#             */
-/*   Updated: 2023/01/23 14:55:00 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/01/23 16:32:40 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	put_in_lst(char *input, t_list **cmd, t_cmds data_cmd)
 	split_map(map_cmd, input, data_cmd);
 	while (map_cmd[i])
 	{
-		ft_printf("ok\n");
 		if (!*cmd)
 			*cmd = ft_lstnew(map_cmd[i]);
 		else
@@ -72,7 +71,6 @@ void	split_map(char ***map_cmd, char *input, t_cmds data)
 		{
 			if (ft_memchr(splited[i], '|', ft_strlen(splited[i])))
 			{
-				ft_printf("OK\n");
 				make_map_pipe(map_cmd, splited, i, last_splited);
 				last_splited = i + 1;
 			}
@@ -80,6 +78,8 @@ void	split_map(char ***map_cmd, char *input, t_cmds data)
 		i++;
 	}
 	make_map(map_cmd, splited, i - 1, last_splited);
+	i = 0;
+	j = 0;
 	free(splited);
 }
 
