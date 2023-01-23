@@ -13,7 +13,8 @@ SRCS_FILES	= \
 main.c\
 exit_error.c\
 here_doc.c\
-pipex.c
+get_path.c\
+child.c
 
 SRCS		= $(addprefix $(SRC_DIR), $(SRCS_FILES))
 

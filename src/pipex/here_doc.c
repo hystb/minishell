@@ -6,13 +6,13 @@
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 16:03:27 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/20 14:50:40 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/01/23 11:04:43 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-/* */
+/* open the heredoc */
 void	read_here_doc(char *limiter, int *tube)
 {
 	char	*str;
@@ -32,8 +32,8 @@ void	read_here_doc(char *limiter, int *tube)
 	}
 }
 
-
-void	do_here_doc(char *limiter)
+/* open and use heredoc as stdin with LIMITER as limit */
+void	do_heredoc(char *limiter)
 {
 	int		tube[2];
 	pid_t	pid;

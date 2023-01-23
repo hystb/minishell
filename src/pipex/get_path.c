@@ -6,33 +6,11 @@
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 12:46:49 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/20 13:33:17 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/01/23 13:19:34 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
-
-/* do the command */
-void	do_execute(char **args, char **env, int *tube)
-{
-	char	*cmd;
-
-	if (access(cmd, O_RDONLY) == -1)
-		cmd = get_path(*args, env);
-	else
-		cmd = ft_strdup(*args);
-	close(tube[0]);
-	if (cmd)
-	{
-		if (execve(cmd, args, env) == -1)
-			exit_error();
-	}
-	else
-		not_found_error(*args);
-	close(tube[1]);
-	free(cmd);
-	free(args);
-}
 
 /* free split data */
 void	free_split(char **tab, int exit)

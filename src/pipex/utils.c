@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_error.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/05 15:41:16 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/23 13:38:45 by ebillon          ###   ########lyon.fr   */
+/*   Created: 2023/01/23 11:14:46 by ebillon           #+#    #+#             */
+/*   Updated: 2023/01/23 11:16:03 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/exec.h"
-
-void	exit_error(void)
+int	cmds_len(char **args)
 {
-	perror("");
-	exit(EXIT_FAILURE);
-}
+	int	i;
 
-void	not_found_error(char *cmd)
-{
-	write(2, "pipex: ", 8);
-	write(2, cmd, ft_strlen(cmd));
-	write(2, ": command not found\n", 21);
-	exit(127);
-}
-
-void	write_error(char *str)
-{
-	write(2, str, ft_strlen(str));
-	exit(EXIT_FAILURE);
+	i = 0;
+	while (args[i])
+	{
+		i++;
+	}
+	return (i);
 }
