@@ -1,0 +1,6 @@
+ls -la >> doc.txt | echo bonjour | echo bonsoir >> doc.txt
+
+voir gestion des >> quand plusieurs;
+comprendre pourquoi dans ce sens/
+
+ls -la > doc.txt | echo bonjour | echo bonsoir > doc.txt | cat << LIMITER >> doc.txt

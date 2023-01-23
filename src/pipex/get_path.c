@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 12:46:49 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/23 13:19:34 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/01/23 16:01:31 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_split(char **tab, int exit)
 	}
 	free(tab);
 	if (exit == 1)
-		exit_error();
+		write_error("Memory allocation error !");
 }
 
 /* free s2 before join */

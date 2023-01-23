@@ -6,12 +6,13 @@
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:21:11 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/23 13:15:45 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/01/23 15:52:20 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
+
 /* about pipex */
 # include <unistd.h>
 # include <stddef.h>
@@ -32,6 +33,7 @@ void	do_execute(char **args, char **env, int *tube);
 void	do_here_doc(char *limiter);
 void	do_child(int *tube, char **cmd, char **env);
 char	*get_path(char *cmd, char **env);
+
 
 /* some stuff here */
 #endif 

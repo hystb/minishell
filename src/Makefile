@@ -10,12 +10,7 @@ OBJ_DIR 	= obj/
 SRC_DIR		= pipex/
 
 SRCS_FILES	= \
-main.c\
-exit_error.c\
-here_doc.c\
-get_path.c\
-child.c
-
+do_comm
 SRCS		= $(addprefix $(SRC_DIR), $(SRCS_FILES))
 
 OBJS		= $(addprefix $(OBJ_DIR), ${SRCS_FILES:.c=.o})
@@ -31,7 +26,7 @@ LIBFT_EXEC	= $(addprefix $(LIBFT_DIR), $(LIBFT_NAME))
 all: 
 	@$(MAKE) -j $(NAME)
 
-$(NAME): $(OBJ_DIR) $(LIBFT_EXEC) $(SRCS) $(OBJS) $(INCLUDES) 
+$(NAME): $(OBJ_DIR) $(LIBFT_EXEC) $(SRCS) $(OBJS) $(INCLUDES)
 	@$(CC) -lreadline $(CFLAGS) $(LIBFT_EXEC) $(OBJS) -o $(NAME)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)$(notdir %.c) Makefile $(INCLUDES)
