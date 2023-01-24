@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/01/23 15:44:56 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/01/24 15:15:42 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	while (1)
 	{
-		input = readline("minishell >");
+		input = readline("minishell -> ");
 		if (!input)
 		{
-			ft_putstr_fd("Mem alloc failed", 2);
+			ft_putstr_fd("\nexit", 2);
 			exit(1);
 		}
 		lst_cmd = put_input_lst(input);
