@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 15:21:13 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/24 15:57:19 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 16:56:29 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int main(int argc, char **args, char **env)
 {
 
-	char *cmds[10] = { "cat 1", "cat -e", NULL};
+	char *cmds[10] = { "< 1", NULL};
 	do_commands(cmds, env);
 	// printf("bonjour\n");
 }

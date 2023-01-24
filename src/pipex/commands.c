@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:01 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/24 15:57:53 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 16:56:39 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 void	do_commands(char **cmds, char **env)
 {
 	int	fd = 2;
-	int len = 2;
+	int len = 1;
 	pid_t	gpid;
 	
 	redirect(cmds, 2, env, &fd, &gpid);
