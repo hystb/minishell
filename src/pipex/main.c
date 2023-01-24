@@ -6,11 +6,20 @@
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 15:21:13 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/23 15:59:32 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 15:57:19 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
+int main(int argc, char **args, char **env)
+{
+
+	char *cmds[10] = { "cat 1", "cat -e", NULL};
+	do_commands(cmds, env);
+	// printf("bonjour\n");
+}
+
 
 /* launch command pipex without here_doc */
 // void	do_pipex(char **argv, int argc, char **env)
@@ -40,20 +49,23 @@
 // 		exit(WEXITSTATUS(wstatus));
 // }
 
-int	main(int argc, char **argv, char **env)
-{
-	if (argc < 5)
-		write_error("Usage ./pipex file1 cmd1 cmd2 ... file2\n");
-	else
-	{
-		if (ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])))
-			do_pipex(argv, argc, env);
-	}
-	return (0);
-}
+// int	main(int argc, char **argv, char **env)
+// {
+// 	if (argc < 5)
+// 		write_error("Usage ./pipex file1 cmd1 cmd2 ... file2\n");
+// 	else
+// 	{
+// 		if (ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])))
+// 			do_pipex(argv, argc, env);
+// 	}
+// 	return (0);
+// }
 
 /* revoir les bonus du here_doc + faire les bonnes editions niveau droit 
 * -> faire les here_doc dans un pipe
 * 
 perror pour ouverture fichier
 */
+
+/* faire les espaces entre << > < tout le bordel */
+// tester le heredoc qui wait.

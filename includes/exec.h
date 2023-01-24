@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:21:11 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/23 15:52:20 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 15:04:43 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,16 @@ void	exit_error(void);
 void	write_error(char *str);
 void	not_found_error(char *cmd);
 void	do_execute(char **args, char **env, int *tube);
-void	do_here_doc(char *limiter);
+void	do_heredoc(char *limiter, int *oldtube);
 void	do_child(int *tube, char **cmd, char **env);
 char	*get_path(char *cmd, char **env);
 
+/* redirections */
+void	do_input(char *path, int *tube);
+void	do_commands(char **cmds, char **env);
+
+/* execution */
+void	redirect(char **cmds, int argc, char **env, int *fd, pid_t *gpid);
 
 /* some stuff here */
 #endif 

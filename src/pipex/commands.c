@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   do_commands.c                                      :+:      :+:    :+:   */
+/*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:01 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/23 15:59:23 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 15:57:53 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void	do_commands(char **commands, char **env)
-{
-	/* */
-}
-
 /* write in a file (create it if does not exist) 
 *	if mode == 1 -> append mode
 *	else -> overwrite mode
 */
+
+void	do_commands(char **cmds, char **env)
+{
+	int	fd = 2;
+	int len = 2;
+	pid_t	gpid;
+	
+	redirect(cmds, 2, env, &fd, &gpid);
+	char buff[2];
+	// printf("%d\n", gpid);
+	while (read(fd, buff, 1))
+		write(1, buff, 1);
+	close(fd);
+}
+
 void	write_infile(int fd_in, char *out, int mode)
 {
 	char	buff[1];

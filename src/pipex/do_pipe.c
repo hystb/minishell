@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/23 15:54:40 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 15:53:53 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,29 @@ void	redirect(char **cmds, int argc, char **env, int *fd, pid_t *gpid)
 	}
 }
 
+int	do_redirection(char **cmds, int *tube)
+{
+	if (ft_strncmp(cmds[0], "<", 1) == 0)
+		return (do_input(cmds[1], tube), 1);
+	else if (ft_strncmp(cmds[0], "<<", 2) == 0)
+		return (do_heredoc(cmds[1], tube), 1);
+	return (0);
+}
+// go and make the redirection ( mettre en place les buildints ici aussi) passer a la commande suivante si echec
 /* change here by passing the cmd */
+
 void	do_child(int *tube, char **cmds, char **env)
 {
-	if (dup2(tube[1], STDOUT_FILENO) == -1)
-		exit_error();
-	do_execute(ft_split(*cmds, ' '), env, tube);
+	char	**args;
+
+	args = ft_split(*cmds, ' ');
+	if (do_redirection(args, tube))
+		return ;
+	else
+	{
+		dup2(tube[1], STDOUT_FILENO);
+		do_execute(args, env, tube);		
+	}
 }
 
 /* do the command */

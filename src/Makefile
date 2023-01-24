@@ -10,7 +10,13 @@ OBJ_DIR 	= obj/
 SRC_DIR		= pipex/
 
 SRCS_FILES	= \
-do_comm
+commands.c\
+do_pipe.c\
+exit_error.c\
+get_path.c\
+main.c\
+redirections.c
+
 SRCS		= $(addprefix $(SRC_DIR), $(SRCS_FILES))
 
 OBJS		= $(addprefix $(OBJ_DIR), ${SRCS_FILES:.c=.o})

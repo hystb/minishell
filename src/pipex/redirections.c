@@ -1,16 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_doc.c                                         :+:      :+:    :+:   */
+/*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/10 16:03:27 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/23 15:58:52 by ebillon          ###   ########lyon.fr   */
+/*   Created: 2023/01/24 11:23:42 by ebillon           #+#    #+#             */
+/*   Updated: 2023/01/24 15:17:22 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
+/* try to open file and put in on stdin */
+void	do_input(char *path, int *tube)
+{
+	int		fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+	{
+		// la passer a la cmd suivante.
+		exit_error();
+	}
+	close(tube[0]);
+	dup2(fd, tube[1]);
+	close(fd);
+	close(tube[1]);
+}
 
 /* open the heredoc */
 void	read_here_doc(char *limiter, int *tube)
@@ -33,11 +50,13 @@ void	read_here_doc(char *limiter, int *tube)
 }
 
 /* open and use heredoc as stdin with LIMITER as limit */
-void	do_heredoc(char *limiter)
+void	do_heredoc(char *limiter, int *oldtube)
 {
 	int		tube[2];
 	pid_t	pid;
 
+	close(oldtube[1]);
+	close(oldtube[0]);
 	if (pipe(tube) == -1)
 		exit_error();
 	pid = fork();
