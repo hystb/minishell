@@ -3,4 +3,6 @@ ls -la >> doc.txt | echo bonjour | echo bonsoir >> doc.txt
 voir gestion des >> quand plusieurs;
 comprendre pourquoi dans ce sens/
 
+tu sais ce que tu dois faire
+
 ls -la > doc.txt | echo bonjour | echo bonsoir > doc.txt | cat << LIMITER >> doc.txt
