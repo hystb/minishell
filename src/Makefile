@@ -1,16 +1,21 @@
 #---------------------------------------------------#
 CC 			= cc
 
-CFLAGS 		= -Wall -Wextra -Werror 
+CFLAGS 		= 
 
 NAME 		= minishell
 #---------------------------------------------------#
 OBJ_DIR 	= obj/
 
-SRC_DIR		= src/
+SRC_DIR		= pipex/
 
 SRCS_FILES	= \
-
+commands.c\
+do_pipe.c\
+exit_error.c\
+get_path.c\
+main.c\
+redirections.c
 
 SRCS		= $(addprefix $(SRC_DIR), $(SRCS_FILES))
 
@@ -27,8 +32,8 @@ LIBFT_EXEC	= $(addprefix $(LIBFT_DIR), $(LIBFT_NAME))
 all: 
 	@$(MAKE) -j $(NAME)
 
-$(NAME): $(OBJ_DIR) $(LIBFT_EXEC) $(SRCS) $(OBJS) $(INCLUDES) 
-	@$(CC) $(CFLAGS) $(LIBFT_EXEC) $(OBJS) -o $(NAME)
+$(NAME): $(OBJ_DIR) $(LIBFT_EXEC) $(SRCS) $(OBJS) $(INCLUDES)
+	@$(CC) -lreadline $(CFLAGS) $(LIBFT_EXEC) $(OBJS) -o $(NAME)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)$(notdir %.c) Makefile $(INCLUDES)
 	$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
