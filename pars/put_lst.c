@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:07:01 by nmilan            #+#    #+#             */
-/*   Updated: 2023/01/24 15:54:21 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/01/30 16:22:08 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_list	**put_input_lst(char *input)
 	}
 	*cmd = NULL;
 	prepare_input(input, &data_cmd);
+	input = add_pipe_sign(input);
+	input = add_space_pipe(input);
 	prepare_split(input);
 	put_in_lst(input, cmd, data_cmd);
 	return (cmd);
@@ -38,7 +40,8 @@ void	put_in_lst(char *input, t_list **cmd, t_cmds data_cmd)
 
 	i = 0;
 	//ft_printf("%d\n", data_cmd.nb_pipes);
-	map_cmd = malloc(sizeof(char **) * (2 + data_cmd.nb_pipes * 2));
+	map_cmd = malloc(sizeof(char **) * \
+	(2 + data_cmd.nb_sign * 2 + data_cmd.nb_pipes * 2));
 	if (!map_cmd)
 	{
 		//put exit function
@@ -90,6 +93,7 @@ void	prepare_input(char *input, t_cmds *cmd)
 	cmd->db_quote_f = 0;
 	cmd->db_quote_s = 0;
 	cmd->nb_pipes = 0;
+	cmd->nb_sign = 0;
 	while (input[i])
 	{
 		if (input[i] == '|')
@@ -102,6 +106,8 @@ void	prepare_input(char *input, t_cmds *cmd)
 			cmd->db_quote_s++;
 		else if (input[i] == '"' && cmd->db_quote_s != cmd->db_quote_f)
 			cmd->db_quote_f++;
+		if (input[i] == '<' || input[i] == '>')
+			cmd->nb_sign++;
 		i++;
 	}
 }

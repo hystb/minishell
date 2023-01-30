@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/24 16:46:53 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/01/30 16:19:44 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef struct s_cmds
 {
 	int	nb_pipes;
+	int	nb_sign;
 	int	sp_quote_s;
 	int	sp_quote_f;
 	int	db_quote_s;
@@ -41,5 +42,11 @@ void	prepare_split(char *input);
 void	change_space(char *str, int end, int start, int type);
 void	change_split(char **splited);
 int		ft_tablen(char ***map);
+char	*add_space_pipe(char *input);
+int		need_space(char *input);
+char	*realloc_input(char *input, int i);
+char	*add_pipe(char *input, int i);
+int		need_pipe(char *input);
+char	*add_pipe_sign(char *input);
 
 #endif
