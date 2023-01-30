@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:07:01 by nmilan            #+#    #+#             */
-/*   Updated: 2023/01/30 16:22:08 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/01/30 16:38:38 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	put_in_lst(char *input, t_list **cmd, t_cmds data_cmd)
 	int		i;
 
 	i = 0;
-	//ft_printf("%d\n", data_cmd.nb_pipes);
 	map_cmd = malloc(sizeof(char **) * \
 	(2 + data_cmd.nb_sign * 2 + data_cmd.nb_pipes * 2));
 	if (!map_cmd)
