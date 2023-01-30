@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/30 13:50:23 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/01/30 14:18:03 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /* check about parent activity and redirections possibilites */
 void	pre_redirect(char **cmds, int argc, char **env, t_redirect *data)
 {
-	printf("%s\n", cmds[0]);
 	if (do_redirection(ft_split(*cmds, ' ')))
 	{
 		argc--;

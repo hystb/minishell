@@ -11,7 +11,6 @@ SRC_DIR		= src/
 
 SRCS_FILES	= \
 
-
 SRCS		= $(addprefix $(SRC_DIR), $(SRCS_FILES))
 
 OBJS		= $(addprefix $(OBJ_DIR), ${SRCS_FILES:.c=.o})
