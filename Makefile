@@ -36,7 +36,7 @@ $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)
 
 $(LIBFT_EXEC):
-	@$(MAKE) -C $(LIBFT_DIR) 
+	@$(MAKE) -C $(LIBFT_DIR) bonus 
 
 clean:
 	@$(MAKE) -C $(LIBFT_DIR) clean
