@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:51:19 by nmilan            #+#    #+#             */
-/*   Updated: 2023/01/30 16:23:11 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/01/30 16:35:36 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ char	*realloc_input(char *input, int i)
 		exit (1);
 	}
 	ft_strlcpy(res, input, i + 1);
-	ft_printf("i :%d\nj :%d\nlen :%d\n", i, j, ft_strlen(input));
 	res[j - 1] = ' ';
 	res[j++] = '|';
 	res[j++] = ' ';
