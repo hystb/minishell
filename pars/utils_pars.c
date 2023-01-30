@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   utils_pars.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 11:14:29 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/23 15:27:31 by nmilan           ###   ########.fr       */
+/*   Created: 2023/01/24 16:29:22 by nmilan            #+#    #+#             */
+/*   Updated: 2023/01/24 16:51:45 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-/*
-Create a new element t_list with next = NULL, content = content
-Return the t_list element.
-*/
-
-t_list	*ft_lstnew(void *content)
+int	ft_tablen(char ***map)
 {
-	t_list	*new;
+	int	i;
+	int	j;
+	int	count;
 
-	new = malloc(sizeof(*new));
-	if (!new)
-		return (NULL);
-	new->content = content;
-	new->next = NULL;
-	new->previous = NULL;
-	return (new);
+	i = 0;
+	j = 0;
+	count = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			j++;
+			count++;
+		}
+		i++;
+	}
+	return (count - 1);
 }
