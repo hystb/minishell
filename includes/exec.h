@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:21:11 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/30 13:16:39 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/01/30 16:18:15 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <sys/wait.h>
 # include "../libft/libft.h"
 
+
 typedef struct s_redirect
 {
 	int		fd;
@@ -41,7 +42,7 @@ void	do_child(int *tube, char **cmd, char **env);
 char	*get_path(char *cmd, char **env);
 
 /* redirections */
-void	do_input(char *path);
+int		do_input(char *path);
 void	do_commands(char **cmds, char **env);
 void	fill_redirect(int fd, pid_t pid, t_redirect *data);
 

@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/30 14:18:03 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/01/30 15:23:03 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,16 @@
 /* check about parent activity and redirections possibilites */
 void	pre_redirect(char **cmds, int argc, char **env, t_redirect *data)
 {
-	if (do_redirection(ft_split(*cmds, ' ')))
+	int	value;
+
+	value = do_redirection(ft_split(*cmds, ' '));
+	if (value)
 	{
-		argc--;
+		argc -= value;
 		if (argc >= 1)
-			redirect(++cmds, argc, env, data);
+			redirect(cmds + value, argc, env, data);
+		// if (value == 2)
+		// 	exit(1); // cause can't open last group of opereation or file.
 	}
 	else
 		redirect(cmds, argc, env, data);
@@ -60,15 +65,18 @@ void	fill_redirect(int fd, pid_t pid, t_redirect *data)
 
 int	do_redirection(char **cmds)
 {
-	printf("%s\n", cmds[0]);
-	if (ft_strncmp(cmds[0], "<", 1) == 0)
+	if (ft_strncmp(cmds[0], "<<", 2) == 0)
 	{
-		// printf("je suis une input < \n");
-		do_input(cmds[1]);
+		do_heredoc(cmds[1]);
 		return (1);
 	}
-	// else if (ft_strncmp(cmds[0], "<<", 2) == 0)
-		// printf("je suis un heredoc < \n");
+	else if (ft_strncmp(cmds[0], "<", 1) == 0)
+	{
+		// printf("je suis une input < \n");
+		if (do_input(cmds[1]))
+			return (2);
+		return (1);
+	}
 	return (0);
 }
 
