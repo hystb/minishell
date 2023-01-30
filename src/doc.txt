@@ -1,0 +1,9 @@
+total 24
+drwxr-xr-x  8 ebillon  4222   272 Jan 23 16:14 .
+drwxr-xr-x  7 ebillon  4222   238 Jan 23 12:55 ..
+-rw-r--r--  1 ebillon  4222  1152 Jan 23 16:01 Makefile
+-rw-r--r--  1 ebillon  4222     8 Jan 23 16:17 doc.txt
+-rw-r--r--  1 ebillon  4222   130 Jan 23 16:14 notes.txt
+drwxr-xr-x  2 ebillon  4222    68 Jan 23 15:59 obj
+-rw-r--r--  1 ebillon  4222     0 Jan 23 13:54 outfile
+drwxr-xr-x  8 ebillon  4222   272 Jan 23 15:55 pipex
