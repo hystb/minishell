@@ -6,14 +6,14 @@
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:23:42 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/24 15:17:22 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/01/30 13:47:11 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
 /* try to open file and put in on stdin */
-void	do_input(char *path, int *tube)
+void	do_input(char *path)
 {
 	int		fd;
 
@@ -23,10 +23,9 @@ void	do_input(char *path, int *tube)
 		// la passer a la cmd suivante.
 		exit_error();
 	}
-	close(tube[0]);
-	dup2(fd, tube[1]);
+	dup2(fd, STDIN_FILENO);
+	// printf("j'ai fini d'ouvrir le fichier");
 	close(fd);
-	close(tube[1]);
 }
 
 /* open the heredoc */
@@ -50,13 +49,11 @@ void	read_here_doc(char *limiter, int *tube)
 }
 
 /* open and use heredoc as stdin with LIMITER as limit */
-void	do_heredoc(char *limiter, int *oldtube)
+void	do_heredoc(char *limiter)
 {
 	int		tube[2];
 	pid_t	pid;
 
-	close(oldtube[1]);
-	close(oldtube[0]);
 	if (pipe(tube) == -1)
 		exit_error();
 	pid = fork();

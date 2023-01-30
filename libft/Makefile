@@ -43,9 +43,8 @@ ft_putendl_fd.c\
 ft_putnbr_fd.c\
 ft_printf.c\
 put_hutils.c\
-put_utils.c
-
-BONUS_SRCS 		= ft_lstnew.c\
+put_utils.c\
+ft_lstnew.c\
 ft_lstadd_front.c\
 ft_lstsize.c\
 ft_lstlast.c\
@@ -54,8 +53,6 @@ ft_lstdelone.c\
 ft_lstclear.c\
 ft_lstiter.c\
 ft_lstmap.c
-
-BONUS_OBJS	= $(addprefix $(OBJ_DIR), ${BONUS_SRCS:.c=.o})
 
 OBJS		= $(addprefix $(OBJ_DIR), ${SRCS:.c=.o})
 
@@ -82,9 +79,6 @@ fclean: clean
 	@rm -rf $(NAME)
 
 re:	fclean all
-
-bonus: $(OBJ_DIR) $(SRCS) $(OBJS) $(INCLUDES) $(BONUS_SRCS) $(BONUS_OBJS)
-	@ar rc $(NAME) $(OBJS) $(BONUS_OBJS)
 
 .PHONY: all bonus clean fclean re
 #---------------------------------------------------#

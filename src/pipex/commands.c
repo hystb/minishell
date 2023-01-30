@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:01 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/24 16:56:39 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/01/30 13:47:31 by ebillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,20 @@
 
 void	do_commands(char **cmds, char **env)
 {
-	int	fd = 2;
-	int len = 1;
-	pid_t	gpid;
-	
-	redirect(cmds, 2, env, &fd, &gpid);
+	int 		len = 1;
+	int			status;
+	t_redirect  data;
+
+	data.fd = 6;
+	// printf("fd %d", data.fd);
+	pre_redirect(cmds, 2 , env, &data);
+	// printf("pid: %d | fd: %d \n", data.pid, data.fd);
+	// redirect(cmds, 3, env, data);
+	waitpid(data.pid, &status, 0);
 	char buff[2];
-	// printf("%d\n", gpid);
-	while (read(fd, buff, 1))
+	while (read(data.fd, buff, 1))
 		write(1, buff, 1);
-	close(fd);
+	close(data.fd);
 }
 
 void	write_infile(int fd_in, char *out, int mode)
