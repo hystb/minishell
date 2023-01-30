@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_pars.c                                       :+:      :+:    :+:   */
+/*   space_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 16:29:22 by nmilan            #+#    #+#             */
-/*   Updated: 2023/01/25 17:23:07 by nmilan           ###   ########.fr       */
+/*   Created: 2023/01/30 13:51:19 by nmilan            #+#    #+#             */
+/*   Updated: 2023/01/30 14:04:28 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_tablen(char ***map)
+void	add_space_pipe(char *input)
 {
 	int	i;
-	int	j;
-	int	count;
 
 	i = 0;
-	j = 0;
-	count = 0;
-	while (map[i])
+	if (need_space(input))
+		return ;
+	while (input[i])
 	{
-		j = 0;
-		while (map[i][j])
-		{
-			j++;
-			count++;
-		}
-		i++;
+		
 	}
-	return (count - 1);
+}
+
+int	need_space(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (i > 0 && input[i] == '|' && (input[i - 1] != ' '
+				|| input[i + 1] != ' '))
+			return (0);
+	}
 }
