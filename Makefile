@@ -16,9 +16,9 @@ SRCS		= $(addprefix $(SRC_DIR), $(SRCS_FILES))
 
 OBJS		= $(addprefix $(OBJ_DIR), ${SRCS_FILES:.c=.o})
 
-INCLUDES 	= includes/minishell.h
+INCLUDES 	= ../includes/exec.h
 #---------------------------------------------------#
-LIBFT_DIR	= libft/
+LIBFT_DIR	= ../libft/
 
 LIBFT_NAME	= libftprintf.a
 
