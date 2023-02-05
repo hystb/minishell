@@ -33,10 +33,10 @@ all: lib
 	$(MAKE) -j $(NAME)
 
 $(NAME): $(OBJ_DIR) $(SRCS) $(OBJS) $(INCLUDES)
-	$(CC) -lreadline $(CFLAGS) $(LIBFT_EXEC) $(OBJS) -o $(NAME)
+	$(CC) -lreadline $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT_EXEC)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)$(notdir %.c) Makefile $(INCLUDES)
-	$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
 	mkdir $(OBJ_DIR)

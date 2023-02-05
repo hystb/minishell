@@ -15,9 +15,9 @@ SRCS		= $(addprefix $(SRC_DIR), $(SRCS_FILES))
 
 OBJS		= $(addprefix $(OBJ_DIR), ${SRCS_FILES:.c=.o})
 
-INCLUDES 	= ../includes/exec.h
+INCLUDES 	= includes/exec.h
 #---------------------------------------------------#
-LIBFT_DIR	= ../libft/
+LIBFT_DIR	= libft/
 
 LIBFT_NAME	= libftprintf.a
 
@@ -36,7 +36,7 @@ $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)
 
 $(LIBFT_EXEC):
-	@$(MAKE) -C $(LIBFT_DIR) bonus 
+	@$(MAKE) -C $(LIBFT_DIR) 
 
 clean:
 	@$(MAKE) -C $(LIBFT_DIR) clean
