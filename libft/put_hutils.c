@@ -14,13 +14,6 @@
 
 int	printf_puthex_aux(unsigned long nbr, int *count, int start)
 {
-	if (nbr < 0)
-	{
-		if (printf_putchar('-') == -1)
-			return (-1);
-		*count += 1;
-		nbr *= -1;
-	}
 	if (nbr >= 16)
 		if (printf_puthex_aux(nbr / 16, count, start) == -1)
 			return (-1);

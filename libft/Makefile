@@ -60,23 +60,23 @@ INCLUDES 	= libft.h
 #---------------------------------------------------#
 
 all: 
-	@$(MAKE) -j $(NAME)
+	$(MAKE) -j $(NAME)
 
 $(NAME): $(OBJ_DIR) $(SRCS) $(OBJS) $(INCLUDES) 
-	@ar rc $(NAME) $(OBJS) 
+	ar rc $(NAME) $(OBJS) 
 
 $(OBJ_DIR)%.o : %.c Makefile $(INCLUDES)
-	@$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
-	@mkdir $(OBJ_DIR)
+	mkdir $(OBJ_DIR)
 
 clean:
-	@rm -rf $(OBJS) $(BONUS_OBJS)
-	@rm -rf $(OBJ_DIR)
+	rm -rf $(OBJS)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -rf $(NAME)
 
 re:	fclean all
 
