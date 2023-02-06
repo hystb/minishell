@@ -30,6 +30,7 @@
 typedef struct s_redirect
 {
 	int		fd;
+	int		*tube;
 	pid_t	pid;
 }				t_redirect;
 
@@ -44,10 +45,11 @@ char	*get_path(char *cmd, char **env);
 /* redirections */
 int		do_input(char *path);
 void	do_commands(char **cmds, char **env);
+void	do_writing_file(int fd_in, char *path, int mode);
 void	fill_redirect(int fd, pid_t pid, t_redirect *data);
 
 /* execution */
-int		do_redirection(char **cmds);
+int		do_redirection(char **cmds, t_redirect *data);
 void	pre_redirect(char **cmds, int argc, char **env, t_redirect *data);
 void	redirect(char **cmds, int argc, char **env, t_redirect *data);
 /* some stuff here */

@@ -1,7 +1,7 @@
 #---------------------------------------------------#
 CC 			= cc
 
-CFLAGS 		= 
+CFLAGS 		= -g
 
 NAME 		= minishell
 #---------------------------------------------------#
@@ -33,7 +33,7 @@ all: lib
 	$(MAKE) -j $(NAME)
 
 $(NAME): $(OBJ_DIR) $(SRCS) $(OBJS) $(INCLUDES)
-	$(CC) -lreadline $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT_EXEC)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT_EXEC) -lreadline 
 
 $(OBJ_DIR)%.o : $(SRC_DIR)$(notdir %.c) Makefile $(INCLUDES)
 	$(CC) $(CFLAGS) -c $< -o $@

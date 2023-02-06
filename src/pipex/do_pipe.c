@@ -17,17 +17,20 @@ void	pre_redirect(char **cmds, int argc, char **env, t_redirect *data)
 {
 	int	value;
 
-	value = do_redirection(ft_split(*cmds, ' '));
+	value = do_redirection(ft_split(*cmds, ' '), data);
 	if (value)
 	{
 		argc -= value;
 		if (argc >= 1)
 			redirect(cmds + value, argc, env, data);
-		// if (value == 2)
-		// 	exit(1); // cause can't open last group of opereation or file.
 	}
 	else
+	{
+		printf("je passe la %d\n", (data->tube)[0]);
+		dup2((data->tube)[0], STDIN_FILENO);
+		close((data->tube)[0]);
 		redirect(cmds, argc, env, data);
+	}
 }
 
 /* do the loop that execute and pipe the command, then return the fd filled */
@@ -48,8 +51,9 @@ void	redirect(char **cmds, int argc, char **env, t_redirect *data)
 		close(tube[1]);
 		if (argc > 1)
 		{
-			dup2(tube[0], STDIN_FILENO);
-			close(tube[0]);
+			data->tube = tube;
+			// dup2(tube[0], STDIN_FILENO);
+			// close(tube[0]);
 			pre_redirect(++cmds, argc - 1, env, data);
 		}
 		else
@@ -63,7 +67,7 @@ void	fill_redirect(int fd, pid_t pid, t_redirect *data)
 	data->pid = pid;
 }
 
-int	do_redirection(char **cmds)
+int	do_redirection(char **cmds, t_redirect *data)
 {
 	if (ft_strncmp(cmds[0], "<<", 2) == 0)
 	{
@@ -72,27 +76,34 @@ int	do_redirection(char **cmds)
 	}
 	else if (ft_strncmp(cmds[0], "<", 1) == 0)
 	{
-		// printf("je suis une input < \n");
 		if (do_input(cmds[1]))
 			return (2);
 		return (1);
 	}
+	else if (ft_strncmp(cmds[0], ">>", 2) == 0)
+	{
+		do_writing_file(dup((data->tube)[0]), cmds[1], 1);
+	}
+	else if (ft_strncmp(cmds[0], ">", 1) == 0)
+	{
+		do_writing_file(dup((data->tube)[0]), cmds[1], 0);
+	}
+	close((data->tube)[0]);
 	return (0);
 }
 
 // go and make the redirection ( mettre en place les buildints ici aussi) passer a la commande suivante si echec
 /* change here by passing the cmd */
-
 void	do_child(int *tube, char **cmds, char **env)
 {
 	char	**args;
 
 	args = ft_split(*cmds, ' ');
-	if (!do_redirection(args))
-	{
+	// if (!do_redirection(args))
+	// {
 		dup2(tube[1], STDOUT_FILENO);
 		do_execute(args, env, tube);
-	}
+	// }
 }
 
 /* do the command */
@@ -114,5 +125,9 @@ void	do_execute(char **args, char **env, int *tube)
 		not_found_error(*args);
 	close(tube[1]);
 	free(cmd);
+	int	i;
+	i = 0;
+	while (args[i])
+		free(args[i++]);
 	free(args);
 }
