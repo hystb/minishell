@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_hutils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:12:29 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/16 13:34:13 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/02/06 13:42:26 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 
 int	printf_puthex_aux(unsigned long nbr, int *count, int start)
 {
-	if (nbr < 0)
-	{
-		if (printf_putchar('-') == -1)
-			return (-1);
-		*count += 1;
-		nbr *= -1;
-	}
 	if (nbr >= 16)
 		if (printf_puthex_aux(nbr / 16, count, start) == -1)
 			return (-1);

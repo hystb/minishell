@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/30 16:19:44 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/02/06 17:06:12 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_cmds
 	int	db_quote_f;
 }		t_cmds;
 
-t_list	**put_input_lst(char *input);
+t_list	**put_input_lst(char **input);
 void	put_in_lst(char *input, t_list **cmd, t_cmds data_cmd);
 void	split_map(char ***map_cmd, char *input, t_cmds data);
 void	prepare_input(char *input, t_cmds *data_cmd);
@@ -48,5 +48,6 @@ char	*realloc_input(char *input, int i);
 char	*add_pipe(char *input, int i);
 int		need_pipe(char *input);
 char	*add_pipe_sign(char *input);
+void	del_free_content(void **content);
 
 #endif

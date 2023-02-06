@@ -66,7 +66,7 @@ $(NAME): $(OBJ_DIR) $(SRCS) $(OBJS) $(INCLUDES)
 	@ar rc $(NAME) $(OBJS) 
 
 $(OBJ_DIR)%.o : %.c Makefile $(INCLUDES)
-	@$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)

@@ -6,13 +6,13 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:07:01 by nmilan            #+#    #+#             */
-/*   Updated: 2023/01/30 16:38:38 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/02/06 17:05:46 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_list	**put_input_lst(char *input)
+t_list	**put_input_lst(char **input)
 {
 	t_list	**cmd;
 	t_cmds	data_cmd;
@@ -21,15 +21,15 @@ t_list	**put_input_lst(char *input)
 	if (!cmd)
 	{
 		ft_putstr_fd("Mem alloc failed", 2);
-		free(input);
+		free(input[0]);
 		exit(1);
 	}
 	*cmd = NULL;
-	prepare_input(input, &data_cmd);
-	input = add_pipe_sign(input);
-	input = add_space_pipe(input);
-	prepare_split(input);
-	put_in_lst(input, cmd, data_cmd);
+	prepare_input(input[0], &data_cmd);
+	input[0] = add_pipe_sign(input[0]);
+	input[0] = add_space_pipe(input[0]);
+	prepare_split(input[0]);
+	put_in_lst(input[0], cmd, data_cmd);
 	return (cmd);
 }
 
@@ -55,6 +55,7 @@ void	put_in_lst(char *input, t_list **cmd, t_cmds data_cmd)
 			ft_lstadd_back(cmd, ft_lstnew(map_cmd[i]));
 		i++;
 	}
+	free(map_cmd);
 }
 
 void	split_map(char ***map_cmd, char *input, t_cmds data)
