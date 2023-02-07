@@ -19,16 +19,14 @@
 
 void	do_commands(char **cmds, char **env)
 {
-	int 		len = 1;
 	int			status;
 	t_redirect  data;
 
 	data.fd = -1;
 	// data.tube_out = -1;
 	// printf("fd %d", data.fd);
-	pre_redirect(cmds, 5, env, &data);
-	printf("pid: %d | fd: %d \n", data.pid, data.fd);
-	// redirect(cmds, 3, env, data);
+	pre_redirect(cmds, 4, env, &data);
+	// printf("pid: %d | fd: %d \n", data.pid, data.fd);
 	waitpid(data.pid, &status, 0);
 	char buff[2];
 	if (data.fd > 0)

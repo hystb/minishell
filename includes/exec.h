@@ -30,7 +30,7 @@
 typedef struct s_redirect
 {
 	int		fd;
-	int		*tube;
+	int		tube_out;
 	pid_t	pid;
 }				t_redirect;
 

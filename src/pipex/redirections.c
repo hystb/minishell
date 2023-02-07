@@ -42,7 +42,6 @@ void	do_writing_file(int fd_in, char *path, int mode)
 		exit_error();
 	while (read(fd_in, buff, 1))
 		write(fd_out, buff, 1);
-	close(fd_in);
 	close(fd_out);
 }
 
@@ -56,7 +55,7 @@ void	read_here_doc(char *limiter, int *tube)
 	while (1)
 	{
 		str = readline("heredoc> ");
-		if (ft_strncmp(str, limiter, ft_strlen(str)) == 0)
+		if (ft_strncmp(str, limiter, ft_strlen(limiter)) == 0)
 		{
 			free(str);
 			close(tube[1]);

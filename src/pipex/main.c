@@ -18,9 +18,6 @@
 	fix all the tube issues by passing data
 	and fix tube for redirections.
 
-
-
-
 */
 
 int main(int argc, char **args, char **env)
@@ -30,7 +27,7 @@ int main(int argc, char **args, char **env)
 
 	// part = ft_lstnew()
 	
-	char *cmds[10] = { "< 1", "cat -e", "cat -e", "cat -e", "cat -e", NULL};
+	char *cmds[10] = {"< 1", "> 2", "ls", "cat -e", NULL};
 	// do_input("1");
 	// do_heredoc("ko");
 	do_commands(cmds, env);

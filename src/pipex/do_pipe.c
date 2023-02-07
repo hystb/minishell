@@ -22,14 +22,14 @@ void	pre_redirect(char **cmds, int argc, char **env, t_redirect *data)
 	{
 		argc -= value;
 		if (argc >= 1)
-			redirect(cmds + value, argc, env, data);
+			pre_redirect(cmds + value, argc, env, data);
+		close(data->tube_out);
 	}
 	else
 	{
-		printf("je passe la %d\n", (data->tube)[0]);
-		dup2((data->tube)[0], STDIN_FILENO);
-		close((data->tube)[0]);
+		dup2(data->tube_out, STDIN_FILENO);
 		redirect(cmds, argc, env, data);
+		close(data->tube_out);
 	}
 }
 
@@ -51,9 +51,7 @@ void	redirect(char **cmds, int argc, char **env, t_redirect *data)
 		close(tube[1]);
 		if (argc > 1)
 		{
-			data->tube = tube;
-			// dup2(tube[0], STDIN_FILENO);
-			// close(tube[0]);
+			data->tube_out = tube[0];
 			pre_redirect(++cmds, argc - 1, env, data);
 		}
 		else
@@ -82,13 +80,14 @@ int	do_redirection(char **cmds, t_redirect *data)
 	}
 	else if (ft_strncmp(cmds[0], ">>", 2) == 0)
 	{
-		do_writing_file(dup((data->tube)[0]), cmds[1], 1);
+		do_writing_file(data->tube_out, cmds[1], 1);
+		return (1);
 	}
 	else if (ft_strncmp(cmds[0], ">", 1) == 0)
 	{
-		do_writing_file(dup((data->tube)[0]), cmds[1], 0);
+		do_writing_file(data->tube_out, cmds[1], 0);
+		return (1);
 	}
-	close((data->tube)[0]);
 	return (0);
 }
 
@@ -99,11 +98,8 @@ void	do_child(int *tube, char **cmds, char **env)
 	char	**args;
 
 	args = ft_split(*cmds, ' ');
-	// if (!do_redirection(args))
-	// {
-		dup2(tube[1], STDOUT_FILENO);
-		do_execute(args, env, tube);
-	// }
+	dup2(tube[1], STDOUT_FILENO);
+	do_execute(args, env, tube);
 }
 
 /* do the command */
