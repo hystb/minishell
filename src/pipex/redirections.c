@@ -13,17 +13,19 @@
 #include "../../includes/exec.h"
 
 /* try to open file and put in on stdin */
-int	do_input(char *path)
+int	do_input(char *path, t_redirect *data)
 {
 	int		fd;
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 	{
+		data->tube_out = -1;
 		perror("");
 		return (1);
 	}
-	dup2(fd, STDIN_FILENO);
+	dup2(fd, data->tube_out);
+	// dup2(fd, STDIN_FILENO);
 	close(fd);
 	return (0);
 }
@@ -40,8 +42,12 @@ void	do_writing_file(int fd_in, char *path, int mode)
 		fd_out = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd_out == -1)
 		exit_error();
-	while (read(fd_in, buff, 1))
-		write(fd_out, buff, 1);
+	printf("le fd_in %d\n", fd_in);
+	if (fd_in >= 0)
+	{
+		while (read(fd_in, buff, 1))
+			write(fd_out, buff, 1);
+	}
 	close(fd_out);
 }
 

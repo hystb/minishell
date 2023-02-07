@@ -24,8 +24,7 @@ void	do_commands(char **cmds, char **env)
 
 	data.fd = -1;
 	// data.tube_out = -1;
-	// printf("fd %d", data.fd);
-	pre_redirect(cmds, 4, env, &data);
+	pre_redirect(cmds, 2, env, &data);
 	// printf("pid: %d | fd: %d \n", data.pid, data.fd);
 	waitpid(data.pid, &status, 0);
 	char buff[2];
@@ -35,21 +34,4 @@ void	do_commands(char **cmds, char **env)
 			write(1, buff, 1);
 		close(data.fd);
 	}
-}
-
-void	write_infile(int fd_in, char *out, int mode)
-{
-	char	buff[1];
-	int		fd_out;
-
-	if (mode == 1)
-		fd_out = open(out, O_CREAT | O_WRONLY | O_APPEND, 0644);
-	else
-		fd_out = open(out, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd_out == -1)
-		exit_error();
-	while (read(fd_in, buff, 1))
-		write(fd_out, buff, 1);
-	close(fd_in);
-	close(fd_out);
 }

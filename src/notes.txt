@@ -1,5 +1,5 @@
 gerer ce genre de cas :
 
-< 1 | > 2
+< 1 | cat -> voir pour skip au pire
 mais 1 est impossible a ouvrir.
 ça pue la merde ça

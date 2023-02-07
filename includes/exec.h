@@ -43,7 +43,7 @@ void	do_child(int *tube, char **cmd, char **env);
 char	*get_path(char *cmd, char **env);
 
 /* redirections */
-int		do_input(char *path);
+int		do_input(char *path, t_redirect *data);
 void	do_commands(char **cmds, char **env);
 void	do_writing_file(int fd_in, char *path, int mode);
 void	fill_redirect(int fd, pid_t pid, t_redirect *data);

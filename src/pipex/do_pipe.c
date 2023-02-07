@@ -18,6 +18,7 @@ void	pre_redirect(char **cmds, int argc, char **env, t_redirect *data)
 	int	value;
 
 	value = do_redirection(ft_split(*cmds, ' '), data);
+	printf("je pre_redirect avec %s | %d\n", cmds[0], data->tube_out);
 	if (value)
 	{
 		argc -= value;
@@ -27,7 +28,13 @@ void	pre_redirect(char **cmds, int argc, char **env, t_redirect *data)
 	}
 	else
 	{
-		dup2(data->tube_out, STDIN_FILENO);
+		if (data->tube_out >= 0)
+			dup2(data->tube_out, STDIN_FILENO);
+		else
+		{
+			dup2(0, STDIN_FILENO);
+		}
+			// close(STDIN_FILENO);
 		redirect(cmds, argc, env, data);
 		close(data->tube_out);
 	}
@@ -74,8 +81,9 @@ int	do_redirection(char **cmds, t_redirect *data)
 	}
 	else if (ft_strncmp(cmds[0], "<", 1) == 0)
 	{
-		if (do_input(cmds[1]))
-			return (2);
+		// if (do_input(cmds[1]))
+			// return (2);
+		do_input(cmds[1], data);
 		return (1);
 	}
 	else if (ft_strncmp(cmds[0], ">>", 2) == 0)
