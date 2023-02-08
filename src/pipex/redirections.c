@@ -20,7 +20,7 @@ int	do_input(char *path, t_redirect *data)
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 	{
-		data->tube_out = -1;
+		data->tube_out = -2;
 		perror("");
 		return (1);
 	}

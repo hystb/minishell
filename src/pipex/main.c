@@ -27,7 +27,7 @@ int main(int argc, char **args, char **env)
 
 	// part = ft_lstnew()
 	
-	char *cmds[10] = {"< 1", "cat", NULL};
+	char *cmds[10] = {"ls", "cat -e", "cat -e", "cat -e", "cat -e", NULL};
 	// do_input("1");
 	// do_heredoc("ko");
 	do_commands(cmds, env);

@@ -24,7 +24,7 @@ void	do_commands(char **cmds, char **env)
 
 	data.fd = -1;
 	// data.tube_out = -1;
-	pre_redirect(cmds, 2, env, &data);
+	pre_redirect(cmds, 5, env, &data);
 	// printf("pid: %d | fd: %d \n", data.pid, data.fd);
 	waitpid(data.pid, &status, 0);
 	char buff[2];

@@ -52,7 +52,7 @@ void	redirect(char **cmds, int argc, char **env, t_redirect *data)
 	if (pid == -1)
 		exit_error();
 	if (pid == 0)
-		do_child(tube, cmds, env);
+		do_child(tube, cmds, env, data);
 	else
 	{
 		close(tube[1]);
@@ -101,20 +101,22 @@ int	do_redirection(char **cmds, t_redirect *data)
 
 // go and make the redirection ( mettre en place les buildints ici aussi) passer a la commande suivante si echec
 /* change here by passing the cmd */
-void	do_child(int *tube, char **cmds, char **env)
+void	do_child(int *tube, char **cmds, char **env, t_redirect *data)
 {
 	char	**args;
 
 	args = ft_split(*cmds, ' ');
 	dup2(tube[1], STDOUT_FILENO);
-	do_execute(args, env, tube);
+	do_execute(args, env, tube, data);
 }
 
 /* do the command */
-void	do_execute(char **args, char **env, int *tube)
+void	do_execute(char **args, char **env, int *tube, t_redirect *data)
 {
 	char	*cmd;
 
+	if (data->tube_out == -2)
+		return(free(args));
 	if (access(cmd, O_RDONLY) == -1)
 		cmd = get_path(*args, env);
 	else
@@ -131,7 +133,7 @@ void	do_execute(char **args, char **env, int *tube)
 	free(cmd);
 	int	i;
 	i = 0;
-	while (args[i])
-		free(args[i++]);
 	free(args);
+	// may have to free more stuffs of args here
+
 }
