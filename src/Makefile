@@ -15,6 +15,7 @@ do_pipe.c\
 exit_error.c\
 get_path.c\
 main.c\
+redirections_cases.c\
 redirections.c
 
 SRCS		= $(addprefix $(SRC_DIR), $(SRCS_FILES))

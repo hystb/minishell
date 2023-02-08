@@ -72,33 +72,6 @@ void	fill_redirect(int fd, pid_t pid, t_redirect *data)
 	data->pid = pid;
 }
 
-int	do_redirection(char **cmds, t_redirect *data)
-{
-	if (ft_strncmp(cmds[0], "<<", 2) == 0)
-	{
-		do_heredoc(cmds[1]);
-		return (1);
-	}
-	else if (ft_strncmp(cmds[0], "<", 1) == 0)
-	{
-		// if (do_input(cmds[1]))
-			// return (2);
-		do_input(cmds[1], data);
-		return (1);
-	}
-	else if (ft_strncmp(cmds[0], ">>", 2) == 0)
-	{
-		do_writing_file(data->tube_out, cmds[1], 1);
-		return (1);
-	}
-	else if (ft_strncmp(cmds[0], ">", 1) == 0)
-	{
-		do_writing_file(data->tube_out, cmds[1], 0);
-		return (1);
-	}
-	return (0);
-}
-
 // go and make the redirection ( mettre en place les buildints ici aussi) passer a la commande suivante si echec
 /* change here by passing the cmd */
 void	do_child(int *tube, char **cmds, char **env, t_redirect *data)
@@ -115,6 +88,7 @@ void	do_execute(char **args, char **env, int *tube, t_redirect *data)
 {
 	char	*cmd;
 
+	// do heredoc check in.
 	if (data->tube_out == -2)
 		return(free(args));
 	if (access(cmd, O_RDONLY) == -1)
@@ -122,6 +96,8 @@ void	do_execute(char **args, char **env, int *tube, t_redirect *data)
 	else
 		cmd = ft_strdup(*args);
 	close(tube[0]);
+	//do here for the input and ouput things
+	
 	if (cmd)
 	{
 		if (execve(cmd, args, env) == -1)
@@ -131,9 +107,7 @@ void	do_execute(char **args, char **env, int *tube, t_redirect *data)
 		not_found_error(*args);
 	close(tube[1]);
 	free(cmd);
-	int	i;
-	i = 0;
 	free(args);
 	// may have to free more stuffs of args here
-
 }
+/* donc d'abord faudrait voir pour voir genre les entrées avant l'exécution et apres les sorties apres le execve */
