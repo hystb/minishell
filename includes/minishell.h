@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
+# include <signal.h>
 
 typedef struct s_cmds
 {
@@ -49,5 +50,9 @@ char	*add_pipe(char *input, int i);
 int		need_pipe(char *input);
 char	*add_pipe_sign(char *input);
 void	del_free_content(void **content);
+char	*make_input(char *promp_name);
+void	config_signal(void);
+void	handle_signal(int sig);
+void	config_terminal(void);
 
 #endif

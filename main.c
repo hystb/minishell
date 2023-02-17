@@ -14,24 +14,23 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*input;
-	t_list	**lst_cmd;
+	char				*input;
+	t_list				**lst_cmd;
+	t_list *tmp;
 	int i = 0;
 
 	(void)argc;
 	(void)argv;
+	config_terminal();
+	config_signal();
 	while (1)
 	{
-		input = readline("minishell -> ");
-		if (!input)
-		{
-			ft_putstr_fd("\nexit", 2);
-			exit(1);
-		}
+		input = make_input("minishell -> ");
 		lst_cmd = put_input_lst(&input);
+		tmp = *lst_cmd;
 		if (input)
 			free(input);
-		/*while (*lst_cmd)
+		while (*lst_cmd)
 		{
 			i = 0;
 			while ((*lst_cmd)->content[i])
@@ -43,9 +42,9 @@ int	main(int argc, char **argv, char **envp)
 			ft_printf("prev : %p\n", (*lst_cmd)->previous);
 			ft_printf("next : %p\n", (*lst_cmd)->next);
 			*lst_cmd = (*lst_cmd)->next;
-		}*/
+		}
+		*lst_cmd = tmp;
 		ft_lstclear(lst_cmd, del_free_content);
 		free (lst_cmd);
-		return (0);
 	}
 }

@@ -16,7 +16,7 @@
 Do the same as ft_lstiter but put the result on a new allocated list. 	
 */
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void **))
 {
 	t_list	*nlist;
 
