@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:23:42 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/30 16:21:29 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/02/20 15:19:43 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/exec.h"
+#include "../includes/exec.h"
 
 /* try to open file and put in on stdin */
 int	do_input(char *path, t_redirect *data)
@@ -55,7 +55,6 @@ void	do_writing_file(int fd_in, char *path, int mode)
 void	read_here_doc(char *limiter, int *tube)
 {
 	char	*str;
-	int		fd;
 
 	close(tube[0]);
 	while (1)

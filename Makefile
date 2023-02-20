@@ -1,21 +1,42 @@
 #---------------------------------------------------#
 CC 			= cc
 
-CFLAGS 		= -Wall -Wextra -Werror 
+CFLAGS 		= -Wall -Werror -Wextra
 
 NAME 		= minishell
 #---------------------------------------------------#
 OBJ_DIR 	= obj/
 
-SRC_DIR		= src/
+EXIT_DIR	= exit/
 
-SRCS_FILES	= \
+EXIT_FILES	= \
+exit_error.c\
+exit_lst.c
 
-SRCS		= $(addprefix $(SRC_DIR), $(SRCS_FILES))
+EXEC_DIR	= exec/
 
-OBJS		= $(addprefix $(OBJ_DIR), ${SRCS_FILES:.c=.o})
+EXEC_FILES	= \
+commands.c\
+do_exec.c\
+do_pipe.c\
+get_path.c\
+redirections_cases.c\
+redirections.c
 
-INCLUDES 	= includes/exec.h
+PARS_DIR	= pars/
+
+PARS_FILES	= input.c\
+make_map.c\
+pipe_sign.c\
+put_lst.c\
+space_pipe.c\
+utils_pars.c
+
+SRCS		= $(addprefix $(PARS_DIR), $(PARS_FILES)) $(addprefix $(EXIT_DIR), $(EXIT_FILES)) $(addprefix $(EXEC_DIR), $(EXEC_FILES)) main.c
+
+OBJS		= $(SRCS:%.c=%.o)
+
+INCLUDES 	= includes/exec.h includes/minishell.h
 #---------------------------------------------------#
 LIBFT_DIR	= libft/
 
@@ -23,32 +44,36 @@ LIBFT_NAME	= libftprintf.a
 
 LIBFT_EXEC	= $(addprefix $(LIBFT_DIR), $(LIBFT_NAME))
 #---------------------------------------------------#
-all: 
-	@$(MAKE) -j $(NAME)
+all: lib
+	$(MAKE) $(NAME)
 
-$(NAME): $(OBJ_DIR) $(LIBFT_EXEC) $(SRCS) $(OBJS) $(INCLUDES) 
-	@$(CC) $(CFLAGS) $(LIBFT_EXEC) $(OBJS) -o $(NAME)
+$(NAME): $(OBJ_DIR) $(OBJS) $(INCLUDES)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I includes/ -lreadline $(LIBFT_EXEC)
+	mv $(OBJS) $(OBJ_DIR)
 
-$(OBJ_DIR)%.o : $(SRC_DIR)$(notdir %.c) Makefile $(INCLUDES)
-	$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
+$(OBJ_DIR)%.o : $(EXEC_DIR)%.c $(EXIT_DIR)%.c $(PARS_DIR)%.c Makefile $(INCLUDES)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# $(OBJ_DIR)%.o : $(SRC_DIR)$(notdir %.c) Makefile $(INCLUDES)
+# 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
-	@mkdir $(OBJ_DIR)
+	mkdir $(OBJ_DIR)
 
-$(LIBFT_EXEC):
-	@$(MAKE) -C $(LIBFT_DIR) 
+lib:
+	$(MAKE) -C $(LIBFT_DIR)
 
 clean:
-	@$(MAKE) -C $(LIBFT_DIR) clean
-	@rm -rf $(OBJ_DIR)
+	$(MAKE) -C $(LIBFT_DIR) clean
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@$(MAKE) -C $(LIBFT_DIR) fclean
-	@rm -rf $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
+	rm -rf $(NAME)
 
 re:	fclean
-	@$(MAKE) -C $(LIBFT_DIR) re
-	@$(MAKE) all
+	$(MAKE) -C $(LIBFT_DIR) re
+	$(MAKE) all
 
 .PHONY: all clean fclean re
 #---------------------------------------------------#

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_lst.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:07:01 by nmilan            #+#    #+#             */
-/*   Updated: 2023/02/06 17:05:46 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/02/20 15:13:54 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,10 @@ void	split_map(char ***map_cmd, char *input, t_cmds data)
 {
 	char	**splited;
 	int		i;
-	int		j;
 	int		last_splited;
 
+	(void) data;
 	i = 0;
-	j = 0;
 	last_splited = 0;
 	splited = ft_split(input, ' ');
 	change_split(splited);

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 15:41:16 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/30 14:44:37 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/02/20 13:05:12 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/exec.h"
+#include "../includes/exec.h"
 
 void	exit_error(void)
 {
