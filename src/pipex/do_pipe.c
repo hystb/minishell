@@ -17,17 +17,27 @@ void	pre_redirect(char **cmds, int argc, char **env, t_redirect *data)
 {
 	int	value;
 
-	value = do_redirection(ft_split(*cmds, ' '));
+	value = do_redirection(ft_split(*cmds, ' '), data);
+	printf("je pre_redirect avec %s | %d\n", cmds[0], data->tube_out);
 	if (value)
 	{
 		argc -= value;
 		if (argc >= 1)
-			redirect(cmds + value, argc, env, data);
-		// if (value == 2)
-		// 	exit(1); // cause can't open last group of opereation or file.
+			pre_redirect(cmds + value, argc, env, data);
+		close(data->tube_out);
 	}
 	else
+	{
+		if (data->tube_out >= 0)
+			dup2(data->tube_out, STDIN_FILENO);
+		else
+		{
+			dup2(0, STDIN_FILENO);
+		}
+			// close(STDIN_FILENO);
 		redirect(cmds, argc, env, data);
+		close(data->tube_out);
+	}
 }
 
 /* do the loop that execute and pipe the command, then return the fd filled */
@@ -42,14 +52,13 @@ void	redirect(char **cmds, int argc, char **env, t_redirect *data)
 	if (pid == -1)
 		exit_error();
 	if (pid == 0)
-		do_child(tube, cmds, env);
+		do_child(tube, cmds, env, data);
 	else
 	{
 		close(tube[1]);
 		if (argc > 1)
 		{
-			dup2(tube[0], STDIN_FILENO);
-			close(tube[0]);
+			data->tube_out = tube[0];
 			pre_redirect(++cmds, argc - 1, env, data);
 		}
 		else
@@ -63,48 +72,32 @@ void	fill_redirect(int fd, pid_t pid, t_redirect *data)
 	data->pid = pid;
 }
 
-int	do_redirection(char **cmds)
-{
-	if (ft_strncmp(cmds[0], "<<", 2) == 0)
-	{
-		do_heredoc(cmds[1]);
-		return (1);
-	}
-	else if (ft_strncmp(cmds[0], "<", 1) == 0)
-	{
-		// printf("je suis une input < \n");
-		if (do_input(cmds[1]))
-			return (2);
-		return (1);
-	}
-	return (0);
-}
-
 // go and make the redirection ( mettre en place les buildints ici aussi) passer a la commande suivante si echec
 /* change here by passing the cmd */
-
-void	do_child(int *tube, char **cmds, char **env)
+void	do_child(int *tube, char **cmds, char **env, t_redirect *data)
 {
 	char	**args;
 
 	args = ft_split(*cmds, ' ');
-	if (!do_redirection(args))
-	{
-		dup2(tube[1], STDOUT_FILENO);
-		do_execute(args, env, tube);
-	}
+	dup2(tube[1], STDOUT_FILENO);
+	do_execute(args, env, tube, data);
 }
 
 /* do the command */
-void	do_execute(char **args, char **env, int *tube)
+void	do_execute(char **args, char **env, int *tube, t_redirect *data)
 {
 	char	*cmd;
 
+	// do heredoc check in.
+	if (data->tube_out == -2)
+		return(free(args));
 	if (access(cmd, O_RDONLY) == -1)
 		cmd = get_path(*args, env);
 	else
 		cmd = ft_strdup(*args);
 	close(tube[0]);
+	//do here for the input and ouput things
+	
 	if (cmd)
 	{
 		if (execve(cmd, args, env) == -1)
@@ -115,4 +108,6 @@ void	do_execute(char **args, char **env, int *tube)
 	close(tube[1]);
 	free(cmd);
 	free(args);
+	// may have to free more stuffs of args here
 }
+/* donc d'abord faudrait voir pour voir genre les entrées avant l'exécution et apres les sorties apres le execve */

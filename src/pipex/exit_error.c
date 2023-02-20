@@ -20,7 +20,7 @@ void	exit_error(void)
 
 void	not_found_error(char *cmd)
 {
-	write(2, "minishell: ", 8);
+	write(2, "minishell: ", 11);
 	write(2, cmd, ft_strlen(cmd));
 	write(2, ": command not found\n", 21);
 	exit(127);
