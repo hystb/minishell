@@ -19,7 +19,7 @@ void	pre_redirect(t_list *cmds, int lst_len, char **env, t_redirect *data)
 
 	// value = do_redirection(ft_split(*cmds, ' '), data);
 	value = do_redirection(cmds, data);
-	// printf("je pre_redirect avec %s | %d\n", cmds[0], data->tube_out);
+	printf("je pre_redirect avec %s | %d\n", (char *) cmds->content[0], data->tube_out);
 	if (value)
 	{
 		lst_len -= value;
