@@ -6,11 +6,12 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/02/20 13:19:01 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/02/20 13:57:52 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+#include "includes/builtins.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -35,6 +36,10 @@ int	main(int argc, char **argv, char **envp)
 			while ((*lst_cmd)->content[i])
 			{
 				ft_printf("%s\n", (*lst_cmd)->content[i]);
+				if (!ft_strncmp((*lst_cmd)->content[i], "pwd", 3))
+				{
+					pwd();
+				}
 				i++;
 			}
 			ft_printf("current : %p\n", *lst_cmd);
