@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/02/20 15:12:53 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/02/20 13:19:14 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	config_signal(void)
 {
 	struct sigaction	sig;
 
+	rl_catch_signals = 0;
 	sig.sa_handler = &handle_signal;
 	sigemptyset(&sig.sa_mask);
 	sig.sa_flags = SA_RESTART;
@@ -42,23 +43,17 @@ void	config_signal(void)
 
 void	handle_signal(int sig)
 {
+	
 	if (sig == SIGINT)
 	{
+		write(STDIN_FILENO, "^C", 2);
 		rl_on_new_line();
 		write(STDIN_FILENO, "\n", 1);
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 	if (sig == SIGQUIT)
+	{
 		return ;
-}
-
-void	config_terminal(void)
-{
-	/*struct termios	term;
-
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag &= ~(ISIG);
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);*/
-	rl_catch_signals = 0;
+	}
 }

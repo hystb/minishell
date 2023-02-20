@@ -6,13 +6,13 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/02/20 15:30:20 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/02/20 13:57:52 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 #include "includes/exec.h"
-
+#include "includes/builtins.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -23,7 +23,6 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	config_terminal();
 	config_signal();
 	while (1)
 	{
