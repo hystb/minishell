@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/02/20 12:58:07 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/02/20 13:19:14 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	config_signal(void)
 {
 	struct sigaction	sig;
 
+	rl_catch_signals = 0;
 	sig.sa_handler = &handle_signal;
 	sigemptyset(&sig.sa_mask);
 	sig.sa_flags = SA_RESTART;
