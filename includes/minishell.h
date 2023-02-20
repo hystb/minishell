@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/02/06 17:06:12 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/02/20 12:13:55 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,5 @@ void	del_free_content(void **content);
 char	*make_input(char *promp_name);
 void	config_signal(void);
 void	handle_signal(int sig);
-void	config_terminal(void);
 
 #endif

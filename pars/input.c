@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/02/06 17:11:13 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/02/20 12:58:07 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,17 @@ void	config_signal(void)
 
 void	handle_signal(int sig)
 {
+	
 	if (sig == SIGINT)
 	{
+		write(STDIN_FILENO, "^C", 2);
 		rl_on_new_line();
 		write(STDIN_FILENO, "\n", 1);
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 	if (sig == SIGQUIT)
+	{
 		return ;
-}
-
-void	config_terminal(void)
-{
-	/*struct termios	term;
-
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag &= ~(ISIG);
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);*/
-	rl_catch_signals = 0;
+	}
 }
