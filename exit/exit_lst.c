@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   exit_lst.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 12:50:55 by ebillon           #+#    #+#             */
-/*   Updated: 2023/02/06 14:48:22 by nmilan           ###   ########.fr       */
+/*   Created: 2023/02/06 13:52:06 by nmilan            #+#    #+#             */
+/*   Updated: 2023/02/06 17:01:31 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-/*
-Applies ft_lstdelone to all the element after *lst.	
-*/
-
-void	ft_lstclear(t_list **lst, void (*del)(void **))
+void	del_free_content(void **content)
 {
-	t_list	*i;
-	t_list	*temp;
+	int	i;
 
-	if (!lst)
-		return ;
-	i = *lst;
-	while (i)
+	i = 0;
+	while (content[i])
 	{
-		temp = i->next;
-		ft_lstdelone(i, (*del));
-		i = temp;
+		free(content[i]);
+		i++;
 	}
-	*lst = NULL;
+	free(content);
 }
