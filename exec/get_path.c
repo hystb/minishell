@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 12:46:49 by ebillon           #+#    #+#             */
-/*   Updated: 2023/01/23 16:01:31 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/02/20 13:05:16 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/exec.h"
+#include "../includes/exec.h"
 
 /* free split data */
 void	free_split(char **tab, int exit)
