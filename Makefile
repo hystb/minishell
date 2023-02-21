@@ -1,7 +1,7 @@
 #---------------------------------------------------#
 CC 			= cc
 
-CFLAGS 		= -Wall -Werror -Wextra -fsanitize=address
+CFLAGS 		= -fsanitize=address -g3
 
 NAME 		= minishell
 #---------------------------------------------------#
@@ -49,7 +49,7 @@ all: lib
 
 $(NAME): $(OBJ_DIR) $(OBJS) $(INCLUDES)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I includes/ -lreadline $(LIBFT_EXEC)
-	mv $(OBJS) $(OBJ_DIR)
+# mv $(OBJS) $(OBJ_DIR)
 
 $(OBJ_DIR)%.o : $(EXEC_DIR)%.c $(EXIT_DIR)%.c $(PARS_DIR)%.c Makefile $(INCLUDES)
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -66,6 +66,7 @@ lib:
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 	rm -rf $(OBJ_DIR)
+	rm -rf $(OBJS)
 
 fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean

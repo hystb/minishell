@@ -17,9 +17,13 @@ void	pre_redirect(t_list *cmds, int lst_len, char **env, t_redirect *data)
 {
 	int	value;
 
-	// value = do_redirection(ft_split(*cmds, ' '), data);
+	// printf("je pre_redirect avec %s | %d\n", (char *) cmds->content[0], data->tube_out);
+	if (ft_strncmp((char *)cmds->content[0], "|", 1) == 0)
+	{
+		pre_redirect(cmds->next, lst_len - 1, env, data);
+		return ;
+	}
 	value = do_redirection(cmds, data);
-	printf("je pre_redirect avec %s | %d\n", (char *) cmds->content[0], data->tube_out);
 	if (value)
 	{
 		lst_len -= value;
@@ -46,6 +50,7 @@ void	redirect(t_list *cmds, int argc, char **env, t_redirect *data)
 	int		tube[2];
 	pid_t	pid;
 
+
 	if (pipe(tube) == -1)
 		exit_error();
 	pid = fork();
@@ -59,7 +64,7 @@ void	redirect(t_list *cmds, int argc, char **env, t_redirect *data)
 		if (argc > 1)
 		{
 			data->tube_out = tube[0];
-			pre_redirect(++cmds, argc - 1, env, data);
+			pre_redirect(cmds->next, argc - 1, env, data);
 		}
 		else
 			fill_redirect(tube[0], pid, data);

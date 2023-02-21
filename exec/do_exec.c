@@ -33,6 +33,7 @@ void	do_exec(t_list **lst_cmd, char **env)
 	data.fd = -1;
 	data.tube_out = -1;
 	data.pid = -1;
+	// printf("le nombre de commandes -> %d\n", ft_lstsize(*lst_cmd));
 	pre_redirect(*lst_cmd, ft_lstsize(*lst_cmd), env, &data);
 	waitpid(data.pid, &status, 0);
 	read_result(data.fd);
