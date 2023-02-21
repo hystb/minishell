@@ -106,7 +106,7 @@ void	do_execute(char **args, char **env, int *tube, t_redirect *data)
 			exit_error();
 	}
 	else
-		not_found_error(*args);
+		not_found_error(*args, data);
 	close(tube[1]);
 	free(cmd);
 	free(args);

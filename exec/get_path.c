@@ -64,5 +64,6 @@ char	*get_path(char *cmd, char **env)
 		free(joined);
 		i++;
 	}
+	free_split(splited, 0);
 	return (NULL);
 }

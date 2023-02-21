@@ -32,7 +32,8 @@ int	main(int argc, char **argv, char **envp)
 		if (input)
 			free(input);
 		// faire l'exec la
-		do_exec(lst_cmd, envp);
+		if ((*lst_cmd)->content[0])
+			do_exec(lst_cmd, envp);
 		// while (*lst_cmd)
 		// {
 		// 	i = 0;
