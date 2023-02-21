@@ -17,7 +17,7 @@ void	pre_redirect(t_list *cmds, int lst_len, char **env, t_redirect *data)
 {
 	int	value;
 
-	// printf("je pre_redirect avec %s | %d\n", (char *) cmds->content[0], data->tube_out);
+	printf("je pre_redirect avec %s | %d\n", (char *) cmds->content[0], data->tube_out);
 	if (ft_strncmp((char *)cmds->content[0], "|", 1) == 0)
 	{
 		pre_redirect(cmds->next, lst_len - 1, env, data);
@@ -28,7 +28,7 @@ void	pre_redirect(t_list *cmds, int lst_len, char **env, t_redirect *data)
 	{
 		lst_len -= value;
 		if (lst_len >= 1)
-			pre_redirect(cmds + value, lst_len, env, data);
+			pre_redirect(cmds + value, lst_len, env, data); //handle + value as ->next->next
 		close(data->tube_out);
 	}
 	else
@@ -94,6 +94,7 @@ void	do_execute(char **args, char **env, int *tube, t_redirect *data)
 {
 	char	*cmd;
 
+	printf("la cmd %s\n", args[0]);
 	cmd = NULL;
 	// do heredoc check in.
 	if (data->tube_out == -2)
@@ -104,7 +105,6 @@ void	do_execute(char **args, char **env, int *tube, t_redirect *data)
 		cmd = ft_strdup(*args);
 	close(tube[0]);
 	//do here for the input and ouput things
-	
 	if (cmd)
 	{
 		if (execve(cmd, args, env) == -1)
