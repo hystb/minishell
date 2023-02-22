@@ -40,6 +40,7 @@ void	not_found_error(char *cmd, t_redirect *data);
 void	do_execute(char **args, char **env, int *tube, t_redirect *data);
 void	do_heredoc(char *limiter);
 void	do_child(int *tube, t_list *cmds, char **env, t_redirect *data);
+void	close_fd(int fd);
 char	*get_path(char *cmd, char **env);
 
 /* redirections */

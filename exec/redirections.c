@@ -26,7 +26,7 @@ int	do_input(char *path, t_redirect *data)
 	}
 	dup2(fd, data->tube_out);
 	// dup2(fd, STDIN_FILENO);
-	close(fd);
+	close_fd(fd);
 	return (0);
 }
 
@@ -48,7 +48,7 @@ void	do_writing_file(int fd_in, char *path, int mode)
 		while (read(fd_in, buff, 1))
 			write(fd_out, buff, 1);
 	}
-	close(fd_out);
+	close_fd(fd_out);
 }
 
 /* open the heredoc */
@@ -56,14 +56,14 @@ void	read_here_doc(char *limiter, int *tube)
 {
 	char	*str;
 
-	close(tube[0]);
+	close_fd(tube[0]);
 	while (1)
 	{
 		str = readline("heredoc> ");
 		if (ft_strncmp(str, limiter, ft_strlen(limiter)) == 0)
 		{
 			free(str);
-			close(tube[1]);
+			close_fd(tube[1]);
 			exit(0);
 		}
 		write(tube[1], str, ft_strlen(str));
@@ -88,11 +88,11 @@ void	do_heredoc(char *limiter)
 	else
 	{
 		wait(NULL);
-		close(tube[1]);
+		close_fd(tube[1]);
 		// char *buff;
 		// while (read(tube[0], buff, 1))
 			// write(1, buff, 1);
 		dup2(tube[0], STDIN_FILENO);
-		close(tube[0]);
+		close_fd(tube[0]);
 	}	
 }

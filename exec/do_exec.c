@@ -21,7 +21,7 @@ void	read_result(int fd)
 	{
 		while (read(fd, buff, 1))
 			write(1, buff, 1);
-		close(fd);
+		close_fd(fd);
 	}
 }
 
@@ -35,8 +35,8 @@ void	do_exec(t_list **lst_cmd, char **env)
 	data.pid = -1;
 	// printf("le nombre de commandes -> %d\n", ft_lstsize(*lst_cmd));
 	pre_redirect(*lst_cmd, ft_lstsize(*lst_cmd), env, &data);
-	wait(NULL);
-	printf("le pid %d\n", data.pid);
+	// wait(NULL);
+	// printf("le pid %d\n", data.pid);
 	waitpid(data.pid, &status, 0);
 	read_result(data.fd);
 }

@@ -29,7 +29,7 @@ void	pre_redirect(t_list *cmds, int lst_len, char **env, t_redirect *data)
 		lst_len -= value;
 		if (lst_len >= 1)
 			pre_redirect(cmds + value, lst_len, env, data); //handle + value as ->next->next
-		close(data->tube_out);
+		close_fd(data->tube_out);
 	}
 	else
 	{
@@ -37,10 +37,10 @@ void	pre_redirect(t_list *cmds, int lst_len, char **env, t_redirect *data)
 			dup2(data->tube_out, STDIN_FILENO);
 		else
 		{
-			dup2(0, STDIN_FILENO);
+			// dup2(0, STDIN_FILENO);
 		}
 		redirect(cmds, lst_len, env, data);
-		close(data->tube_out);
+		close_fd(data->tube_out);
 	}
 }
 
@@ -60,7 +60,7 @@ void	redirect(t_list *cmds, int argc, char **env, t_redirect *data)
 		do_child(tube, cmds, env, data);
 	else
 	{
-		close(tube[1]);
+		close_fd(tube[1]);
 		if (argc > 1)
 		{
 			data->tube_out = tube[0];
@@ -73,6 +73,7 @@ void	redirect(t_list *cmds, int argc, char **env, t_redirect *data)
 
 void	fill_redirect(int fd, pid_t pid, t_redirect *data)
 {
+	close_fd(data->tube_out);
 	data->fd = fd;
 	data->pid = pid;
 }
@@ -94,8 +95,8 @@ void	do_execute(char **args, char **env, int *tube, t_redirect *data)
 {
 	char	*cmd;
 
-	printf("la cmd %s\n", args[0]);
-	cmd = NULL;
+	// printf("la cmd %s\n", args[0]);
+	cmd = args[0];
 	// do heredoc check in.
 	if (data->tube_out == -2)
 		return(free(args));
@@ -103,7 +104,7 @@ void	do_execute(char **args, char **env, int *tube, t_redirect *data)
 		cmd = get_path(*args, env);
 	else
 		cmd = ft_strdup(*args);
-	close(tube[0]);
+	close_fd(tube[0]);
 	//do here for the input and ouput things
 	if (cmd)
 	{
@@ -112,7 +113,7 @@ void	do_execute(char **args, char **env, int *tube, t_redirect *data)
 	}
 	else
 		not_found_error(*args, data);
-	close(tube[1]);
+	close_fd(tube[1]);
 	free(cmd);
 	free(args);
 	// may have to free more stuffs of args here
