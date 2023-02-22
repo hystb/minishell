@@ -30,7 +30,8 @@ make_map.c\
 pipe_sign.c\
 put_lst.c\
 space_pipe.c\
-utils_pars.c
+utils_pars.c\
+env.c
 
 SRCS		= $(addprefix $(PARS_DIR), $(PARS_FILES)) $(addprefix $(EXIT_DIR), $(EXIT_FILES)) $(addprefix $(EXEC_DIR), $(EXEC_FILES)) main.c
 

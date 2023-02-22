@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/02/20 12:13:55 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/02/22 14:59:29 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,15 @@ typedef struct s_cmds
 	int	db_quote_f;
 }		t_cmds;
 
-t_list	**put_input_lst(char **input);
+/*typedef struct s_env_vars
+{
+	char 				*var_name;
+	char 				*var_content;
+	struct s_env_vars	*next;
+	struct s_env_vars	*previous;
+}*/		
+
+t_list	**put_input_lst(char **input, char **envp);
 void	put_in_lst(char *input, t_list **cmd, t_cmds data_cmd);
 void	split_map(char ***map_cmd, char *input, t_cmds data);
 void	prepare_input(char *input, t_cmds *data_cmd);
@@ -53,5 +61,7 @@ void	del_free_content(void **content);
 char	*make_input(char *promp_name);
 void	config_signal(void);
 void	handle_signal(int sig);
+void	put_env(char **envp, t_list *cmd);
+char	*is_env_vars(char *arg);
 
 #endif

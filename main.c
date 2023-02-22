@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/02/20 13:57:52 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/02/22 15:00:46 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,25 @@ int	main(int argc, char **argv, char **envp)
 		input = make_input("minishell -> ");
 		if (input[0] != '\0')
 		{
-			lst_cmd = put_input_lst(&input);
+			lst_cmd = put_input_lst(&input, envp);
 			tmp = *lst_cmd;
 			// faire l'exec la
 			t_list **it;
 			it = lst_cmd;
-			do_exec(lst_cmd, envp); // partie exec
-			// while ((*it))
-			// {
-			// 	i = 0;
-			// 	while ((*it)->content[i])
-			// 	{
-			// 		ft_printf("%s\n", (*it)->content[i]);
-			// 		i++;
-			// 	}
-			// 	ft_printf("current : %p\n", *it);
-			// 	ft_printf("prev : %p\n", (*it)->previous);
-			// 	ft_printf("next : %p\n", (*it)->next);
-			// 	*it = (*it)->next;
-			// }
+			//do_exec(lst_cmd, envp); // partie exec
+			 while ((*it))
+			 {
+			 	i = 0;
+			 	while ((*it)->content[i])
+			 	{
+			 		ft_printf("%s\n", (*it)->content[i]);
+			 		i++;
+			 	}
+			 	ft_printf("current : %p\n", *it);
+			 	ft_printf("prev : %p\n", (*it)->previous);
+			 	ft_printf("next : %p\n", (*it)->next);
+			 	*it = (*it)->next;
+			 }
 			*lst_cmd = tmp;
 			ft_lstclear(lst_cmd, del_free_content);
 			free (lst_cmd);
