@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/02/20 15:46:06 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/02/22 13:42:14 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,46 @@ void	read_result(int fd)
 	}
 }
 
+int	get_forklen(t_list **lst_cmd)
+{
+	int		len;
+	t_list	*temp;
+
+	len = 0;
+	temp = *lst_cmd;
+	while (temp)
+	{
+		if (ft_strncmp(temp->content[0], "|", 1))
+			len++;
+		temp = temp->next;
+	}
+	return (len);
+}
+
 void	do_exec(t_list **lst_cmd, char **env)
 {
 	t_redirect	data;
 	int			status;
+	int			fork_len;
+	int			i;
 
+	fork_len = get_forklen(lst_cmd);
 	data.fd = -1;
 	data.tube_out = -1;
-	data.pid = -1;
-	// printf("le nombre de commandes -> %d\n", ft_lstsize(*lst_cmd));
+	data.pids = ft_calloc(fork_len + 1, sizeof(pid_t));
+	// printf("voici la forklen %d\n", fork_len);
+	if (!data.pids)
+		exit(1); //gerer erreurs mallocs et tout la
 	pre_redirect(*lst_cmd, ft_lstsize(*lst_cmd), env, &data);
-	// wait(NULL);
-	// printf("le pid %d\n", data.pid);
-	waitpid(data.pid, &status, 0);
+	// waitpid(data.pid, &status, 0);
+	i = 0;
+	while (i <= fork_len)
+	{
+		waitpid(data.pids[i], &status, 0);
+		i++;
+	}
 	read_result(data.fd);
+	free(data.pids);
 }
 
 // void	do_commands(char **cmds, char **env)

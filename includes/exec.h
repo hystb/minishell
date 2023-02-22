@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:21:11 by ebillon           #+#    #+#             */
-/*   Updated: 2023/02/20 15:21:10 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/02/22 13:40:05 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef struct s_redirect
 {
 	int		fd;
 	int		tube_out;
-	pid_t	pid;
+	int		*i;
+	pid_t	*pids;
 }				t_redirect;
 
 void	exit_error(void);
@@ -49,7 +50,7 @@ int 	do_redir_out(char **cmds, t_redirect *data);
 int		do_input(char *path, t_redirect *data);
 void	do_commands(char **cmds, char **env);
 void	do_writing_file(int fd_in, char *path, int mode);
-void	fill_redirect(int fd, pid_t pid, t_redirect *data);
+void	fill_redirect(int fd, int *i, t_redirect *data);
 
 /* execution */
 int		do_redirection(t_list *cmds, t_redirect *data);
