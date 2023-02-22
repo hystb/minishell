@@ -18,11 +18,12 @@ void	exit_error(void)
 	exit(EXIT_FAILURE);
 }
 
-void	not_found_error(char *cmd)
+void	not_found_error(char *cmd, t_redirect *data)
 {
 	write(2, "minishell: ", 11);
 	write(2, cmd, ft_strlen(cmd));
 	write(2, ": command not found\n", 21);
+	data->fd = -1;
 	exit(127);
 }
 

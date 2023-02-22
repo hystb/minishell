@@ -1,7 +1,7 @@
 #---------------------------------------------------#
 CC 			= cc
 
-CFLAGS 		= -Wall -Werror -Wextra
+CFLAGS 		= -fsanitize=address -g3
 
 NAME 		= minishell
 #---------------------------------------------------#
@@ -16,7 +16,7 @@ exit_lst.c
 EXEC_DIR	= exec/
 
 EXEC_FILES	= \
-commands.c\
+utils.c\
 do_exec.c\
 do_pipe.c\
 get_path.c\
@@ -66,6 +66,7 @@ lib:
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 	rm -rf $(OBJ_DIR)
+# rm -rf $(OBJS)
 
 fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean

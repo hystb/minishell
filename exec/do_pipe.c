@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/02/20 15:18:18 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/02/22 11:27:33 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,31 @@ void	pre_redirect(t_list *cmds, int lst_len, char **env, t_redirect *data)
 {
 	int	value;
 
-	// value = do_redirection(ft_split(*cmds, ' '), data);
+	// printf("je pre_redirect avec %s | %d\n", (char *) cmds->content[0], data->tube_out);
+	if (ft_strncmp((char *)cmds->content[0], "|", 1) == 0)
+	{
+		pre_redirect(cmds->next, lst_len - 1, env, data);
+		return ;
+	}
 	value = do_redirection(cmds, data);
-	// printf("je pre_redirect avec %s | %d\n", cmds[0], data->tube_out);
 	if (value)
 	{
 		lst_len -= value;
 		if (lst_len >= 1)
-			pre_redirect(cmds + value, lst_len, env, data);
-		close(data->tube_out);
+			pre_redirect(cmds + value, lst_len, env, data); //handle + value as ->next->next
+		close_fd(data->tube_out);
 	}
 	else
 	{
-		if (data->tube_out >= 0)
-			dup2(data->tube_out, STDIN_FILENO);
-		else
-		{
-			dup2(0, STDIN_FILENO);
-		}
+		// if (data->tube_out >= 0)
+		// 	printf("\n");
+		// 	// dup2(data->tube_out, STDIN_FILENO); //-> fait crash le shell
+		// else
+		// {
+		// 	// dup2(0, STDIN_FILENO);
+		// }
 		redirect(cmds, lst_len, env, data);
-		close(data->tube_out);
+		close_fd(data->tube_out);
 	}
 }
 
@@ -45,6 +50,7 @@ void	redirect(t_list *cmds, int argc, char **env, t_redirect *data)
 {
 	int		tube[2];
 	pid_t	pid;
+
 
 	if (pipe(tube) == -1)
 		exit_error();
@@ -55,11 +61,11 @@ void	redirect(t_list *cmds, int argc, char **env, t_redirect *data)
 		do_child(tube, cmds, env, data);
 	else
 	{
-		close(tube[1]);
+		close_fd(tube[1]);
 		if (argc > 1)
 		{
 			data->tube_out = tube[0];
-			pre_redirect(++cmds, argc - 1, env, data);
+			pre_redirect(cmds->next, argc - 1, env, data);
 		}
 		else
 			fill_redirect(tube[0], pid, data);
@@ -68,6 +74,7 @@ void	redirect(t_list *cmds, int argc, char **env, t_redirect *data)
 
 void	fill_redirect(int fd, pid_t pid, t_redirect *data)
 {
+	close_fd(data->tube_out);
 	data->fd = fd;
 	data->pid = pid;
 }
@@ -89,7 +96,9 @@ void	do_execute(char **args, char **env, int *tube, t_redirect *data)
 {
 	char	*cmd;
 
-	cmd = NULL;
+	cmd = args[0];
+	if (data->tube_out >= 0)
+		dup2(data->tube_out, STDIN_FILENO);
 	// do heredoc check in.
 	if (data->tube_out == -2)
 		return(free(args));
@@ -97,17 +106,16 @@ void	do_execute(char **args, char **env, int *tube, t_redirect *data)
 		cmd = get_path(*args, env);
 	else
 		cmd = ft_strdup(*args);
-	close(tube[0]);
+	close_fd(tube[0]);
 	//do here for the input and ouput things
-	
 	if (cmd)
 	{
 		if (execve(cmd, args, env) == -1)
 			exit_error();
 	}
 	else
-		not_found_error(*args);
-	close(tube[1]);
+		not_found_error(*args, data);
+	close_fd(tube[1]);
 	free(cmd);
 	free(args);
 	// may have to free more stuffs of args here
