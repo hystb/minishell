@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:07:01 by nmilan            #+#    #+#             */
-/*   Updated: 2023/02/22 15:00:04 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/02/22 15:29:01 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,28 @@ void	split_map(char ***map_cmd, char *input, t_cmds data)
 	char	**splited;
 	int		i;
 	int		last_splited;
+	int		last_pipe;
 
 	(void) data;
 	i = 0;
 	last_splited = 0;
+	last_pipe = 0;
 	splited = ft_split(input, ' ');
 	change_split(splited);
 	while (splited[i])
 	{
-		if (ft_memchr(splited[i], '|', ft_strlen(splited[i])))
+		ft_printf("input %s\n", splited [i]);
+		if (ft_memchr(splited[i], '|', ft_strlen(splited[i])) && last_pipe == 0)
 		{
 			make_map_pipe(map_cmd, splited, i, last_splited);
 			last_splited = i + 1;
+			last_pipe = 1;
+		}
+		else if (last_pipe == 1)
+		{
+			last_pipe = 0;
+			last_splited++;
+			free(splited[last_splited - 1]);
 		}
 		i++;
 	}
