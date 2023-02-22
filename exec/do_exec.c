@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/02/22 13:42:14 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/02/22 14:46:32 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	read_result(int fd)
 	}
 }
 
-int	get_forklen(t_list **lst_cmd)
+int	get_forklen(t_list *lst_cmd)
 {
 	int		len;
 	t_list	*temp;
 
 	len = 0;
-	temp = *lst_cmd;
+	temp = lst_cmd;
 	while (temp)
 	{
 		if (ft_strncmp(temp->content[0], "|", 1))
@@ -46,17 +46,21 @@ void	do_exec(t_list **lst_cmd, char **env)
 	t_redirect	data;
 	int			status;
 	int			fork_len;
+	t_list		*temp;
 	int			i;
 
-	fork_len = get_forklen(lst_cmd);
 	data.fd = -1;
 	data.tube_out = -1;
+	temp = *lst_cmd;
+	printf("l'adresse %p | %p | %p\n", temp, temp->content, temp->content[0]);
+	// printf("%s\n", (char *)temp->content[0]);
+	// if (!ft_strncmp((char *)temp->content[0], "|", 1))
+		// temp = (*lst_cmd)->next;
+	fork_len = get_forklen(temp);
 	data.pids = ft_calloc(fork_len + 1, sizeof(pid_t));
-	// printf("voici la forklen %d\n", fork_len);
 	if (!data.pids)
 		exit(1); //gerer erreurs mallocs et tout la
-	pre_redirect(*lst_cmd, ft_lstsize(*lst_cmd), env, &data);
-	// waitpid(data.pid, &status, 0);
+	// pre_redirect(*lst_cmd, ft_lstsize(temp), env, &data);
 	i = 0;
 	while (i <= fork_len)
 	{

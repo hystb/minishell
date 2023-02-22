@@ -45,7 +45,7 @@ LIBFT_NAME	= libftprintf.a
 LIBFT_EXEC	= $(addprefix $(LIBFT_DIR), $(LIBFT_NAME))
 #---------------------------------------------------#
 all: lib
-	$(MAKE) $(NAME)
+	$(MAKE) -j $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJS) $(INCLUDES)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I includes/ -lreadline $(LIBFT_EXEC)
