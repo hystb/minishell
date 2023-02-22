@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/02/20 15:18:18 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/02/22 11:27:33 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	pre_redirect(t_list *cmds, int lst_len, char **env, t_redirect *data)
 {
 	int	value;
 
-	printf("je pre_redirect avec %s | %d\n", (char *) cmds->content[0], data->tube_out);
+	// printf("je pre_redirect avec %s | %d\n", (char *) cmds->content[0], data->tube_out);
 	if (ft_strncmp((char *)cmds->content[0], "|", 1) == 0)
 	{
 		pre_redirect(cmds->next, lst_len - 1, env, data);
@@ -33,12 +33,13 @@ void	pre_redirect(t_list *cmds, int lst_len, char **env, t_redirect *data)
 	}
 	else
 	{
-		if (data->tube_out >= 0)
-			dup2(data->tube_out, STDIN_FILENO);
-		else
-		{
-			// dup2(0, STDIN_FILENO);
-		}
+		// if (data->tube_out >= 0)
+		// 	printf("\n");
+		// 	// dup2(data->tube_out, STDIN_FILENO); //-> fait crash le shell
+		// else
+		// {
+		// 	// dup2(0, STDIN_FILENO);
+		// }
 		redirect(cmds, lst_len, env, data);
 		close_fd(data->tube_out);
 	}
@@ -95,8 +96,9 @@ void	do_execute(char **args, char **env, int *tube, t_redirect *data)
 {
 	char	*cmd;
 
-	// printf("la cmd %s\n", args[0]);
 	cmd = args[0];
+	if (data->tube_out >= 0)
+		dup2(data->tube_out, STDIN_FILENO);
 	// do heredoc check in.
 	if (data->tube_out == -2)
 		return(free(args));
