@@ -41,7 +41,7 @@ void	put_in_lst(char *input, t_list **cmd, t_cmds data_cmd)
 
 	i = 0;
 	map_cmd = malloc(sizeof(char **) * \
-	(3 + data_cmd.nb_sign * 2 + data_cmd.nb_pipes * 2));
+	(2 + data_cmd.nb_sign * 2 + data_cmd.nb_pipes * 2));
 	if (!map_cmd)
 	{
 		//put exit function

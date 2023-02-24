@@ -43,6 +43,8 @@ void	make_map_pipe(char ***map_cmd, char **splited, int end, int start)
 
 int	last_pipe(char **splited, int i)
 {
+	if (splited[i] && splited[i + 1] && splited[i + 1][0] == '<')
+		i++;
 	while (splited[i])
 	{
 		if (splited[i][0] == '|')

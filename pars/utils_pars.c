@@ -21,6 +21,9 @@ int	ft_tablen(char ***map)
 	i = 0;
 	j = 0;
 	count = 0;
+
+	if (!map)
+		return (0);
 	while (map[i])
 	{
 		j = 0;
