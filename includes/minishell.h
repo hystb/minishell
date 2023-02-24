@@ -63,5 +63,7 @@ void	config_signal(void);
 void	handle_signal(int sig);
 void	put_env(char **envp, t_list *cmd);
 char	*is_env_vars(char *arg);
+void	jump_next_pipe(int *last_pipe, int *last_splited, char **splited);
+void	sub_env_var(char *var, char *arg, int start, int size);
 
 #endif

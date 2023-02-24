@@ -1,7 +1,7 @@
 #---------------------------------------------------#
 CC 			= cc
 
-CFLAGS 		= -fsanitize=address -g3
+CFLAGS 		= -fsanitize=address -g3 
 
 NAME 		= minishell
 #---------------------------------------------------#
@@ -49,7 +49,7 @@ all: lib
 	$(MAKE) $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJS) $(INCLUDES)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I includes/ -lreadline $(LIBFT_EXEC)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I includes/ -lreadline -ltinfo $(LIBFT_EXEC)
 	mv $(OBJS) $(OBJ_DIR)
 
 $(OBJ_DIR)%.o : $(EXEC_DIR)%.c $(EXIT_DIR)%.c $(PARS_DIR)%.c Makefile $(INCLUDES)
