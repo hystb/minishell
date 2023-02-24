@@ -26,7 +26,6 @@ t_list	**put_input_lst(char **input, char **envp)
 	}
 	*cmd = NULL;
 	prepare_input(input[0], &data_cmd);
-	input[0] = add_pipe_sign(input[0]);
 	input[0] = add_space_pipe(input[0]);
 	prepare_split(input[0]);
 	put_in_lst(input[0], cmd, data_cmd);
@@ -64,24 +63,19 @@ void	split_map(char ***map_cmd, char *input, t_cmds data)
 	char	**splited;
 	int		i;
 	int		last_splited;
-	int		last_pipe;
 
 	(void) data;
 	i = 0;
 	last_splited = 0;
-	last_pipe = 0;
 	splited = ft_split(input, ' ');
 	change_split(splited);
 	while (splited[i])
 	{
-		if (ft_memchr(splited[i], '|', ft_strlen(splited[i])) && last_pipe == 0)
+		if (ft_memchr(splited[i], '|', ft_strlen(splited[i])))
 		{
 			make_map_pipe(map_cmd, splited, i, last_splited);
 			last_splited = i + 1;
-			last_pipe = 1;
 		}
-		else if (i > 0 && last_pipe == 1)
-			jump_next_pipe(&last_pipe, &last_splited, splited);
 		i++;
 	}
 	make_map(map_cmd, splited, i - 1, last_splited);

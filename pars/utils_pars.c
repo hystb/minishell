@@ -43,7 +43,7 @@ void	jump_next_pipe(int *last_pipe, int *last_splited, char **splited)
 		return ;
 	if (have_sign(splited[*last_splited + 1]))
 	{
-		free(splited[*last_splited]);
+		//free(splited[*last_splited]);
 		*last_splited = *last_splited + 1;
 	}
 	*last_pipe = 0;
