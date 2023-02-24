@@ -41,7 +41,7 @@ void	put_in_lst(char *input, t_list **cmd, t_cmds data_cmd)
 
 	i = 0;
 	map_cmd = malloc(sizeof(char **) * \
-	(2 + data_cmd.nb_sign * 2 + data_cmd.nb_pipes * 2));
+	(3 + data_cmd.nb_sign * 2 + data_cmd.nb_pipes * 2));
 	if (!map_cmd)
 	{
 		//put exit function
@@ -67,12 +67,12 @@ void	split_map(char ***map_cmd, char *input, t_cmds data)
 	int		last_pipe;
 
 	(void) data;
-	i = -1;
+	i = 0;
 	last_splited = 0;
 	last_pipe = 0;
 	splited = ft_split(input, ' ');
 	change_split(splited);
-	while (splited[++i])
+	while (splited[i])
 	{
 		if (ft_memchr(splited[i], '|', ft_strlen(splited[i])) && last_pipe == 0)
 		{
@@ -80,8 +80,9 @@ void	split_map(char ***map_cmd, char *input, t_cmds data)
 			last_splited = i + 1;
 			last_pipe = 1;
 		}
-		else if (last_pipe == 1)
+		else if (i > 0 && last_pipe == 1)
 			jump_next_pipe(&last_pipe, &last_splited, splited);
+		i++;
 	}
 	make_map(map_cmd, splited, i - 1, last_splited);
 	free(splited);

@@ -36,7 +36,28 @@ int	ft_tablen(char ***map)
 
 void	jump_next_pipe(int *last_pipe, int *last_splited, char **splited)
 {
+	if (!splited[*last_splited])
+		return ;
+	if (have_sign(splited[*last_splited + 1]))
+	{
+		free(splited[*last_splited]);
+		*last_splited = *last_splited + 1;
+	}
 	*last_pipe = 0;
-	*last_splited = *last_splited + 1;
-	free(splited[*last_splited - 1]);
+}
+
+int	have_sign(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == '<' || str[i] == '>')
+			return (1);
+		i++;
+	}
+	return (0);
 }
