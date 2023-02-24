@@ -1,7 +1,7 @@
 #---------------------------------------------------#
 CC 			= cc
 
-CFLAGS 		= -fsanitize=address -g3
+CFLAGS 		= -fsanitize=address -g3 
 
 NAME 		= minishell
 #---------------------------------------------------#
@@ -30,7 +30,8 @@ make_map.c\
 pipe_sign.c\
 put_lst.c\
 space_pipe.c\
-utils_pars.c
+utils_pars.c\
+env.c
 
 SRCS		= $(addprefix $(PARS_DIR), $(PARS_FILES)) $(addprefix $(EXIT_DIR), $(EXIT_FILES)) $(addprefix $(EXEC_DIR), $(EXEC_FILES)) main.c
 
@@ -48,7 +49,7 @@ all: lib
 	$(MAKE) -j $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJS) $(INCLUDES)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I includes/ -lreadline $(LIBFT_EXEC)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I includes/ -lreadline -ltinfo $(LIBFT_EXEC)
 	mv $(OBJS) $(OBJ_DIR)
 
 $(OBJ_DIR)%.o : $(EXEC_DIR)%.c $(EXIT_DIR)%.c $(PARS_DIR)%.c Makefile $(INCLUDES)

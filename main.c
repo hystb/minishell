@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/02/22 14:46:54 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/02/22 15:00:46 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **envp)
 		input = make_input("minishell -> ");
 		if (input[0] != '\0')
 		{
-			lst_cmd = put_input_lst(&input);
+			lst_cmd = put_input_lst(&input, envp);
 			tmp = *lst_cmd;
 			// faire l'exec la
 			t_list **it;

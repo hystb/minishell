@@ -33,3 +33,10 @@ int	ft_tablen(char ***map)
 	}
 	return (count - 1);
 }
+
+void	jump_next_pipe(int *last_pipe, int *last_splited, char **splited)
+{
+	*last_pipe = 0;
+	*last_splited = *last_splited + 1;
+	free(splited[*last_splited - 1]);
+}

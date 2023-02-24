@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   put_lst.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:07:01 by nmilan            #+#    #+#             */
-/*   Updated: 2023/02/22 14:55:13 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/02/22 15:29:01 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_list	**put_input_lst(char **input)
+t_list	**put_input_lst(char **input, char **envp)
 {
 	t_list	**cmd;
 	t_cmds	data_cmd;
@@ -30,6 +30,7 @@ t_list	**put_input_lst(char **input)
 	input[0] = add_space_pipe(input[0]);
 	prepare_split(input[0]);
 	put_in_lst(input[0], cmd, data_cmd);
+	//put_env(envp, *cmd);
 	return (cmd);
 }
 
@@ -63,20 +64,24 @@ void	split_map(char ***map_cmd, char *input, t_cmds data)
 	char	**splited;
 	int		i;
 	int		last_splited;
+	int		last_pipe;
 
 	(void) data;
-	i = 0;
+	i = -1;
 	last_splited = 0;
+	last_pipe = 0;
 	splited = ft_split(input, ' ');
 	change_split(splited);
-	while (splited[i])
+	while (splited[++i])
 	{
-		if (ft_memchr(splited[i], '|', ft_strlen(splited[i])))
+		if (ft_memchr(splited[i], '|', ft_strlen(splited[i])) && last_pipe == 0)
 		{
 			make_map_pipe(map_cmd, splited, i, last_splited);
 			last_splited = i + 1;
+			last_pipe = 1;
 		}
-		i++;
+		else if (last_pipe == 1)
+			jump_next_pipe(&last_pipe, &last_splited, splited);
 	}
 	make_map(map_cmd, splited, i - 1, last_splited);
 	free(splited);
