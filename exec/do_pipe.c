@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/02/22 11:27:33 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/02/22 13:41:23 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,16 @@ void	pre_redirect(t_list *cmds, int lst_len, char **env, t_redirect *data)
 /* do the loop that execute and pipe the command, then return the fd filled */
 void	redirect(t_list *cmds, int argc, char **env, t_redirect *data)
 {
-	int		tube[2];
-	pid_t	pid;
-
+	static int	i = 0;
+	int			tube[2];
+	pid_t		pid;
 
 	if (pipe(tube) == -1)
 		exit_error();
 	pid = fork();
 	if (pid == -1)
 		exit_error();
+	data->pids[i++] = pid;
 	if (pid == 0)
 		do_child(tube, cmds, env, data);
 	else
@@ -68,15 +69,17 @@ void	redirect(t_list *cmds, int argc, char **env, t_redirect *data)
 			pre_redirect(cmds->next, argc - 1, env, data);
 		}
 		else
-			fill_redirect(tube[0], pid, data);
+			fill_redirect(tube[0], &i, data);
 	}
 }
 
-void	fill_redirect(int fd, pid_t pid, t_redirect *data)
+void	fill_redirect(int fd, int *i, t_redirect *data)
 {
+	int	*temp;
+
 	close_fd(data->tube_out);
 	data->fd = fd;
-	data->pid = pid;
+	*i = 0;
 }
 
 // go and make the redirection ( mettre en place les buildints ici aussi) passer a la commande suivante si echec
