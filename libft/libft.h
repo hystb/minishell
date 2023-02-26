@@ -18,11 +18,20 @@
 # include <limits.h>
 # include <stdarg.h>
 
+typedef struct s_env
+{
+	char			*name_var;
+	char			*content_var;
+	struct s_env	*next;
+	struct s_env	*previous;
+}					t_env;
+
 typedef struct s_list
 {
 	void			**content;
 	struct s_list	*next;
 	struct s_list	*previous;
+	t_env			*env_var;
 }				t_list;
 
 int		ft_isalpha(int c);

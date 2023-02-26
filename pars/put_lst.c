@@ -29,7 +29,7 @@ t_list	**put_input_lst(char **input, char **envp)
 	input[0] = add_space_pipe(input[0]);
 	prepare_split(input[0]);
 	put_in_lst(input[0], cmd, data_cmd);
-	//put_env(envp, *cmd);
+	put_env(envp, *cmd);
 	return (cmd);
 }
 
