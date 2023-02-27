@@ -44,7 +44,6 @@ void	config_signal(void)
 
 void	handle_signal(int sig)
 {
-	
 	if (sig == SIGINT)
 	{
 		write(STDIN_FILENO, "^C", 2);
