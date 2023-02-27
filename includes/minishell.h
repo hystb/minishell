@@ -69,14 +69,16 @@ char	*make_input(char *promp_name, t_data var_lst);
 void	config_signal(void);
 void	handle_signal(int sig);
 t_env	**put_env(char **envp, t_data var_lst);
-char	*is_env_vars(char *arg);
+char	*is_env_vars(char *arg, t_data var_lst);
 void	jump_next_pipe(int *last_pipe, int *last_splited, char **splited);
-void	sub_env_var(char *var, char *arg, int start, int size);
+char	*sub_env_var(char *var, char *arg, int start, t_data var_lst);
 int		have_sign(char *str);
 t_env	**make_env_in_lst(char **envp, t_list *cmd);
 t_env	*envnew(char *content, int split);
 void	env_add_back(t_env **lst, t_env *new);
 void	make_node_env(char *env, int split, t_env **env_var);
 void	free_env_var(t_env **env);
+void	replace_env_var(t_data var_lst);
+char	*find_env_var(char *var, t_data var_lst);
 
 #endif

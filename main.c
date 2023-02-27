@@ -44,6 +44,8 @@ int	main(int argc, char **argv, char **envp)
 			// faire l'exec la
 			t_list **it;
 			it = var_lst.cmd_lst;
+			//to add start do exec
+			replace_env_var(var_lst);
 			//do_exec(var_lst.cmd_lst, envp); // partie exec
 			 while ((*it))
 			 {
