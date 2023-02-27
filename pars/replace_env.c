@@ -12,30 +12,34 @@
 
 #include "../includes/minishell.h"
 
-void	put_env(char **envp, t_list *cmd)
+void	replace_env_var(t_data var_lst)
 {
-	t_list *tmp;
-	int	i;
+	t_list	*tmp;
+	int		i;
+	char	*new_content;
+	int		j;
 
-	tmp = cmd;
+	tmp = *var_lst.cmd_lst;
 	i = 0;
+	j = 0;
 	while (tmp)
 	{
 		while (tmp->content[i])
 		{
-			is_env_vars(tmp->content[i]);
+			new_content = is_env_vars(tmp->content[i], var_lst, j);
+			if (new_content)
+				tmp->content[i] = new_content;
 			i++;
 		}
 		tmp = tmp->next;
 	}
 }
 
-char	*is_env_vars(char *arg)
+char	*is_env_vars(char *arg, t_data var_lst, int j)
 {
 	int		is_sp_quote;
 	int		i;
 	char	*var;
-	int		j;
 
 	is_sp_quote = 0;
 	i = -1;
@@ -53,13 +57,47 @@ char	*is_env_vars(char *arg)
 				&& arg[i] && arg[i] != '"')
 				i++;
 			var = ft_substr(arg, j, i - j);
-			sub_env_var(var, arg, j - 1, i - j);
+			var = sub_env_var(var, arg, j - 1, var_lst);
 			return (var);
 		}
 	}
+	return (NULL);
 }
 
-void	sub_env_var(char *var, char *arg, int start, int size)
+char	*sub_env_var(char *var, char *arg, int start, t_data var_lst)
 {
-	
+	char	*new_content;
+	char	*new_arg;
+	int		end;
+	char	*arg_tmp;
+
+	end = start + ft_strlen(arg);
+	new_content = find_env_var(var, var_lst);
+	if (!new_content)
+	{
+		free(var);
+		return (NULL);
+	}
+	arg_tmp = arg;
+	new_arg = ft_strjoin(ft_strjoin(ft_substr(arg, 0, start), new_content), \
+	ft_substr(arg, end, ft_strlen(&var[end])));
+	free(arg);
+	free(var);
+	return (new_arg);
+}
+
+char	*find_env_var(char *var, t_data var_lst)
+{
+	t_env	*env;
+
+	env = *var_lst.env_var;
+	while (env)
+	{
+		if (ft_strnstr(env->name_var, var, (ft_strlen(var) + 1)))
+		{
+			return (ft_strdup(env->content_var));
+		}
+		env = env->next;
+	}
+	return (NULL);
 }
