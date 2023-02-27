@@ -29,3 +29,26 @@ void	env_add_back(t_env **lst, t_env *new)
 	tmp->next = new;
 	new->previous = tmp;
 }
+
+void	free_env_var(t_env **env)
+{
+	t_env	*tmp;
+	t_env	*lst;
+
+	/*if (!*env)
+	{
+		if (env)
+			free(env);
+		return ;
+	}*/
+	lst = *env;
+	while (lst)
+	{
+		tmp = lst->next;
+		free(lst->name_var);
+		free(lst->content_var);
+		free(lst);
+		lst = tmp;
+	}
+	free(env);
+}

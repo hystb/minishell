@@ -12,13 +12,14 @@
 
 #include "../includes/minishell.h"
 
-char	*make_input(char *promp_name)
+char	*make_input(char *promp_name, t_data var_lst)
 {
 	char		*input;
 
 	input = readline(promp_name);
 	if (!input)
 	{
+		free_env_var(var_lst.env_var);
 		ft_putstr_fd("\nexit\n", 2);
 		exit(1);
 	}

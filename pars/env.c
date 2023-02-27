@@ -14,28 +14,16 @@
 
 
 
-void	put_env(char **envp, t_list *cmd)
+t_env	**put_env(char **envp, t_data var_lst)
 {
 	t_list	*tmp;
 	int		i;
+	t_env	*env;
 
-	tmp = cmd;
-	cmd->env_var = make_env_in_lst(envp, cmd);
-	while (cmd->env_var)
-	{
-		ft_printf("name : %s\ncontent : %s\n", cmd->env_var->name_var, cmd->env_var->content_var);
-		cmd->env_var = cmd->env_var->next;
-	}
-	i = 0;
-	while (tmp)
-	{
-		while (tmp->content[i])
-		{
-			//is_env_vars(tmp->content[i]);
-			i++;
-		}
-		tmp = tmp->next;
-	}
+	tmp = *var_lst.cmd_lst;
+	var_lst.env_var = make_env_in_lst(envp, tmp);
+	env = *var_lst.env_var;
+	return (var_lst.env_var);
 }
 
 char	*is_env_vars(char *arg)
@@ -72,12 +60,11 @@ void	sub_env_var(char *var, char *arg, int start, int size)
 	
 }
 
-t_env	*make_env_in_lst(char **envp, t_list *cmd)
+t_env	**make_env_in_lst(char **envp, t_list *cmd)
 {
 	int		i;
 	int		j;
 	t_env	**env_var;
-	t_env	*env;
 
 	env_var = malloc(sizeof(t_env *));
 	if (!env_var)
@@ -93,20 +80,8 @@ t_env	*make_env_in_lst(char **envp, t_list *cmd)
 		{
 			j++;
 		}
-		make_node_env(envp[i], j, env_var);
+		env_add_back(env_var, envnew(envp[i], j));
 		i++;
 	}
-	env = *env_var;
-	free(env_var);
-	return (env);
-}
-
-void	make_node_env(char *env, int split, t_env **env_var)
-{
-	/*if (!env_var)
-	{
-		env_var = envnew(env, split);
-		return ;
-	}*/
-	env_add_back(env_var, envnew(env, split));
+	return (env_var);
 }
