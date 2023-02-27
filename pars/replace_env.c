@@ -17,14 +17,16 @@ void	replace_env_var(t_data var_lst)
 	t_list	*tmp;
 	int		i;
 	char	*new_content;
+	int		j;
 
 	tmp = *var_lst.cmd_lst;
 	i = 0;
+	j = 0;
 	while (tmp)
 	{
 		while (tmp->content[i])
 		{
-			new_content = is_env_vars(tmp->content[i], var_lst);
+			new_content = is_env_vars(tmp->content[i], var_lst, j);
 			if (new_content)
 				tmp->content[i] = new_content;
 			i++;
@@ -33,12 +35,11 @@ void	replace_env_var(t_data var_lst)
 	}
 }
 
-char	*is_env_vars(char *arg, t_data var_lst)
+char	*is_env_vars(char *arg, t_data var_lst, int j)
 {
 	int		is_sp_quote;
 	int		i;
 	char	*var;
-	int		j;
 
 	is_sp_quote = 0;
 	i = -1;
@@ -92,7 +93,7 @@ char	*find_env_var(char *var, t_data var_lst)
 	env = *var_lst.env_var;
 	while (env)
 	{
-		if (ft_strnstr(env->name_var, var, ft_strlen(var)))
+		if (ft_strnstr(env->name_var, var, (ft_strlen(var) + 1)))
 		{
 			return (ft_strdup(env->content_var));
 		}
