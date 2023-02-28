@@ -25,7 +25,7 @@ void	free_split(char **tab, int exit)
 	}
 	free(tab);
 	if (exit == 1)
-		write_error("Memory allocation error !");
+		write_error("Memory allocation error !  wadwadwadawdwadwadwadaaa");
 }
 
 /* free s2 before join */
@@ -46,6 +46,8 @@ char	*get_path(char *cmd, char **env)
 	char	*joined;
 
 	i = 0;
+	if (access(cmd, O_RDONLY) == 0)
+		return (ft_strdup(cmd));
 	while (ft_strncmp("PATH=", *env, 5))
 		env++;
 	splited = ft_split((*env) + 5, ':');
