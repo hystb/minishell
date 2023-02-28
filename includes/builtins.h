@@ -19,5 +19,6 @@
 # include "../libft/libft.h"
 
 void	pwd(void);
+int		ft_export(char	*data, t_data var);
 
 #endif
