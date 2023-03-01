@@ -14,6 +14,15 @@
 #include "includes/exec.h"
 #include "includes/builtins.h"
 
+// int main(int argc, char **argv, char **env)
+// {
+// 	printf("je suis dans minishle\n");
+// 	(void) argc;
+// 	(void) argv;
+// 	char *cmds[] = {"./minishell", NULL};
+// 	printf("%d\n",execve(cmds[0], cmds + 1, env));
+// }
+
 int	main(int argc, char **argv, char **envp)
 {
 	char				*input;
@@ -24,7 +33,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	config_signal();
-	// var_lst.env_var = put_env(envp, var_lst);
+	var_lst.env_var = put_env(envp, var_lst);
 	while (1)
 	{
 		input = make_input("minishell -> ", var_lst);
@@ -36,22 +45,22 @@ int	main(int argc, char **argv, char **envp)
 			t_list **it;
 			it = var_lst.cmd_lst;
 			//to add start do exec
-			// replace_env_var(var_lst);
-			// ft_export((*var_lst.cmd_lst)->content[0], var_lst);
-			do_exec(var_lst.cmd_lst, envp); // partie exec
-			//  while ((*it))
-			//  {
-			 	// i = 0;
-			 	// while ((*it)->content[i])
-			 	// {
-			 		// ft_printf("%s\n", (*it)->content[i]);
-			 		// i++;
-			 	// }
-			 	// ft_printf("current : %p\n", *it);
-			 	// ft_printf("prev : %p\n", (*it)->previous);
-			 	// ft_printf("next : %p\n", (*it)->next);
-			 	// *it = (*it)->next;
-			//  }
+			replace_env_var(var_lst);
+			ft_export((*var_lst.cmd_lst)->content[0], var_lst);
+			//do_exec(var_lst.cmd_lst, envp); // partie exec
+			 while ((*it))
+			 {
+			 	i = 0;
+			 	while ((*it)->content[i])
+			 	{
+			 		ft_printf("%s\n", (*it)->content[i]);
+			 		i++;
+			 	}
+			 	ft_printf("current : %p\n", *it);
+			 	ft_printf("prev : %p\n", (*it)->previous);
+			 	ft_printf("next : %p\n", (*it)->next);
+			 	*it = (*it)->next;
+			 }
 			*var_lst.cmd_lst = tmp;
 			ft_lstclear(var_lst.cmd_lst, del_free_content);
 			free (var_lst.cmd_lst);
