@@ -46,6 +46,8 @@ char	*get_path(char *cmd, char **env)
 	char	*joined;
 
 	i = 0;
+	if (access(cmd, O_RDONLY) == 0)
+		return (ft_strdup(cmd));
 	while (ft_strncmp("PATH=", *env, 5))
 		env++;
 	splited = ft_split((*env) + 5, ':');
@@ -53,7 +55,7 @@ char	*get_path(char *cmd, char **env)
 		free_split(splited, 1);
 	while (splited[i])
 	{
-		joined = ft_str_fjoin(splited[i], ft_strjoin("/", cmd));
+		joined = ft_strjoin(ft_strdup(splited[i]), ft_strjoin(ft_strdup("/"), ft_strdup(cmd)));
 		if (!joined)
 			free_split(splited, 1);
 		if (access(joined, O_RDONLY) == 0)

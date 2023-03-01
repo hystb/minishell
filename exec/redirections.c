@@ -13,27 +13,24 @@
 #include "../includes/exec.h"
 
 /* try to open file and put in on stdin */
-int	do_input(char *path, t_redirect *data)
+int	do_input(char *path)
 {
 	int		fd;
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 	{
-		data->tube_out = -2;
 		perror("");
 		return (1);
 	}
-	dup2(fd, data->tube_out);
-	// dup2(fd, STDIN_FILENO);
+	dup2(fd, STDIN_FILENO);
 	close_fd(fd);
 	return (0);
 }
 
 /* write in a file depending on the file mode opening */
-void	do_writing_file(int fd_in, char *path, int mode)
+int	do_writing_file(char *path, int mode)
 {
-	char	buff[1];
 	int		fd_out;
 
 	if (mode == 1)
@@ -42,13 +39,7 @@ void	do_writing_file(int fd_in, char *path, int mode)
 		fd_out = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd_out == -1)
 		exit_error();
-	printf("le fd_in %d\n", fd_in);
-	if (fd_in >= 0)
-	{
-		while (read(fd_in, buff, 1))
-			write(fd_out, buff, 1);
-	}
-	close_fd(fd_out);
+	return (fd_out);
 }
 
 /* open the heredoc */
@@ -89,9 +80,6 @@ void	do_heredoc(char *limiter)
 	{
 		wait(NULL);
 		close_fd(tube[1]);
-		// char *buff;
-		// while (read(tube[0], buff, 1))
-			// write(1, buff, 1);
 		dup2(tube[0], STDIN_FILENO);
 		close_fd(tube[0]);
 	}	

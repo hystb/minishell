@@ -26,30 +26,33 @@
 # include <sys/wait.h>
 # include "../libft/libft.h"
 
+typedef	struct s_listpids
+{
+	pid_t				pid;
+	struct	s_listpids	*next;
+}				t_listpids;
 
 typedef struct s_redirect
 {
-	int		fd;
-	int		tube_out;
-	int		*i;
-	pid_t	*pids;
+	int	*tube;
+	int	out;
+	int	in;
 }				t_redirect;
 
 void	exit_error(void);
 void	write_error(char *str);
-void	not_found_error(char *cmd, t_redirect *data);
+void	not_found_error(char *cmd);
 void	do_execute(char **args, char **env, int *tube, t_redirect *data);
 void	do_heredoc(char *limiter);
-void	do_child(int *tube, t_list *cmds, char **env, t_redirect *data);
 void	close_fd(int fd);
 char	*get_path(char *cmd, char **env);
 
 /* redirections */
 int		do_redir_in(char **cmds, t_redirect *data);
 int 	do_redir_out(char **cmds, t_redirect *data);
-int		do_input(char *path, t_redirect *data);
+int		do_input(char *path);
 void	do_commands(char **cmds, char **env);
-void	do_writing_file(int fd_in, char *path, int mode);
+int		do_writing_file(char *path, int mode);
 void	fill_redirect(int fd, int *i, t_redirect *data);
 
 /* execution */
@@ -57,5 +60,8 @@ int		do_redirection(t_list *cmds, t_redirect *data);
 void	pre_redirect(t_list *cmds, int argc, char **env, t_redirect *data);
 void	redirect(t_list *cmds, int argc, char **env, t_redirect *data);
 void	do_exec(t_list **lst_cmd, char **env);
+
+void	read_result(int fd);
+void	make_pipe(t_list **cmds, char **env, t_listpids **list, int *fd_in);
 /* some stuff here */
 #endif 

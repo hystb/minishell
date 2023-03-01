@@ -12,115 +12,173 @@
 
 #include "../includes/exec.h"
 
-/* check about parent activity and redirections possibilites */
-void	pre_redirect(t_list *cmds, int lst_len, char **env, t_redirect *data)
-{
-	int	value;
 
-	// printf("je pre_redirect avec %s | %d\n", (char *) cmds->content[0], data->tube_out);
-	if (ft_strncmp((char *)cmds->content[0], "|", 1) == 0)
+void	add_pids(pid_t value, t_listpids **list)
+{
+	t_listpids	*new;
+	t_listpids	*i;
+
+	new = malloc(sizeof(t_listpids));
+	if (!new)
+		write_error("Memory allocation error !");
+	new->pid = value;
+	new->next = NULL;
+	i = *list;
+	if (i)
 	{
-		pre_redirect(cmds->next, lst_len - 1, env, data);
-		return ;
-	}
-	value = do_redirection(cmds, data);
-	if (value)
-	{
-		lst_len -= value;
-		if (lst_len >= 1)
-			pre_redirect(cmds + value, lst_len, env, data); //handle + value as ->next->next
-		close_fd(data->tube_out);
+		while (i->next)
+			i = i->next;
+		i->next = new;
 	}
 	else
-	{
-		// if (data->tube_out >= 0)
-		// 	printf("\n");
-		// 	// dup2(data->tube_out, STDIN_FILENO); //-> fait crash le shell
-		// else
-		// {
-		// 	// dup2(0, STDIN_FILENO);
-		// }
-		redirect(cmds, lst_len, env, data);
-		close_fd(data->tube_out);
-	}
+		*list = new;
 }
 
-/* do the loop that execute and pipe the command, then return the fd filled */
-void	redirect(t_list *cmds, int argc, char **env, t_redirect *data)
+void	clean_up_redir(char **args, int i)
 {
-	static int	i = 0;
-	int			tube[2];
-	pid_t		pid;
+	int		org;
+	char	*save;
 
-	if (pipe(tube) == -1)
-		exit_error();
-	pid = fork();
-	if (pid == -1)
-		exit_error();
-	data->pids[i++] = pid;
-	if (pid == 0)
-		do_child(tube, cmds, env, data);
+	org = i;
+	save = args[i];
+	while (args[i])
+	{
+		args[i] = args[i + 1];
+		i++;
+	}
+	i = org;
+	free(save);
+	save = args[i];
+	while (args[i])
+	{
+		args[i] = args[i + 1];
+		i++;
+	}
+	free(save);
+}
+
+void put_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while(tab[i])
+	{
+		fprintf(stderr,"%s ", tab[i]);
+		i++;
+	}
+	fprintf(stderr,"\n");
+}
+
+void	aux_inside_out(char **args, int mode, int i)
+{
+	int	fd_temp;
+
+	if (mode)
+		fd_temp = do_writing_file(args[i + 1], 1);
+	else
+		fd_temp = do_writing_file(args[i + 1], 0);
+	dup2(fd_temp, STDOUT_FILENO);
+	close(fd_temp);
+	clean_up_redir(args, i);
+}
+
+void	aux_inside_in(char **args, int mode, int i)
+{
+	if (mode)
+		do_heredoc(args[i + 1]);
 	else
 	{
-		close_fd(tube[1]);
-		if (argc > 1)
-		{
-			data->tube_out = tube[0];
-			pre_redirect(cmds->next, argc - 1, env, data);
-		}
-		else
-			fill_redirect(tube[0], &i, data);
+		if (do_input(args[i + 1]))
+			exit(EXIT_FAILURE); //handle leaks here
 	}
+	clean_up_redir(args, i);
 }
 
-void	fill_redirect(int fd, int *i, t_redirect *data)
-{
-	int	*temp;
-
-	close_fd(data->tube_out);
-	data->fd = fd;
-	*i = 0;
-}
-
-// go and make the redirection ( mettre en place les buildints ici aussi) passer a la commande suivante si echec
-/* change here by passing the cmd */
-void	do_child(int *tube, t_list *cmds, char **env, t_redirect *data)
+void	make_redir_inside(t_list *cmd, char **env)
 {
 	char	**args;
+	int		i;
 
-	// args = ft_split(*cmds, ' ');
-	args = (char **)cmds->content;
-	dup2(tube[1], STDOUT_FILENO);
-	do_execute(args, env, tube, data);
-}
-
-/* do the command */
-void	do_execute(char **args, char **env, int *tube, t_redirect *data)
-{
-	char	*cmd;
-
-	cmd = args[0];
-	if (data->tube_out >= 0)
-		dup2(data->tube_out, STDIN_FILENO);
-	// do heredoc check in.
-	if (data->tube_out == -2)
-		return(free(args));
-	if (access(cmd, O_RDONLY) == -1)
-		cmd = get_path(*args, env);
-	else
-		cmd = ft_strdup(*args);
-	close_fd(tube[0]);
-	//do here for the input and ouput things
-	if (cmd)
+	i = 0;
+	args = (char **)cmd->content;
+	while (args[i])
 	{
-		if (execve(cmd, args, env) == -1)
-			exit_error();
+		if (ft_strncmp(args[i], "<<", 2) == 0)
+			aux_inside_in(args, 1, i);
+		else if (ft_strncmp(args[i], "<", 1) == 0)
+			aux_inside_in(args, 0, i);
+		else if (ft_strncmp(args[i], ">>", 2) == 0)
+			aux_inside_out(args, 1, i);
+		else if (ft_strncmp(args[i], ">", 1) == 0)
+			aux_inside_out(args, 0, i);
+		else
+			i++;
 	}
-	else
-		not_found_error(*args, data);
-	close_fd(tube[1]);
-	free(cmd);
-	free(args);
-	// may have to free more stuffs of args here
 }
-/* donc d'abord faudrait voir pour voir genre les entrées avant l'exécution et apres les sorties apres le execve */
+
+void	make_command(t_list	**cmds, char **env)
+{
+	char	*path;
+	int		exec;
+	
+	make_redir_inside(*cmds, env);
+	if (!(*cmds)->content[0]) //meaning that there were just a redir
+		return ;
+	path = get_path((char *)(*cmds)->content[0], env);
+	if (!path)
+		not_found_error((char *)(*cmds)->content[0]);
+	exec = execve(path, (char **)(*cmds)->content, env);
+	if (exec < 0)
+		exit_error();
+	free(path);
+}
+
+void	do_child(t_list **cmds, char **env, int *fd_in, int tube[2])
+{
+	if ((*cmds)->previous) //only if not first command
+	{
+		dup2(*fd_in, STDIN_FILENO);
+		close(*fd_in);
+	}
+	if ((*cmds)->next) //only if not last command
+		dup2(tube[1], STDOUT_FILENO);
+	close(tube[1]);
+	close(tube[0]);
+	make_command(cmds, env); //execute command function with execve
+	exit(EXIT_SUCCESS);
+}
+
+void	do_parent(t_list **cmds, char **env, int *fd_in, int tube[2])
+{
+	if ((*cmds)->previous)
+		close(*fd_in);
+	if ((*cmds)->next)
+		*fd_in = tube[0];
+	close(tube[1]);
+	(*cmds) = (*cmds)->next;
+	while (*cmds && ft_strncmp((char *)(*cmds)->content[0], "|", 1) == 0)
+		(*cmds) = (*cmds)->next;
+}
+
+void	make_pipe(t_list **cmds, char **env, t_listpids **pids, int *fd_in)
+{
+	pid_t		pid;
+	int 		tube[2];
+
+	while (*cmds)
+	{
+		if (pipe(tube) == -1)
+			exit_error();
+		pid = fork();
+		if (pid == -1)
+			exit_error();
+		if (pid == 0)
+			do_child(cmds, env, fd_in, tube);
+		else
+		{
+			add_pids(pid, pids); //add pid to chained list of pids (used to waitpid them after)
+			do_parent(cmds, env, fd_in, tube);
+		}
+	}
+}
