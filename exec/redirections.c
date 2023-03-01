@@ -24,7 +24,7 @@ int	do_input(char *path)
 		return (1);
 	}
 	dup2(fd, STDIN_FILENO);
-	close_fd(fd);
+	close(fd);
 	return (0);
 }
 
@@ -71,7 +71,7 @@ void	read_here_doc(char *limiter, int *tube)
 	char 	buff[29];
 	int		readed_bytes;
 	
-	close (tube[0]);
+	close(tube[0]);
 	while (1)
 	{
 		printf("heredoc >");
@@ -96,8 +96,8 @@ void	do_heredoc(char *limiter)
 	else
 	{
 		waitpid(pid, NULL, 0);
-		close_fd(tube[1]);
+		close(tube[1]);
 		dup2(tube[0], STDIN_FILENO);
-		close_fd(tube[0]);
+		close(tube[0]);
 	}	
 }

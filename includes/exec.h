@@ -39,30 +39,26 @@ typedef struct s_redirect
 	int	in;
 }				t_redirect;
 
+/* error */
 void	exit_error(void);
 void	write_error(char *str);
 void	not_found_error(char *cmd);
-void	do_execute(char **args, char **env, int *tube, t_redirect *data);
-void	do_heredoc(char *limiter);
-void	close_fd(int fd);
-char	*get_path(char *cmd, char **env);
+
+/* builtins */
+void	echo(char **args);
+void	pwd(void);
+// int		ft_export(char	*data, t_data var);
 
 /* redirections */
-int		do_redir_in(char **cmds, t_redirect *data);
-int 	do_redir_out(char **cmds, t_redirect *data);
+void	make_redir_inside(t_list *cmd, char **env);
 int		do_input(char *path);
-void	do_commands(char **cmds, char **env);
 int		do_writing_file(char *path, int mode);
-void	fill_redirect(int fd, int *i, t_redirect *data);
-void	echo(char **args);
+void	do_heredoc(char *limiter);
 
 /* execution */
-int		do_redirection(t_list *cmds, t_redirect *data);
-void	pre_redirect(t_list *cmds, int argc, char **env, t_redirect *data);
-void	redirect(t_list *cmds, int argc, char **env, t_redirect *data);
+char	*get_path(char *cmd, char **env);
+void	make_pipe(t_list **cmds, char **env, t_listpids **pids, int *fd_in);
 void	do_exec(t_list **lst_cmd, char **env);
 
-void	read_result(int fd);
-void	make_pipe(t_list **cmds, char **env, t_listpids **list, int *fd_in);
 /* some stuff here */
 #endif 

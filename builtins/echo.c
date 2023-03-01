@@ -12,20 +12,6 @@
 
 #include "../includes/exec.h"
 
-void	print_args(char *arg)
-{
-	int	len;
-
-	len = ft_strlen(arg);
-	if (arg[0] == '\'' || arg[0] == '\"')
-	{
-		arg[len - 1] = '\0';
-		printf("%s", arg + 1);
-	}
-	else
-		printf("%s", arg);
-}
-
 int	is_option(char *arg, int *c)
 {
 	int	i;
@@ -46,7 +32,7 @@ int	is_option(char *arg, int *c)
 	return (0);
 }
 
-void	echo(char	**args)
+void	echo(char **args)
 {
 	int	i;
 	int	res;
@@ -64,7 +50,7 @@ void	echo(char	**args)
 	}
 	while (args[i])
 	{
-		print_args(args[i++]);
+		printf("%s", args[i++]);
 		if (args[i])
 			printf(" ");
 	}
