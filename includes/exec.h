@@ -54,6 +54,7 @@ int		do_input(char *path);
 void	do_commands(char **cmds, char **env);
 int		do_writing_file(char *path, int mode);
 void	fill_redirect(int fd, int *i, t_redirect *data);
+void	echo(char **args);
 
 /* execution */
 int		do_redirection(t_list *cmds, t_redirect *data);

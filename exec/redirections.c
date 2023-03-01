@@ -43,25 +43,40 @@ int	do_writing_file(char *path, int mode)
 }
 
 /* open the heredoc */
+// void	read_here_doc(char *limiter, int *tube)
+// {
+// 	char	*str;
+
+// 	close_fd(tube[0]);
+// 	while (1)
+// 	{
+// 		// str = readline("heredoc> ");
+// 		if (!str)
+// 			return ;
+// 		if (ft_strncmp(str, limiter, ft_strlen(limiter)) == 0)
+// 		{
+// 			free(str);
+// 			close_fd(tube[1]);
+// 			exit(0);
+// 		}
+// 		write(tube[1], str, ft_strlen(str));
+// 		write(tube[1], "\n", 1);
+// 		free(str);
+// 	}
+// }
+
 void	read_here_doc(char *limiter, int *tube)
 {
-	char	*str;
-
-	close_fd(tube[0]);
+	char	*buffer;
+	char 	buff[29];
+	int		readed_bytes;
+	
+	close (tube[0]);
 	while (1)
 	{
-		str = readline("heredoc> ");
-		if (!str)
-			return ;
-		if (ft_strncmp(str, limiter, ft_strlen(limiter)) == 0)
-		{
-			free(str);
-			close_fd(tube[1]);
-			exit(0);
-		}
-		write(tube[1], str, ft_strlen(str));
-		write(tube[1], "\n", 1);
-		free(str);
+		printf("heredoc >");
+		readed_bytes = read(STDIN_FILENO, buff, ft_strlen(limiter));
+		printf("%s\n", buff);
 	}
 }
 
@@ -80,7 +95,7 @@ void	do_heredoc(char *limiter)
 		read_here_doc(limiter, tube);
 	else
 	{
-		wait(NULL);
+		waitpid(pid, NULL, 0);
 		close_fd(tube[1]);
 		dup2(tube[0], STDIN_FILENO);
 		close_fd(tube[0]);

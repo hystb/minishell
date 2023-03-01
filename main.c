@@ -46,21 +46,22 @@ int	main(int argc, char **argv, char **envp)
 			it = var_lst.cmd_lst;
 			//to add start do exec
 			replace_env_var(var_lst);
+			echo((char **)(*var_lst.cmd_lst)->content);
 			//ft_export((*var_lst.cmd_lst)->content[0], var_lst);
-			do_exec(var_lst.cmd_lst, envp); // partie exec
-			 while ((*it))
-			 {
-			 	i = 0;
-			 	while ((*it)->content[i])
-			 	{
-			 		ft_printf("%s\n", (*it)->content[i]);
-			 		i++;
-			 	}
-			 	ft_printf("current : %p\n", *it);
-			 	ft_printf("prev : %p\n", (*it)->previous);
-			 	ft_printf("next : %p\n", (*it)->next);
-			 	*it = (*it)->next;
-			 }
+			// do_exec(var_lst.cmd_lst, envp); // partie exec
+			//  while ((*it))
+			//  {
+			//  	i = 0;
+			//  	while ((*it)->content[i])
+			//  	{
+			//  		ft_printf("%s\n", (*it)->content[i]);
+			//  		i++;
+			//  	}
+			//  	ft_printf("current : %p\n", *it);
+			//  	ft_printf("prev : %p\n", (*it)->previous);
+			//  	ft_printf("next : %p\n", (*it)->next);
+			//  	*it = (*it)->next;
+			//  }
 			*var_lst.cmd_lst = tmp;
 			ft_lstclear(var_lst.cmd_lst, del_free_content);
 			free (var_lst.cmd_lst);

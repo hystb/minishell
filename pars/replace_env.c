@@ -24,7 +24,7 @@ void	replace_env_var(t_data var_lst)
 	j = 0;
 	while (tmp)
 	{
-		while (tmp->content[i])
+		while ((char **)tmp->content && (char *)tmp->content[i])
 		{
 			new_content = is_env_vars(tmp->content[i], var_lst, j);
 			if (new_content)
