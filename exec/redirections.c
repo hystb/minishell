@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
+#include "../includes/minishell.h"
 
 /* try to open file and put in on stdin */
 int	do_input(char *path)
@@ -43,51 +44,49 @@ int	do_writing_file(char *path, int mode)
 }
 
 /* open the heredoc */
-// void	read_here_doc(char *limiter, int *tube)
-// {
-// 	char	*str;
-
-// 	close_fd(tube[0]);
-// 	while (1)
-// 	{
-// 		// str = readline("heredoc> ");
-// 		if (!str)
-// 			return ;
-// 		if (ft_strncmp(str, limiter, ft_strlen(limiter)) == 0)
-// 		{
-// 			free(str);
-// 			close_fd(tube[1]);
-// 			exit(0);
-// 		}
-// 		write(tube[1], str, ft_strlen(str));
-// 		write(tube[1], "\n", 1);
-// 		free(str);
-// 	}
-// }
-
 void	read_here_doc(char *limiter, int *tube)
 {
-	char	*buffer;
-	char 	buff[29];
-	int		readed_bytes;
-	
-	close(tube[0]);
-	while (1)
-	{
-		printf("heredoc >");
-		readed_bytes = read(STDIN_FILENO, buff, ft_strlen(limiter));
-		printf("%s\n", buff);
-	}
+ 	char	*str;
+
+ 	close(tube[0]);
+ 	while (1)
+ 	{
+ 		str = readline("> ");
+ 		if (!str)
+		{
+			close(tube[1]);
+ 			exit(0);
+		}
+ 		if (ft_strncmp(str, limiter, ft_strlen(limiter)) == 0)
+ 		{
+ 			free(str);
+ 			close(tube[1]);
+ 			exit(0);
+ 		}
+ 		write(tube[1], str, ft_strlen(str));
+ 		write(tube[1], "\n", 1);
+ 		free(str);
+ 	}
+}
+
+void	handle_signal_heredoc()
+{
+	write(STDIN_FILENO, "^C", 2);
+	rl_on_new_line();
+	write(STDIN_FILENO, "\n", 1);
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 /* open and use heredoc as stdin with LIMITER as limit */
 void	do_heredoc(char *limiter)
 {
-	int		tube[2];
-	pid_t	pid;
+	int				tube[2];
+	struct termios	copy;
+	pid_t			pid;
 	
-	if (pipe(tube) == -1)
-		exit_error();
+	tcgetattr(STDIN_FILENO, &copy);
+	signal(SIGINT, handle_signal_heredoc);
 	pid = fork();
 	if (pid == -1)
 		exit_error();

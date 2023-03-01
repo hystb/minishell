@@ -44,11 +44,6 @@ void	exit_error(void);
 void	write_error(char *str);
 void	not_found_error(char *cmd);
 
-/* builtins */
-void	echo(char **args);
-void	pwd(void);
-// int		ft_export(char	*data, t_data var);
-
 /* redirections */
 void	make_redir_inside(t_list *cmd, char **env);
 int		do_input(char *path);
