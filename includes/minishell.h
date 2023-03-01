@@ -21,6 +21,9 @@
 # include <termios.h>
 # include <signal.h>
 
+# define NEWLINE_ERROR "bash: syntax error near unexpected token 'newline'\n"
+# define UNCOMPLITE_ERROR "bash: syntax error near unexpected token"
+
 typedef struct s_cmds
 {
 	int	nb_pipes;
@@ -80,5 +83,7 @@ void	make_node_env(char *env, int split, t_env **env_var);
 void	free_env_var(t_env **env);
 void	replace_env_var(t_data var_lst);
 char	*find_env_var(char *var, t_data var_lst);
+char	*input_error(char *in);
+char	*sign_error(char *in);
 
 #endif
