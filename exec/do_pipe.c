@@ -127,7 +127,7 @@ void	make_command(t_list	**cmds, char **env)
 		return ;
 	path = get_path((char *)(*cmds)->content[0], env);
 	if (!path)
-		return ;
+		not_found_error((char *)(*cmds)->content[0]);
 	exec = execve(path, (char **)(*cmds)->content, env);
 	if (exec < 0)
 		exit_error();

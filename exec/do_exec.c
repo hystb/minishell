@@ -12,6 +12,23 @@
 
 #include "../includes/exec.h"
 
+void	wait_childs(t_listpids **pids)
+{
+	int			status;
+	t_listpids	*old;
+
+	while (*pids)
+	{
+		old = *pids;
+		waitpid((*pids)->pid, &status, 0);
+		*pids = (*pids)->next;
+		free(old);
+	}
+	free(pids);
+	if (WIFEXITED(status))
+		printf("Voici la valeur de retour de l'exit : %d\n", WEXITSTATUS(status));
+}
+
 void	do_exec(t_list **lst_cmd, char **env)
 {
 	int			status;
@@ -23,9 +40,5 @@ void	do_exec(t_list **lst_cmd, char **env)
 	*list_pids = NULL;
 	fd_old = 0;
 	make_pipe(lst_cmd, env, list_pids, &fd_old);
-	while (*list_pids)
-	{
-		waitpid((*list_pids)->pid, NULL, 0);
-		*list_pids = (*list_pids)->next;
-	}
+	wait_childs(list_pids);
 }
