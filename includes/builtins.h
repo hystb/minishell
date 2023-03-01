@@ -17,8 +17,9 @@
 # include <stdio.h>
 # include <errno.h>
 # include "../libft/libft.h"
+# include "../includes/minishell.h"
 
 void	pwd(void);
-// int		ft_export(char	*data, t_data var);
+int		ft_export(char	*data, t_data var);
 
 #endif

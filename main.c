@@ -46,8 +46,8 @@ int	main(int argc, char **argv, char **envp)
 			it = var_lst.cmd_lst;
 			//to add start do exec
 			replace_env_var(var_lst);
-			ft_export((*var_lst.cmd_lst)->content[0], var_lst);
-			//do_exec(var_lst.cmd_lst, envp); // partie exec
+			//ft_export((*var_lst.cmd_lst)->content[0], var_lst);
+			do_exec(var_lst.cmd_lst, envp); // partie exec
 			 while ((*it))
 			 {
 			 	i = 0;

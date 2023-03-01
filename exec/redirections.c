@@ -51,6 +51,8 @@ void	read_here_doc(char *limiter, int *tube)
 	while (1)
 	{
 		str = readline("heredoc> ");
+		if (!str)
+			return ;
 		if (ft_strncmp(str, limiter, ft_strlen(limiter)) == 0)
 		{
 			free(str);
