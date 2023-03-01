@@ -73,7 +73,7 @@ char	*is_env_vars(char *arg, t_data var_lst, int j);
 void	jump_next_pipe(int *last_pipe, int *last_splited, char **splited);
 char	*sub_env_var(char *var, char *arg, int start, t_data var_lst);
 int		have_sign(char *str);
-t_env	**make_env_in_lst(char **envp, t_list *cmd);
+t_env	**make_env_in_lst(char **envp);
 t_env	*envnew(char *content, int split);
 void	env_add_back(t_env **lst, t_env *new);
 void	make_node_env(char *env, int split, t_env **env_var);
