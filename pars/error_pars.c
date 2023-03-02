@@ -22,30 +22,37 @@ char	*input_error(char *in)
 		}
 		i++;
 	}
+	i = 0;
 	in = many_sign(in);
-	in = sign_error(in);
+	in = sign_error(in, i);
 	return (in);
 }
 
-char	*sign_error(char *in)
+char	*sign_error(char *in, int space)
 {
 	int	i;
 
-	i = 0;
-	while (in && in[i])
+	i = -1;
+	while (in && in[++i])
 	{
 		if (in[i] == '<' || in[i] == '>')
 		{
 			while (in[i + 1] == ' ')
+			{
+				space++;
 				i++;
+			}
+			if (space > 0 && (in[i + 1] == '<' || in[i + 1] == '>'))
+			{
+				print_undefine(UNCOMP_ERROR, NULL, "'\n", in[i + 1]);
+				return (free(in), NULL);
+			}
 			if (in[i + 1] == '\0')
 			{
 				ft_putstr_fd(NEWLINE_ERROR, 2);
-				free(in);
-				return (NULL);
+				return (free(in), NULL);
 			}
 		}
-		i++;
 	}
 	return (in);
 }

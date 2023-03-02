@@ -84,7 +84,7 @@ void	free_env_var(t_env **env);
 void	replace_env_var(t_data var_lst);
 char	*find_env_var(char *var, t_data var_lst);
 char	*input_error(char *in);
-char	*sign_error(char *in);
+char	*sign_error(char *in, int space);
 char	*print_less_more_error(char *in, int i);
 char	*many_sign(char *in);
 void	print_undefine(char *s1, char *s2, char *s3, char c);
