@@ -64,3 +64,14 @@ int	have_sign(char *str)
 	}
 	return (0);
 }
+
+void	print_undefine(char *s1, char *s2, char *s3, char c)
+{
+	ft_putstr_fd(s1, 2);
+	if (s2)
+		ft_putstr_fd(s2, 2);
+	else if (c)
+		ft_putchar_fd(c, 2);
+	ft_putstr_fd(s3, 2);
+	return ;
+}

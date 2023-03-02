@@ -65,9 +65,15 @@ char	*many_sign(char *in)
 			count_less++;
 		else if (in[i] == '>')
 			count_more++;
-		if ((in[i] == '<' || in[i] == '>') && (count_less > 3
-				|| count_more > 2 || (count_more == 1 && count_less == 1)))
+		if ((in[i] == '<' || in[i] == '>') && (count_less > 2
+				|| count_more > 1 || (count_more == 1 && count_less == 1)))	
 			return (print_less_more_error(in, i + 1));
+		else if (count_more + count_less >= 3)
+		{
+			print_undefine(UNCOMP_ERROR, NULL, "'\n", in[i]);
+			free(in);
+			return (NULL);
+		}
 		i++;
 	}
 	return (in);
@@ -76,9 +82,10 @@ char	*many_sign(char *in)
 char	*print_less_more_error(char *in, int i)
 {
 	char	res[4];
-	
+
 	ft_bzero(res, 4);
-	if (in[i++] == '<')
+	in = print_less_error(in, i, res);
+	if (in && in[i++] == '<')
 	{
 		res[0] = '<';
 		if (in[i] == '>')
@@ -94,9 +101,26 @@ char	*print_less_more_error(char *in, int i)
 		}
 		else
 			res[2] = '\0';
-		ft_putstr_fd(UNCOMPLITE_ERROR, 2);
-		ft_putstr_fd(res, 2);
-		ft_putstr_fd("'\n", 2);
+		print_undefine(UNCOMP_ERROR, res, "'\n", 0);
+		free(in);
+		return (NULL);
+	}
+	return (in);
+}
+
+char	*print_less_error(char *in, int i, char *res)
+{
+	if (in[i++] == '>')
+	{
+		res[0] = '>';
+		if (in[i++] == '>')
+		{
+			res[1] = '>';
+			res[2] = '\0';
+		}
+		else
+			res[1] = '\0';
+		print_undefine(UNCOMP_ERROR, res, "'\n", 0);
 		free(in);
 		return (NULL);
 	}

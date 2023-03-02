@@ -22,7 +22,7 @@
 # include <signal.h>
 
 # define NEWLINE_ERROR "bash: syntax error near unexpected token 'newline'\n"
-# define UNCOMPLITE_ERROR "bash: syntax error near unexpected token '"
+# define UNCOMP_ERROR "bash: syntax error near unexpected token '"
 
 typedef struct s_cmds
 {
@@ -87,5 +87,7 @@ char	*input_error(char *in);
 char	*sign_error(char *in);
 char	*print_less_more_error(char *in, int i);
 char	*many_sign(char *in);
+void	print_undefine(char *s1, char *s2, char *s3, char c);
+char	*print_less_error(char *in, int i, char *res);
 
 #endif
