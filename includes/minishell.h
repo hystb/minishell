@@ -21,8 +21,10 @@
 # include <termios.h>
 # include <signal.h>
 
-# define NEWLINE_ERROR "bash: syntax error near unexpected token 'newline'\n"
-# define UNCOMP_ERROR "bash: syntax error near unexpected token '"
+# define NEWLINE_ERROR "minishell: syntax error near \
+unexpected token 'newline'\n"
+# define PIPE_ERROR "minishell: syntax error near unexpected token '|'\n"
+# define UNCOMP_ERROR "minishell: syntax error near unexpected token '"
 
 typedef struct s_cmds
 {
@@ -89,5 +91,7 @@ char	*print_less_more_error(char *in, int i);
 char	*many_sign(char *in);
 void	print_undefine(char *s1, char *s2, char *s3, char c);
 char	*print_less_error(char *in, int i, char *res);
+void	replace_comment(char *in, int i);
+char	*control_pipe(char *in, int i);
 
 #endif

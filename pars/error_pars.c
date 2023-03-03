@@ -15,16 +15,13 @@ char	*input_error(char *in)
 				return (NULL);
 			}
 		}
-		if (in[0] == ':' || in[0] == '#')
-		{
-			free (in);
-			return (NULL);
-		}
 		i++;
 	}
 	i = 0;
 	in = many_sign(in);
 	in = sign_error(in, i);
+	replace_comment(in, i);
+	in = control_pipe(in, i);
 	return (in);
 }
 

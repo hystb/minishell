@@ -37,7 +37,7 @@ int	ft_tablen(char ***map)
 	return (count - 1);
 }
 
-void	jump_next_pipe(int *last_pipe, int *last_splited, char **splited)
+/*void	jump_next_pipe(int *last_pipe, int *last_splited, char **splited)
 {
 	if (!splited[*last_splited])
 		return ;
@@ -47,7 +47,7 @@ void	jump_next_pipe(int *last_pipe, int *last_splited, char **splited)
 		*last_splited = *last_splited + 1;
 	}
 	*last_pipe = 0;
-}
+}*/
 
 int	have_sign(char *str)
 {
