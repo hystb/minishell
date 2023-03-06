@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 12:46:49 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/06 15:06:51 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/06 16:03:07 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	**get_splited_env(char **env)
 
 	while (*env && ft_strncmp("PATH=", *env, 5))
 		env++;
-	fprintf(stderr, "env %s\n", *env);
 	if (!*env)
 		return (NULL);
 	splited = ft_split((*env) + 5, ':');
