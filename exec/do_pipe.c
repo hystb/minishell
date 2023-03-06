@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/02/22 13:41:23 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/06 13:48:28 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	add_pids(pid_t value, t_listpids **list)
 	else
 		*list = new;
 }
-
+// fermer les fd quand command not found error et file acces
 void	make_command(t_list	**cmds, char **env)
 {
 	char	*path;
 	int		exec;
 	
-	make_redir_inside(*cmds, env);
+	make_redir_inside(*cmds);
 	if (!(*cmds)->content[0]) //meaning that there were just a redir
 		return ;
 	path = get_path((char *)(*cmds)->content[0], env);
@@ -66,7 +66,7 @@ void	do_child(t_list **cmds, char **env, int *fd_in, int tube[2])
 	exit(EXIT_SUCCESS);
 }
 
-void	do_parent(t_list **cmds, char **env, int *fd_in, int tube[2])
+void	do_parent(t_list **cmds, int *fd_in, int tube[2])
 {
 	if ((*cmds)->previous)
 		close(*fd_in);
@@ -95,7 +95,7 @@ void	make_pipe(t_list **cmds, char **env, t_listpids **pids, int *fd_in)
 		else
 		{
 			add_pids(pid, pids); //add pid to chained list of pids (used to waitpid them after)
-			do_parent(cmds, env, fd_in, tube);
+			do_parent(cmds, fd_in, tube);
 		}
 	}
 }

@@ -11,4 +11,5 @@ int	ft_export(char	*data, t_data var)
 		i++;
 	}
 	env_add_back(var.env_var, envnew(data, i));
+	return (0); // a changer
 }

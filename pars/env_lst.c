@@ -55,11 +55,7 @@ void	free_env_var(t_env **env)
 
 t_env	**put_env(char **envp, t_data var_lst)
 {
-	int		i;
-	t_env	*env;
-
 	var_lst.env_var = make_env_in_lst(envp);
-	env = *var_lst.env_var;
 	return (var_lst.env_var);
 }
 

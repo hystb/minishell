@@ -6,13 +6,13 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:07:01 by nmilan            #+#    #+#             */
-/*   Updated: 2023/02/22 15:29:01 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/06 12:51:12 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_list	**put_input_lst(char **input, char **envp)
+t_list	**put_input_lst(char **input)
 {
 	t_list	**cmd;
 	t_cmds	data_cmd;

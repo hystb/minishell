@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:21:11 by ebillon           #+#    #+#             */
-/*   Updated: 2023/02/22 13:40:05 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/06 12:55:22 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	write_error(char *str);
 void	not_found_error(char *cmd);
 
 /* redirections */
-void	make_redir_inside(t_list *cmd, char **env);
+void	make_redir_inside(t_list *cmd);
 int		do_input(char *path);
 int		do_writing_file(char *path, int mode);
 void	do_heredoc(char *limiter);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/02/22 14:46:32 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/06 13:15:37 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	wait_childs(t_listpids **pids)
 
 void	do_exec(t_list **lst_cmd, char **env)
 {
-	int			status;
-	t_list		*temp;
-	int		fd_old;
+	int			fd_old;
 
+	if (!(*lst_cmd)->content[0])
+		return ;
 	t_listpids	**list_pids;
 	list_pids = malloc(sizeof(t_listpids *));
 	*list_pids = NULL;

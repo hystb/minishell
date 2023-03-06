@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/02/22 15:00:46 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/06 13:50:21 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	char				*input;
 	t_data				var_lst;
 	t_list *tmp;
-	int i = 0;
+	//int i = 0;
 
 	(void)argc;
 	(void)argv;
@@ -30,13 +30,13 @@ int	main(int argc, char **argv, char **envp)
 		input = make_input("minishell -> ", var_lst);
 		if (input && input[0] != '\0')
 		{
-			var_lst.cmd_lst = put_input_lst(&input, envp);
+			var_lst.cmd_lst = put_input_lst(&input);
 			tmp = *var_lst.cmd_lst;
-			t_list *it;
-			it = *var_lst.cmd_lst;
 			replace_env_var(var_lst);
+			//t_list *it;
+			//it = *var_lst.cmd_lst;
 			do_exec(var_lst.cmd_lst, envp);
-			 /*while ((it))
+			/*while ((it))
 			 {
 			 	i = 0;
 			 	while ((it)->content[i])
@@ -48,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 			 	ft_printf("prev : %p\n", (it)->previous);
 			 	ft_printf("next : %p\n", (it)->next);
 			 	it = (it)->next;
-			 }*/
+			}*/
 			*var_lst.cmd_lst = tmp;
 			ft_lstclear(var_lst.cmd_lst, del_free_content);
 			free (var_lst.cmd_lst);

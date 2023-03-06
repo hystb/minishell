@@ -5,6 +5,7 @@ char	*input_error(char *in)
 	int		i;
 
 	i = 0;
+	replace_tab(in);
 	while (in[i])
 	{
 		if (in[i] == '!')
@@ -69,7 +70,7 @@ char	*many_sign(char *in)
 			count_less++;
 		else if (in[i] == '>')
 			count_more++;
-		if ((in[i] == '<' || in[i] == '>') && (count_less > 2
+		if ((in[i] == '<' || in[i] == '>') && (count_less > 1
 				|| count_more > 1 || (count_more == 1 && count_less == 1)))	
 			return (print_less_more_error(in, i + 1));
 		else if (count_more + count_less >= 3)

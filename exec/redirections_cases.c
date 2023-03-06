@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_cases.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:05:21 by ebillon           #+#    #+#             */
-/*   Updated: 2023/02/20 15:19:09 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/06 12:54:59 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	aux_inside_in(char **args, int mode, int i)
 	clean_up_redir(args, i);
 }
 
-void	make_redir_inside(t_list *cmd, char **env)
+void	make_redir_inside(t_list *cmd)
 {
 	char	**args;
 	int		i;

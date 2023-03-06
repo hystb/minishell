@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/06 12:34:14 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/06 13:15:49 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	handle_signal(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(STDIN_FILENO, "^C", 2);
+			write(STDIN_FILENO, "^C", 2);
 		rl_on_new_line();
 		write(STDIN_FILENO, "\n", 1);
 		rl_replace_line("", 0);

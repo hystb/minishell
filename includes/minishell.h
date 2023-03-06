@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/02/22 14:59:29 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/06 13:14:46 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_data
 }			t_data;
 
 
-t_list	**put_input_lst(char **input, char **envp);
+t_list	**put_input_lst(char **input);
 void	put_in_lst(char *input, t_list **cmd, t_cmds data_cmd);
 void	split_map(char ***map_cmd, char *input, t_cmds data);
 void	prepare_input(char *input, t_cmds *data_cmd);
@@ -93,5 +93,6 @@ void	print_undefine(char *s1, char *s2, char *s3, char c);
 char	*print_less_error(char *in, int i, char *res);
 void	replace_comment(char *in, int i);
 char	*control_pipe(char *in, int i);
+void	replace_tab(char *in);
 
 #endif

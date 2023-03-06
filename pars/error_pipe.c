@@ -54,3 +54,16 @@ char	*control_pipe(char *in, int i)
 	}
 	return (in);
 }
+
+void	replace_tab(char *in)
+{
+	int	i;
+
+	i = 0;
+	while (in[i])
+	{
+		if (in[i] == '	')
+			in[i] = ' ';
+		i++;
+	}
+}
