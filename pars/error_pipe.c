@@ -17,6 +17,8 @@ void	replace_comment(char *in, int i)
 		{
 			while (in[i] && in[i] != '|')
 				in[i++] = ' ';
+			if (in[i] == '\0')
+				return ;
 			if (in[i] == '|')
 				in[i] = ' ';
 		}
