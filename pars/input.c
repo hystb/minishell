@@ -25,6 +25,7 @@ char	*make_input(char *promp_name, t_data var_lst)
 	}
 	if (ft_strlen(input) > 0)
 		add_history(input);
+	input = input_error(input);
 	return (input);
 }
 

@@ -37,7 +37,7 @@ int	ft_tablen(char ***map)
 	return (count - 1);
 }
 
-void	jump_next_pipe(int *last_pipe, int *last_splited, char **splited)
+/*void	jump_next_pipe(int *last_pipe, int *last_splited, char **splited)
 {
 	if (!splited[*last_splited])
 		return ;
@@ -47,7 +47,7 @@ void	jump_next_pipe(int *last_pipe, int *last_splited, char **splited)
 		*last_splited = *last_splited + 1;
 	}
 	*last_pipe = 0;
-}
+}*/
 
 int	have_sign(char *str)
 {
@@ -63,4 +63,15 @@ int	have_sign(char *str)
 		i++;
 	}
 	return (0);
+}
+
+void	print_undefine(char *s1, char *s2, char *s3, char c)
+{
+	ft_putstr_fd(s1, 2);
+	if (s2)
+		ft_putstr_fd(s2, 2);
+	else if (c)
+		ft_putchar_fd(c, 2);
+	ft_putstr_fd(s3, 2);
+	return ;
 }
