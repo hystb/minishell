@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/06 13:48:28 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/06 14:58:17 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ void	add_pids(pid_t value, t_listpids **list)
 	else
 		*list = new;
 }
-// fermer les fd quand command not found error et file acces
+
 void	make_command(t_list	**cmds, char **env)
 {
 	char	*path;
 	int		exec;
-	
+
 	make_redir_inside(*cmds);
-	if (!(*cmds)->content[0]) //meaning that there were just a redir
+	if (!(*cmds)->content[0])
 		return ;
 	path = get_path((char *)(*cmds)->content[0], env);
 	if (!path)
@@ -53,16 +53,16 @@ void	make_command(t_list	**cmds, char **env)
 
 void	do_child(t_list **cmds, char **env, int *fd_in, int tube[2])
 {
-	if ((*cmds)->previous) //only if not first command
+	if ((*cmds)->previous)
 	{
 		dup2(*fd_in, STDIN_FILENO);
 		close(*fd_in);
 	}
-	if ((*cmds)->next) //only if not last command
+	if ((*cmds)->next)
 		dup2(tube[1], STDOUT_FILENO);
 	close(tube[1]);
 	close(tube[0]);
-	make_command(cmds, env); //execute command function with execve
+	make_command(cmds, env);
 	exit(EXIT_SUCCESS);
 }
 
@@ -72,6 +72,8 @@ void	do_parent(t_list **cmds, int *fd_in, int tube[2])
 		close(*fd_in);
 	if ((*cmds)->next)
 		*fd_in = tube[0];
+	else
+		close(tube[0]);
 	close(tube[1]);
 	(*cmds) = (*cmds)->next;
 	while (*cmds && ft_strncmp((char *)(*cmds)->content[0], "|", 1) == 0)
@@ -81,7 +83,7 @@ void	do_parent(t_list **cmds, int *fd_in, int tube[2])
 void	make_pipe(t_list **cmds, char **env, t_listpids **pids, int *fd_in)
 {
 	pid_t		pid;
-	int 		tube[2];
+	int			tube[2];
 
 	while (*cmds)
 	{
@@ -94,7 +96,7 @@ void	make_pipe(t_list **cmds, char **env, t_listpids **pids, int *fd_in)
 			do_child(cmds, env, fd_in, tube);
 		else
 		{
-			add_pids(pid, pids); //add pid to chained list of pids (used to waitpid them after)
+			add_pids(pid, pids);
 			do_parent(cmds, fd_in, tube);
 		}
 	}
