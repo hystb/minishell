@@ -6,11 +6,12 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/06 14:58:17 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/06 16:30:14 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
+#include "../includes/minishell.h"
 
 
 void	add_pids(pid_t value, t_listpids **list)
@@ -87,6 +88,7 @@ void	make_pipe(t_list **cmds, char **env, t_listpids **pids, int *fd_in)
 
 	while (*cmds)
 	{
+		g_signal_handle = 1;
 		if (pipe(tube) == -1)
 			exit_error();
 		pid = fork();

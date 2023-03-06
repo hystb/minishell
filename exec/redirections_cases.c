@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_cases.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:05:21 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/06 12:54:59 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:43:22 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
+#include "../includes/minishell.h"
 
 void	clean_up_redir(char **args, int i)
 {
@@ -51,7 +52,10 @@ void	aux_inside_out(char **args, int mode, int i)
 void	aux_inside_in(char **args, int mode, int i)
 {
 	if (mode)
+	{
+
 		do_heredoc(args[i + 1]);
+	}
 	else
 	{
 		if (do_input(args[i + 1]))

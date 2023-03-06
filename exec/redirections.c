@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:23:42 by ebillon           #+#    #+#             */
-/*   Updated: 2023/02/20 15:19:43 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/06 16:43:31 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,47 +46,36 @@ int	do_writing_file(char *path, int mode)
 /* open the heredoc */
 void	read_here_doc(char *limiter, int *tube)
 {
- 	char	*str;
+	char	*str;
 
- 	close(tube[0]);
- 	while (1)
- 	{
- 		str = readline("> ");
- 		if (!str)
+	close(tube[0]);
+	while (1)	
+	{
+		str = readline("> ");
+		if (!str)
 		{
 			close(tube[1]);
- 			exit(0);
+			exit(0);
 		}
- 		if (ft_strncmp(str, limiter, ft_strlen(limiter)) == 0)
- 		{
- 			free(str);
- 			close(tube[1]);
- 			exit(0);
- 		}
- 		write(tube[1], str, ft_strlen(str));
- 		write(tube[1], "\n", 1);
- 		free(str);
- 	}
-}
-
-void	handle_signal_heredoc()
-{
-	write(STDIN_FILENO, "^C", 2);
-	rl_on_new_line();
-	write(STDIN_FILENO, "\n", 1);
-	rl_replace_line("", 0);
-	rl_redisplay();
+		if (ft_strncmp(str, limiter, ft_strlen(limiter)) == 0)
+		{
+			free(str);
+			close(tube[1]);
+			exit(0);
+		}
+		write(tube[1], str, ft_strlen(str));
+		write(tube[1], "\n", 1);
+		free(str);
+	}
 }
 
 /* open and use heredoc as stdin with LIMITER as limit */
 void	do_heredoc(char *limiter)
 {
 	int				tube[2];
-	struct termios	copy;
 	pid_t			pid;
-	
-	tcgetattr(STDIN_FILENO, &copy);
-	signal(SIGINT, handle_signal_heredoc);
+
+	g_signal_handle = 2;
 	pid = fork();
 	if (pid == -1)
 		exit_error();

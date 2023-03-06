@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/06 15:51:34 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:43:47 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	config_signal(void)
 
 void	handle_signal(int sig)
 {
+	printf("signal handle %d\n", g_signal_handle);
 	if (sig == SIGINT)
 	{
 		if (g_signal_handle == 0)
@@ -54,7 +55,12 @@ void	handle_signal(int sig)
 			rl_on_new_line();
 			write(STDIN_FILENO, "\n", 1);
 		}
-		rl_redisplay();
+		else if (g_signal_handle == 2)
+		{
+			exit(130);
+		}
+		if (g_signal_handle != 2)
+			rl_redisplay();
 	}
 	if (sig == SIGQUIT)
 	{

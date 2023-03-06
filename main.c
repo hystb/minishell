@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/06 15:55:42 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:16:06 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ int	main(int argc, char **argv, char **envp)
 			replace_env_var(var_lst);
 			//t_list *it;
 			//it = *var_lst.cmd_lst;
-			g_signal_handle = 1;
 			do_exec(var_lst.cmd_lst, envp);
-			g_signal_handle = 0;
 			/*while ((it))
 			 {
 			 	i = 0;

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   do_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/06 13:15:37 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:29:48 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
+#include "../includes/minishell.h"
 
 void	wait_childs(t_listpids **pids)
 {
@@ -25,8 +26,8 @@ void	wait_childs(t_listpids **pids)
 		free(old);
 	}
 	free(pids);
-	if (WIFEXITED(status))
-		printf("Voici la valeur de retour de l'exit : %d\n", WEXITSTATUS(status));
+	// if (WIFEXITED(status))
+		// printf("Voici la valeur de retour de l'exit : %d\n", WEXITSTATUS(status));
 }
 
 void	do_exec(t_list **lst_cmd, char **env)
@@ -41,4 +42,5 @@ void	do_exec(t_list **lst_cmd, char **env)
 	fd_old = 0;
 	make_pipe(lst_cmd, env, list_pids, &fd_old);
 	wait_childs(list_pids);
+	g_signal_handle = 0;
 }
