@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/06 13:14:46 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/06 14:29:17 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,6 @@ void	print_undefine(char *s1, char *s2, char *s3, char c);
 char	*print_less_error(char *in, int i, char *res);
 void	replace_comment(char *in, int i);
 char	*control_pipe(char *in, int i);
-void	replace_tab(char *in);
+char	*replace_tab_and_printable(char *in);
 
 #endif
