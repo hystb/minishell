@@ -16,6 +16,7 @@ char	*make_input(char *promp_name, t_data var_lst)
 {
 	char		*input;
 
+	g_signal_handle = 0;
 	input = readline(promp_name);
 	if (!input)
 	{
@@ -57,9 +58,9 @@ void	handle_signal(int sig)
 		}
 		else if (g_signal_handle == 2)
 		{
-			exit(130);
+			exit(1);
 		}
-		if (g_signal_handle != 2)
+		if (g_signal_handle < 2)
 			rl_redisplay();
 	}
 	if (sig == SIGQUIT)

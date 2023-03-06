@@ -48,25 +48,21 @@ void	read_here_doc(char *limiter, int *tube)
 {
 	char	*str;
 
-	close(tube[0]);
 	while (1)	
 	{
 		str = readline("> ");
 		if (!str)
-		{
-			close(tube[1]);
-			exit(0);
-		}
+			break;
 		if (ft_strncmp(str, limiter, ft_strlen(limiter)) == 0)
-		{
-			free(str);
 			close(tube[1]);
-			exit(0);
-		}
-		write(tube[1], str, ft_strlen(str));
-		write(tube[1], "\n", 1);
+		// write(tube[1], str, ft_strlen(str));
+		// write(tube[1], "\n", 1);
 		free(str);
 	}
+	if (str)
+		free(str);
+	close(tube[1]);
+	exit(0);
 }
 
 /* open and use heredoc as stdin with LIMITER as limit */
@@ -75,17 +71,22 @@ void	do_heredoc(char *limiter)
 	int				tube[2];
 	pid_t			pid;
 
-	g_signal_handle = 2;
 	pid = fork();
+	if (pipe(tube) == -1)
+		exit_error();
 	if (pid == -1)
 		exit_error();
 	if (pid == 0)
+	{
+		g_signal_handle = 2;
+		close(tube[0]);
 		read_here_doc(limiter, tube);
+	}
 	else
 	{
-		waitpid(pid, NULL, 0);
-		close(tube[1]);
 		dup2(tube[0], STDIN_FILENO);
+		close(tube[1]);
 		close(tube[0]);
-	}	
+	}
+	waitpid(pid, NULL, 0);
 }
