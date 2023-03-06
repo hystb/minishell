@@ -21,5 +21,5 @@
 
 void	pwd(void);
 int		ft_export(char	*data, t_data var);
-
+void	echo(char **args);
 #endif

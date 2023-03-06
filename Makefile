@@ -35,7 +35,7 @@ env_lst.c\
 error_pars.c\
 error_pipe.c
 
-SRCS		= $(addprefix $(PARS_DIR), $(PARS_FILES)) $(addprefix $(EXIT_DIR), $(EXIT_FILES)) $(addprefix $(EXEC_DIR), $(EXEC_FILES)) main.c builtins/export.c
+SRCS		= $(addprefix $(PARS_DIR), $(PARS_FILES)) $(addprefix $(EXIT_DIR), $(EXIT_FILES)) $(addprefix $(EXEC_DIR), $(EXEC_FILES)) main.c builtins/export.c builtins/echo.c
 
 OBJS		= $(SRCS:%.c=%.o)
 

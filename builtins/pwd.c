@@ -20,7 +20,7 @@ void	pwd(void)
 	if(!path)
 	{
 		perror("path not found\n");
-		return ;
+		exit(EXIT_FAILURE);
 	}
 	ft_printf("%s\n", path);
 	free(path);
