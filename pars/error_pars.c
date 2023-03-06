@@ -5,8 +5,7 @@ char	*input_error(char *in)
 	int		i;
 
 	i = 0;
-	replace_tab(in);
-	while (in[i])
+	while (in && in[i])
 	{
 		if (in[i] == '!')
 		{
@@ -19,6 +18,7 @@ char	*input_error(char *in)
 		i++;
 	}
 	i = 0;
+	in = replace_tab_and_printable(in);
 	in = many_sign(in);
 	in = sign_error(in, i);
 	replace_comment(in, i);
@@ -64,7 +64,7 @@ char	*many_sign(char *in)
 	count_less = 0;
 	count_more = 0;
 	i = 0;
-	while (in[i])
+	while (in && in[i])
 	{
 		if (in[i] == '<')
 			count_less++;

@@ -6,13 +6,15 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/06 13:50:21 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/06 15:55:42 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 #include "includes/exec.h"
 #include "includes/builtins.h"
+
+int	g_signal_handle;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -23,6 +25,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+	g_signal_handle = 0;
 	config_signal();
 	var_lst.env_var = put_env(envp, var_lst);
 	while (1)
@@ -35,7 +38,9 @@ int	main(int argc, char **argv, char **envp)
 			replace_env_var(var_lst);
 			//t_list *it;
 			//it = *var_lst.cmd_lst;
+			g_signal_handle = 1;
 			do_exec(var_lst.cmd_lst, envp);
+			g_signal_handle = 0;
 			/*while ((it))
 			 {
 			 	i = 0;

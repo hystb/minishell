@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 12:50:53 by nmilan            #+#    #+#             */
-/*   Updated: 2023/01/24 16:57:48 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/06 15:39:55 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	change_space(char *str, int end, int start, int type)
 	{
 		while (start < end)
 		{
+			if (str[start] == '|')
+				str[start] = 28;
 			if (str[start] == ' ')
 			{
 				str[start] = 31;
@@ -100,6 +102,8 @@ void	change_space(char *str, int end, int start, int type)
 	{
 		while (str[i])
 		{
+			if (str[i] == 28)
+				str[i] = '|';
 			if (str[i] == 31)
 				str[i] = ' ';
 			i++;
