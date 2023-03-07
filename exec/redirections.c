@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:23:42 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/06 16:43:31 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/07 14:03:23 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,49 +43,38 @@ int	do_writing_file(char *path, int mode)
 	return (fd_out);
 }
 
-/* open the heredoc */
-void	read_here_doc(char *limiter, int *tube)
+void	check_free(char *a, char *b)
 {
-	char	*str;
-
-	close(tube[0]);
-	while (1)	
-	{
-		str = readline("> ");
-		if (!str)
-		{
-			close(tube[1]);
-			exit(0);
-		}
-		if (ft_strncmp(str, limiter, ft_strlen(limiter)) == 0)
-		{
-			free(str);
-			close(tube[1]);
-			exit(0);
-		}
-		write(tube[1], str, ft_strlen(str));
-		write(tube[1], "\n", 1);
-		free(str);
-	}
+	if (a)
+		free(a);
+	if (b)
+		free(b);
 }
 
 /* open and use heredoc as stdin with LIMITER as limit */
 void	do_heredoc(char *limiter)
 {
-	int				tube[2];
-	pid_t			pid;
+	char	*str;
+	int		fd;
 
-	g_signal_handle = 2;
-	pid = fork();
-	if (pid == -1)
-		exit_error();
-	if (pid == 0)
-		read_here_doc(limiter, tube);
-	else
+	limiter = ft_strjoin(ft_strdup(limiter), ft_strdup("\n"));
+	fd = open(HEREDOC_FILE, O_CREAT | O_TRUNC | O_RDWR, 0644);
+	if (fd == -1)
+		write_error("Heredoc file error.");
+	g_signal_handle = fd;
+	while (1)
 	{
-		waitpid(pid, NULL, 0);
-		close(tube[1]);
-		dup2(tube[0], STDIN_FILENO);
-		close(tube[0]);
-	}	
+		write(STDIN_FILENO, "> ", 2);
+		str = get_next_line(STDIN_FILENO);
+		if (ft_strncmp(str, limiter, ft_strlen(str)) == 0)
+			break ;
+		write(fd, str, ft_strlen(str));
+		free(str);
+	}
+	check_free(str, limiter);
+	close(fd);
+	fd = open(HEREDOC_FILE, O_RDONLY);
+	dup2(fd, STDIN_FILENO);
+	close(fd);
+	unlink(HEREDOC_FILE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:21:11 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/06 12:55:22 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/07 13:23:15 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,13 @@
 # include <sys/wait.h>
 # include "../libft/libft.h"
 
+# define HEREDOC_FILE ".tmp_heredoc"
+
 typedef	struct s_listpids
 {
 	pid_t				pid;
 	struct	s_listpids	*next;
 }				t_listpids;
-
-typedef struct s_redirect
-{
-	int	*tube;
-	int	out;
-	int	in;
-}				t_redirect;
 
 /* error */
 void	exit_error(void);
@@ -54,6 +49,7 @@ void	do_heredoc(char *limiter);
 char	*get_path(char *cmd, char **env);
 void	make_pipe(t_list **cmds, char **env, t_listpids **pids, int *fd_in);
 void	do_exec(t_list **lst_cmd, char **env);
+char	*get_next_line(int fd);
 
 /* some stuff here */
 #endif 
