@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/06 16:30:14 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/07 14:28:10 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	do_child(t_list **cmds, char **env, int *fd_in, int tube[2])
 		dup2(tube[1], STDOUT_FILENO);
 	close(tube[1]);
 	close(tube[0]);
+	fprintf(stderr, "%s\n", (char *)(*cmds)->content[1]);
 	make_command(cmds, env);
 	exit(EXIT_SUCCESS);
 }

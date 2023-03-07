@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:21:11 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/07 13:23:15 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/07 14:34:19 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef	struct s_listpids
 {
 	pid_t				pid;
 	struct	s_listpids	*next;
+	struct	s_listpids	*previous;
 }				t_listpids;
 
 /* error */
