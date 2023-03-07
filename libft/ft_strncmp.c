@@ -6,11 +6,11 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:41:46 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/07 14:15:42 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/07 14:18:11 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
+#include "libft.h"
 /*
 Compare *s1 and *s2 and return *s1 - *s2 when reach end of file or different.
 */
