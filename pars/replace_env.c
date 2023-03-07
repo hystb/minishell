@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 12:12:25 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/06 12:52:16 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/07 14:24:20 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	replace_env_var(t_data var_lst)
 		}
 		tmp = tmp->next;
 	}
+	
 }
 
 char	*is_env_vars(char *arg, t_data var_lst, int j)
