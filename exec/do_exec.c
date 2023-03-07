@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/06 16:29:48 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/07 14:09:35 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	wait_childs(t_listpids **pids)
 	}
 	free(pids);
 	// if (WIFEXITED(status))
-		// printf("Voici la valeur de retour de l'exit : %d\n", WEXITSTATUS(status));
+	// 	printf("Voici la valeur de retour de l'exit : %d\n", WEXITSTATUS(status));
 }
 
 void	do_exec(t_list **lst_cmd, char **env)

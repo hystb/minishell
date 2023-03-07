@@ -16,6 +16,8 @@ exit_lst.c
 EXEC_DIR	= exec/
 
 EXEC_FILES	= \
+gnl_main.c\
+gnl_utils.c\
 utils.c\
 do_exec.c\
 do_pipe.c\

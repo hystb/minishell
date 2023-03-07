@@ -6,11 +6,12 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/06 16:43:47 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/07 14:05:00 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include "../includes/exec.h"
 
 char	*make_input(char *promp_name, t_data var_lst)
 {
@@ -46,7 +47,6 @@ void	config_signal(void)
 
 void	handle_signal(int sig)
 {
-	printf("signal handle %d\n", g_signal_handle);
 	if (sig == SIGINT)
 	{
 		if (g_signal_handle == 0)
@@ -55,13 +55,17 @@ void	handle_signal(int sig)
 			rl_replace_line("", 0);
 			rl_on_new_line();
 			write(STDIN_FILENO, "\n", 1);
-		}
-		else if (g_signal_handle == 2)
-		{
-			exit(1);
-		}
-		if (g_signal_handle < 2)
 			rl_redisplay();
+		}
+		if (g_signal_handle == 1)
+			rl_redisplay();
+		if (g_signal_handle > 2)
+		{
+			write(STDIN_FILENO, "\n", 1);
+			close(g_signal_handle);
+			unlink(HEREDOC_FILE);
+			exit(130);
+		}
 	}
 	if (sig == SIGQUIT)
 	{
