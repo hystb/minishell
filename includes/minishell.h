@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/06 15:51:04 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/07 14:12:43 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	free_env_var(t_env **env);
 void	replace_env_var(t_data var_lst);
 char	*find_env_var(char *var, t_data var_lst);
 char	*input_error(char *in);
-char	*sign_error(char *in, int space);
+char	*sign_error(char *in, int space, int i);
 char	*print_less_more_error(char *in, int i);
 char	*many_sign(char *in);
 void	print_undefine(char *s1, char *s2, char *s3, char c);

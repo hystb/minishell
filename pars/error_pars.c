@@ -20,19 +20,17 @@ char	*input_error(char *in)
 	i = 0;
 	in = replace_tab_and_printable(in);
 	in = many_sign(in);
-	in = sign_error(in, i);
+	in = sign_error(in, i, -1);
 	replace_comment(in, i);
 	in = control_pipe(in, i);
 	return (in);
 }
 
-char	*sign_error(char *in, int space)
+char	*sign_error(char *in, int space, int i)
 {
-	int	i;
-
-	i = -1;
 	while (in && in[++i])
 	{
+		space = 0;
 		if (in[i] == '<' || in[i] == '>')
 		{
 			while (in[i + 1] == ' ')
