@@ -35,7 +35,8 @@ utils_pars.c\
 replace_env.c\
 env_lst.c\
 error_pars.c\
-error_pipe.c
+error_pipe.c\
+replace_quote.c
 
 SRCS		= $(addprefix $(PARS_DIR), $(PARS_FILES)) $(addprefix $(EXIT_DIR), $(EXIT_FILES)) $(addprefix $(EXEC_DIR), $(EXEC_FILES)) main.c builtins/export.c builtins/echo.c
 
