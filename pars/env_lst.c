@@ -94,5 +94,6 @@ t_env	**make_env_in_lst(char **envp)
 		env_add_back(env_var, envnew(envp[i], j));
 		i++;
 	}
+	env_add_back(env_var, envnew("?=0", 1));
 	return (env_var);
 }
