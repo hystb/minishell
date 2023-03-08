@@ -37,17 +37,30 @@ int	ft_tablen(char ***map)
 	return (count - 1);
 }
 
-/*void	jump_next_pipe(int *last_pipe, int *last_splited, char **splited)
+void	replace_pipe_in_quote(char ***map)
 {
-	if (!splited[*last_splited])
-		return ;
-	if (have_sign(splited[*last_splited + 1]))
+	int	i;
+	int	j;
+	int	k;
+
+	i = 0;
+	while (map[i])
 	{
-		//free(splited[*last_splited]);
-		*last_splited = *last_splited + 1;
+		j = 0;
+		while (map[i][j])
+		{
+			k = 0;
+			while (map[i][j][k])
+			{
+				if (map[i][j][k] == 28)
+					map[i][j][k] = '|';
+				k++;
+			}
+			j++;
+		}
+		i++;
 	}
-	*last_pipe = 0;
-}*/
+}
 
 int	have_sign(char *str)
 {

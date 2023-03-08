@@ -67,7 +67,6 @@ char	*replace_tab_and_printable(char *in)
 			free(in);
 			return (NULL);
 		}
-
 		if (in[i] == '	')
 			in[i] = ' ';
 		i++;

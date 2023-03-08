@@ -95,5 +95,6 @@ char	*print_less_error(char *in, int i, char *res);
 void	replace_comment(char *in, int i);
 char	*control_pipe(char *in, int i);
 char	*replace_tab_and_printable(char *in);
+void	replace_pipe_in_quote(char ***map);
 
 #endif
