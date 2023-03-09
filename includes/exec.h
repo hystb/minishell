@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:21:11 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/07 13:23:15 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/07 14:34:19 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@
 # include <sys/wait.h>
 # include "../libft/libft.h"
 
-# define HEREDOC_FILE ".tmp_heredoc"
-
 typedef	struct s_listpids
 {
 	pid_t				pid;
@@ -43,7 +41,8 @@ void	not_found_error(char *cmd);
 void	make_redir_inside(t_list *cmd);
 int		do_input(char *path);
 int		do_writing_file(char *path, int mode);
-void	do_heredoc(char *limiter);
+int		do_heredoc(char *limiter); //bcause it's returning a fd;
+void	make_redir_inside_aux(t_list *cmd, int *fd_target);
 
 /* execution */
 char	*get_path(char *cmd, char **env);

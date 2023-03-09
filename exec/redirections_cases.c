@@ -68,16 +68,56 @@ void	make_redir_inside(t_list *cmd)
 
 	i = 0;
 	args = (char **)cmd->content;
+	if (cmd->fd_heredoc)
+	{
+		dup2(cmd->fd_heredoc, STDIN_FILENO);
+		close(cmd->fd_heredoc);
+	}
 	while (args[i])
 	{
-		if (ft_strncmp(args[i], "<<", 2) == 0)
-			aux_inside_in(args, 1, i);
-		else if (ft_strncmp(args[i], "<", 1) == 0)
+		if (ft_strncmp(args[i], "<", 1) == 0)
 			aux_inside_in(args, 0, i);
 		else if (ft_strncmp(args[i], ">>", 2) == 0)
 			aux_inside_out(args, 1, i);
 		else if (ft_strncmp(args[i], ">", 1) == 0)
 			aux_inside_out(args, 0, i);
+		else
+			i++;
+	}
+}
+
+void	put_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		puts(tab[i]);
+		i++;
+	}
+}
+
+void	make_redir_inside_aux(t_list *cmd, int *fd_target)
+{
+	char	**args;
+	int		i;
+
+	if (!cmd)
+		return ;
+	i = 0;
+	args = (char **)cmd->content;
+	while (args[i])
+	{
+		if (*fd_target == 130)
+			return ;
+		if (ft_strncmp(args[i], "<<", 2) == 0)
+		{
+			if (*fd_target)
+				close(*fd_target);
+			*fd_target = do_heredoc(args[i + 1]);
+			clean_up_redir(args, i);
+		}
 		else
 			i++;
 	}

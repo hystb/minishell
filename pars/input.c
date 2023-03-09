@@ -63,7 +63,6 @@ void	handle_signal(int sig)
 		{
 			write(STDIN_FILENO, "\n", 1);
 			close(g_signal_handle);
-			unlink(HEREDOC_FILE);
 			exit(130);
 		}
 	}

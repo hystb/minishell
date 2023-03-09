@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/06 16:30:14 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/07 14:28:10 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ void	make_command(t_list	**cmds, char **env)
 
 void	do_child(t_list **cmds, char **env, int *fd_in, int tube[2])
 {
+	if ((*cmds)->fd_heredoc == 130)
+	{
+		close(tube[0]);
+		close(tube[1]);
+		exit(130);
+	}
 	if ((*cmds)->previous)
 	{
 		dup2(*fd_in, STDIN_FILENO);
@@ -88,7 +94,6 @@ void	make_pipe(t_list **cmds, char **env, t_listpids **pids, int *fd_in)
 
 	while (*cmds)
 	{
-		g_signal_handle = 1;
 		if (pipe(tube) == -1)
 			exit_error();
 		pid = fork();
@@ -99,7 +104,11 @@ void	make_pipe(t_list **cmds, char **env, t_listpids **pids, int *fd_in)
 		else
 		{
 			add_pids(pid, pids);
+			if ((*cmds)->fd_heredoc)
+				close((*cmds)->fd_heredoc);
 			do_parent(cmds, fd_in, tube);
 		}
 	}
+	if (*fd_in)
+		close(*fd_in);
 }
