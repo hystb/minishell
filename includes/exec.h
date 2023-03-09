@@ -26,8 +26,6 @@
 # include <sys/wait.h>
 # include "../libft/libft.h"
 
-# define HEREDOC_FILE ".tmp_heredoc"
-
 typedef	struct s_listpids
 {
 	pid_t				pid;
@@ -44,6 +42,7 @@ void	make_redir_inside(t_list *cmd);
 int		do_input(char *path);
 int		do_writing_file(char *path, int mode);
 int		do_heredoc(char *limiter); //bcause it's returning a fd;
+void	make_redir_inside_aux(t_list *cmd, int *fd_target);
 
 /* execution */
 char	*get_path(char *cmd, char **env);

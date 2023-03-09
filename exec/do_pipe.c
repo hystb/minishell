@@ -54,6 +54,12 @@ void	make_command(t_list	**cmds, char **env)
 
 void	do_child(t_list **cmds, char **env, int *fd_in, int tube[2])
 {
+	if ((*cmds)->fd_heredoc == 130)
+	{
+		close(tube[0]);
+		close(tube[1]);
+		exit(130);
+	}
 	if ((*cmds)->previous)
 	{
 		dup2(*fd_in, STDIN_FILENO);
@@ -63,7 +69,6 @@ void	do_child(t_list **cmds, char **env, int *fd_in, int tube[2])
 		dup2(tube[1], STDOUT_FILENO);
 	close(tube[1]);
 	close(tube[0]);
-	// fprintf(stderr, "%s\n", (char *)(*cmds)->content[1]);  //here
 	make_command(cmds, env);
 	exit(EXIT_SUCCESS);
 }
@@ -89,7 +94,6 @@ void	make_pipe(t_list **cmds, char **env, t_listpids **pids, int *fd_in)
 
 	while (*cmds)
 	{
-		g_signal_handle = 1;
 		if (pipe(tube) == -1)
 			exit_error();
 		pid = fork();
@@ -100,11 +104,11 @@ void	make_pipe(t_list **cmds, char **env, t_listpids **pids, int *fd_in)
 		else
 		{
 			add_pids(pid, pids);
+			if ((*cmds)->fd_heredoc)
+				close((*cmds)->fd_heredoc);
 			do_parent(cmds, fd_in, tube);
-			// if (*cmds)
-			// {
-			// 	*fd_in = do_heredoc("bonjour");
-			// }
 		}
 	}
+	if (*fd_in)
+		close(*fd_in);
 }

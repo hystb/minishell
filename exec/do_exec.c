@@ -31,6 +31,19 @@ void	wait_childs(t_listpids **pids)
 	// 	printf("Voici la valeur de retour de l'exit : %d\n", WEXITSTATUS(status));
 }
 
+void	do_heredocs(t_list **lst_cmd)
+{
+	t_list	*temp;
+
+	temp = *lst_cmd;
+	while (temp)
+	{
+		temp->fd_heredoc = 0;
+		make_redir_inside_aux(temp, &temp->fd_heredoc);
+		temp = temp->next;
+	}
+}
+
 void	do_exec(t_list **lst_cmd, char **env)
 {
 	int			fd_old;
@@ -41,6 +54,8 @@ void	do_exec(t_list **lst_cmd, char **env)
 	list_pids = malloc(sizeof(t_listpids *));
 	*list_pids = NULL;
 	fd_old = 0;
+	g_signal_handle = 1;
+	do_heredocs(lst_cmd);
 	make_pipe(lst_cmd, env, list_pids, &fd_old);
 	wait_childs(list_pids);
 	g_signal_handle = 0;
