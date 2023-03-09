@@ -63,7 +63,7 @@ void	do_child(t_list **cmds, char **env, int *fd_in, int tube[2])
 		dup2(tube[1], STDOUT_FILENO);
 	close(tube[1]);
 	close(tube[0]);
-	fprintf(stderr, "%s\n", (char *)(*cmds)->content[1]);
+	// fprintf(stderr, "%s\n", (char *)(*cmds)->content[1]);  //here
 	make_command(cmds, env);
 	exit(EXIT_SUCCESS);
 }
@@ -101,6 +101,10 @@ void	make_pipe(t_list **cmds, char **env, t_listpids **pids, int *fd_in)
 		{
 			add_pids(pid, pids);
 			do_parent(cmds, fd_in, tube);
+			// if (*cmds)
+			// {
+			// 	*fd_in = do_heredoc("bonjour");
+			// }
 		}
 	}
 }

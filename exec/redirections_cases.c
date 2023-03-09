@@ -52,7 +52,9 @@ void	aux_inside_out(char **args, int mode, int i)
 void	aux_inside_in(char **args, int mode, int i)
 {
 	if (mode)
+	{
 		do_heredoc(args[i + 1]);
+	}
 	else
 	{
 		if (do_input(args[i + 1]))

@@ -55,7 +55,7 @@ char	*gnl_strjoin(char *s1, char *s2)
 		free(s1);
 		return (NULL);
 	}
-	tab = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	tab = malloc(sizeof(char) * (gnl_strlen(s1) + gnl_strlen(s2) + 1));
 	if (!(tab))
 		return (NULL);
 	i = 0;
@@ -71,7 +71,7 @@ char	*gnl_strjoin(char *s1, char *s2)
 	return (tab);
 }
 
-size_t	ft_strlen(const char *str)
+size_t	gnl_strlen(const char *str)
 {
 	size_t	i;
 

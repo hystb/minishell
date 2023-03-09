@@ -18,13 +18,11 @@ void	wait_childs(t_listpids **pids)
 	int			status;
 	t_listpids	*old;
 
-	while ((*pids)->previous)
-		*pids = (*pids)->previous;
 	while (*pids)
 	{
-		puts("je t'ai attendu");
 		old = *pids;
 		waitpid((*pids)->pid, &status, 0);
+		// printf("je viens d'attendre %d\n", (*pids)->pid);
 		*pids = (*pids)->next;
 		free(old);
 	}

@@ -1,47 +1,43 @@
 #---------------------------------------------------#
 CC 			= cc
 
-CFLAGS 		= -Werror -Wextra -Wall #-fsanitize=address -g3 
+CFLAGS 		= -Werror -Wextra -Wall -fsanitize=address -g3 
+
+OFLAGS		= -lreadline -ltinfo
 
 NAME 		= minishell
 #---------------------------------------------------#
 OBJ_DIR 	= obj/
 
-EXIT_DIR	= exit/
+SRCS		= \
+main.c\
+builtins/echo.c\
+builtins/export.c\
+builtins/pwd.c\
+exec/do_exec.c\
+exec/do_pipe.c\
+exec/get_path.c\
+exec/gnl_main.c\
+exec/gnl_utils.c\
+exec/redirections_cases.c\
+exec/redirections.c\
+exit/exit_error.c\
+exit/exit_lst.c\
+pars/env_lst.c\
+pars/error_pars.c\
+pars/error_pipe.c\
+pars/input.c\
+pars/make_map.c\
+pars/put_lst.c\
+pars/replace_env.c\
+pars/space_pipe.c\
+pars/utils_pars.c
 
-EXIT_FILES	= \
-exit_error.c\
-exit_lst.c
+OBJ_DIR 	= .obj
 
-EXEC_DIR	= exec/
+OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
-EXEC_FILES	= \
-gnl_main.c\
-gnl_utils.c\
-utils.c\
-do_exec.c\
-do_pipe.c\
-get_path.c\
-redirections_cases.c\
-redirections.c
-
-PARS_DIR	= pars/
-
-PARS_FILES	= input.c\
-make_map.c\
-put_lst.c\
-space_pipe.c\
-utils_pars.c\
-replace_env.c\
-env_lst.c\
-error_pars.c\
-error_pipe.c
-
-SRCS		= $(addprefix $(PARS_DIR), $(PARS_FILES)) $(addprefix $(EXIT_DIR), $(EXIT_FILES)) $(addprefix $(EXEC_DIR), $(EXEC_FILES)) main.c builtins/export.c builtins/echo.c
-
-OBJS		= $(SRCS:%.c=%.o)
-
-INCLUDES 	= includes/exec.h includes/minishell.h
+INCLUDES 	= includes
 #---------------------------------------------------#
 LIBFT_DIR	= libft/
 
@@ -52,17 +48,12 @@ LIBFT_EXEC	= $(addprefix $(LIBFT_DIR), $(LIBFT_NAME))
 all: lib
 	$(MAKE) -j $(NAME)
 
-$(NAME): $(OBJ_DIR) $(OBJS) $(INCLUDES)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I includes/ -lreadline -ltinfo $(LIBFT_EXEC)
+$(NAME): $(OBJS) $(INCLUDES)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I $(INCLUDES) $(OFLAGS) $(LIBFT_EXEC)
 
-$(OBJ_DIR)%.o : $(EXEC_DIR)%.c $(EXIT_DIR)%.c $(PARS_DIR)%.c Makefile $(INCLUDES)
+$(OBJ_DIR)/%.o : %.c Makefile $(INCLUDES)
+	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
-
-# $(OBJ_DIR)%.o : $(SRC_DIR)$(notdir %.c) Makefile $(INCLUDES)
-# 	$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJ_DIR):
-	mkdir $(OBJ_DIR)
 
 lib:
 	$(MAKE) -C $(LIBFT_DIR)
@@ -70,7 +61,6 @@ lib:
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 	rm -rf $(OBJ_DIR)
-	rm -rf $(OBJS)
 
 fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean

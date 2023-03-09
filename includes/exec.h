@@ -32,7 +32,6 @@ typedef	struct s_listpids
 {
 	pid_t				pid;
 	struct	s_listpids	*next;
-	struct	s_listpids	*previous;
 }				t_listpids;
 
 /* error */
@@ -44,7 +43,7 @@ void	not_found_error(char *cmd);
 void	make_redir_inside(t_list *cmd);
 int		do_input(char *path);
 int		do_writing_file(char *path, int mode);
-void	do_heredoc(char *limiter);
+int		do_heredoc(char *limiter); //bcause it's returning a fd;
 
 /* execution */
 char	*get_path(char *cmd, char **env);

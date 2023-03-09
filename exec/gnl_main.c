@@ -84,7 +84,7 @@ void	clean_buf(char *buffer, int *end_file)
 	if (i + 1 == BUFFER_SIZE)
 		buffer[0] = '\0';
 	else
-		ft_memmove(buffer, buffer + i + 1, ft_strlen(buffer + i + 1));
+		ft_memmove(buffer, buffer + i + 1, gnl_strlen(buffer + i + 1));
 }
 
 char	*first_read(char *buffer, int *i)
