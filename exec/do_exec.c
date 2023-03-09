@@ -13,9 +13,27 @@
 #include "../includes/exec.h"
 #include "../includes/minishell.h"
 
-void	wait_childs(t_listpids **pids)
+
+void	set_ret_code(char *code, t_data var_lst)
+{
+	t_env	*env;
+
+	env = *var_lst.env_var;
+	while (env)
+	{
+		if (ft_strnstr(env->name_var, "?", (ft_strlen("?") + 1)))
+		{
+			free(env->content_var);
+			env->content_var = code;
+		}
+		env = env->next;
+	}
+}
+
+void	wait_childs(t_listpids **pids, t_data var_lst)
 {
 	int			status;
+	char		*ret_code;
 	t_listpids	*old;
 
 	while (*pids)
@@ -27,8 +45,13 @@ void	wait_childs(t_listpids **pids)
 		free(old);
 	}
 	free(pids);
-	// if (WIFEXITED(status))
-	// 	printf("Voici la valeur de retour de l'exit : %d\n", WEXITSTATUS(status));
+	if (WIFEXITED(status))
+	{
+		ret_code = ft_itoa(WEXITSTATUS(status));
+		if (!ret_code)
+			exit_error();
+		set_ret_code(ret_code, var_lst);
+	}
 }
 
 void	do_heredocs(t_list **lst_cmd)
@@ -44,10 +67,12 @@ void	do_heredocs(t_list **lst_cmd)
 	}
 }
 
-void	do_exec(t_list **lst_cmd, char **env)
+void	do_exec(t_data var_lst, char **env)
 {
+	t_list		**lst_cmd;
 	int			fd_old;
 
+	lst_cmd = var_lst.cmd_lst;
 	if (!(*lst_cmd)->content[0])
 		return ;
 	t_listpids	**list_pids;
@@ -57,6 +82,6 @@ void	do_exec(t_list **lst_cmd, char **env)
 	g_signal_handle = 1;
 	do_heredocs(lst_cmd);
 	make_pipe(lst_cmd, env, list_pids, &fd_old);
-	wait_childs(list_pids);
+	wait_childs(list_pids, var_lst);
 	g_signal_handle = 0;
 }

@@ -25,6 +25,7 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include "../libft/libft.h"
+# include "minishell.h"
 
 typedef	struct s_listpids
 {
@@ -47,7 +48,7 @@ void	make_redir_inside_aux(t_list *cmd, int *fd_target);
 /* execution */
 char	*get_path(char *cmd, char **env);
 void	make_pipe(t_list **cmds, char **env, t_listpids **pids, int *fd_in);
-void	do_exec(t_list **lst_cmd, char **env);
+void	do_exec(t_data var_lst, char **env);
 char	*get_next_line(int fd);
 
 /* some stuff here */

@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **envp)
 			replace_env_var(var_lst);
 			// t_list *it;
 			// it = *var_lst.cmd_lst;
-			do_exec(var_lst.cmd_lst, envp);
+			do_exec(var_lst, envp);
 			// while ((it))
 			//  {
 			//  	i = 0;
