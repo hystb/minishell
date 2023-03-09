@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_lst.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/07 14:22:23 by nmilan            #+#    #+#             */
+/*   Updated: 2023/03/07 14:22:26 by nmilan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 t_env	*envnew(char *content, int end)
@@ -82,5 +94,6 @@ t_env	**make_env_in_lst(char **envp)
 		env_add_back(env_var, envnew(envp[i], j));
 		i++;
 	}
+	env_add_back(env_var, envnew("?=0", 1));
 	return (env_var);
 }

@@ -21,7 +21,6 @@ int	ft_tablen(char ***map)
 	i = 0;
 	j = 0;
 	count = 0;
-
 	if (!map)
 		return (0);
 	while (map[i])
@@ -87,4 +86,14 @@ void	print_undefine(char *s1, char *s2, char *s3, char c)
 		ft_putchar_fd(c, 2);
 	ft_putstr_fd(s3, 2);
 	return ;
+}
+
+int	end_env(int start, char *arg)
+{
+	while (arg[start] && arg[start] != ' '
+		&& arg[start] != '\'' && arg[start] != '"')
+	{
+		start++;
+	}
+	return (start);
 }
