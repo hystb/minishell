@@ -10,8 +10,9 @@ void	check_free(char *a, char *b)
 		free(b);
 }
 
-void	do_heredoc_child(char *str, char *limiter, int fd[2])
+void	do_heredoc_child(char *limiter, int fd[2])
 {
+	char	*str;
 	close(fd[0]);
 	g_signal_handle = fd[1];
 	while (1)
@@ -48,7 +49,6 @@ int	do_heredoc_parent(char *limiter, int fd[2], int pid)
 
 int	do_heredoc(char *limiter)
 {
-	char	*str;
 	int		pid;
 	int		fd[2];
 
@@ -59,7 +59,7 @@ int	do_heredoc(char *limiter)
 	if (pid == -1)
 		exit_error();
 	if (pid == 0)
-		do_heredoc_child(str, limiter, fd);
+		do_heredoc_child(limiter, fd);
 	else
 		return (do_heredoc_parent(limiter, fd, pid));
 	return (-1);

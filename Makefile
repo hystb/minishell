@@ -1,7 +1,7 @@
 #---------------------------------------------------#
 CC 			= cc
 
-CFLAGS 		= #-fsanitize=address -g3 #-Werror -Wextra -Wall 
+CFLAGS 		= -Wall -Wextra -Werror #-fsanitize=address -g3 
 
 OFLAGS		= -lreadline -ltinfo
 
@@ -31,6 +31,7 @@ pars/input.c\
 pars/make_map.c\
 pars/put_lst.c\
 pars/replace_env.c\
+pars/replace_quote.c\
 pars/space_pipe.c\
 pars/utils_pars.c
 
@@ -53,7 +54,7 @@ $(NAME): $(OBJS) $(INCLUDES)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I $(INCLUDES) $(OFLAGS) $(LIBFT_EXEC)
 
 $(OBJ_DIR)/%.o : %.c Makefile $(INCLUDES)
-	mkdir -p $(@D)
+	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 lib:
