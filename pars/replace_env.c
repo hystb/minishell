@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 12:12:25 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/06 12:52:16 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/07 14:24:20 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	replace_env_var(t_data var_lst)
 		}
 		tmp = tmp->next;
 	}
+	replace_quote(var_lst);
 }
 
 char	*is_env_vars(char *arg, t_data var_lst, int j)
@@ -70,7 +71,7 @@ char	*sub_env_var(char *var, char *arg, int start, t_data var_lst)
 	char	*new_arg;
 	int		end;
 
-	end = start + ft_strlen(arg);
+	end = end_env(start, arg);
 	new_content = find_env_var(var, var_lst);
 	if (!new_content)
 	{
@@ -78,7 +79,7 @@ char	*sub_env_var(char *var, char *arg, int start, t_data var_lst)
 		return (NULL);
 	}
 	new_arg = ft_strjoin(ft_strjoin(ft_substr(arg, 0, start), new_content), \
-	ft_substr(arg, end, ft_strlen(&var[end])));
+	ft_substr(arg, end, ft_strlen(arg)));
 	free(arg);
 	free(var);
 	return (new_arg);

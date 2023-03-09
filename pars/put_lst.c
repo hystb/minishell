@@ -26,8 +26,8 @@ t_list	**put_input_lst(char **input)
 	}
 	*cmd = NULL;
 	prepare_input(input[0], &data_cmd);
-	input[0] = add_space_pipe(input[0]);
 	prepare_split(input[0]);
+	input[0] = add_space_pipe(input[0]);
 	put_in_lst(input[0], cmd, data_cmd);
 	return (cmd);
 }
@@ -46,6 +46,7 @@ void	put_in_lst(char *input, t_list **cmd, t_cmds data_cmd)
 		exit(1);
 	}
 	split_map(map_cmd, input, data_cmd);
+	replace_pipe_in_quote(map_cmd);
 	while (map_cmd[i])
 	{
 		if (!*cmd)

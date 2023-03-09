@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_pipe.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/07 14:22:39 by nmilan            #+#    #+#             */
+/*   Updated: 2023/03/07 14:22:42 by nmilan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void	replace_comment(char *in, int i)
@@ -67,7 +79,6 @@ char	*replace_tab_and_printable(char *in)
 			free(in);
 			return (NULL);
 		}
-
 		if (in[i] == '	')
 			in[i] = ' ';
 		i++;

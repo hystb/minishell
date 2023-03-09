@@ -21,7 +21,6 @@ int	ft_tablen(char ***map)
 	i = 0;
 	j = 0;
 	count = 0;
-
 	if (!map)
 		return (0);
 	while (map[i])
@@ -37,17 +36,30 @@ int	ft_tablen(char ***map)
 	return (count - 1);
 }
 
-/*void	jump_next_pipe(int *last_pipe, int *last_splited, char **splited)
+void	replace_pipe_in_quote(char ***map)
 {
-	if (!splited[*last_splited])
-		return ;
-	if (have_sign(splited[*last_splited + 1]))
+	int	i;
+	int	j;
+	int	k;
+
+	i = 0;
+	while (map[i])
 	{
-		//free(splited[*last_splited]);
-		*last_splited = *last_splited + 1;
+		j = 0;
+		while (map[i][j])
+		{
+			k = 0;
+			while (map[i][j][k])
+			{
+				if (map[i][j][k] == 28)
+					map[i][j][k] = '|';
+				k++;
+			}
+			j++;
+		}
+		i++;
 	}
-	*last_pipe = 0;
-}*/
+}
 
 int	have_sign(char *str)
 {
@@ -74,4 +86,14 @@ void	print_undefine(char *s1, char *s2, char *s3, char c)
 		ft_putchar_fd(c, 2);
 	ft_putstr_fd(s3, 2);
 	return ;
+}
+
+int	end_env(int start, char *arg)
+{
+	while (arg[start] && arg[start] != ' '
+		&& arg[start] != '\'' && arg[start] != '"')
+	{
+		start++;
+	}
+	return (start);
 }

@@ -92,9 +92,7 @@ void	change_space(char *str, int end, int start, int type)
 			if (str[start] == '|')
 				str[start] = 28;
 			if (str[start] == ' ')
-			{
 				str[start] = 31;
-			}
 			start++;
 		}
 	}
@@ -102,8 +100,6 @@ void	change_space(char *str, int end, int start, int type)
 	{
 		while (str[i])
 		{
-			if (str[i] == 28)
-				str[i] = '|';
 			if (str[i] == 31)
 				str[i] = ' ';
 			i++;
