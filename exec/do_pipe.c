@@ -54,12 +54,6 @@ void	make_command(t_list	**cmds, char **env)
 
 void	do_child(t_list **cmds, char **env, int *fd_in, int tube[2])
 {
-	if ((*cmds)->fd_heredoc == 130)
-	{
-		close(tube[0]);
-		close(tube[1]);
-		exit(130);
-	}
 	if ((*cmds)->previous)
 	{
 		dup2(*fd_in, STDIN_FILENO);
