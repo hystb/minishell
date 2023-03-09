@@ -98,5 +98,6 @@ char	*replace_tab_and_printable(char *in);
 char	*is_quote(char *input);
 void	replace_quote(t_data var_lst);
 int		end_env(int start, char *arg);
+void	replace_pipe_in_quote(char ***map);
 
 #endif
