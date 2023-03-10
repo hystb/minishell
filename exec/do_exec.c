@@ -14,20 +14,36 @@
 #include "../includes/minishell.h"
 
 
-void	set_ret_code(char *code, t_data var_lst)
+char	*get_item_env(t_data data, char *key)
+{
+	t_env	*env;
+
+	env = *data.env_var;
+	while (env)
+	{
+		if (ft_strnstr(env->name_var, key, (ft_strlen(key) + 1)))
+		{
+			return (env->content_var);
+		}
+		env = env->next;
+	}
+	return (NULL);
+}
+
+void	set_value_env(char *key, char *value, t_data var_lst)
 {
 	t_env	*env;
 
 
-	if (!code)
+	if (!value)
 		write_error("Memory allocation error !");
 	env = *var_lst.env_var;
 	while (env)
 	{
-		if (ft_strnstr(env->name_var, "?", (ft_strlen("?") + 1)))
+		if (ft_strnstr(env->name_var, key, (ft_strlen(key) + 1)))
 		{
 			free(env->content_var);
-			env->content_var = code;
+			env->content_var = value;
 		}
 		env = env->next;
 	}
@@ -38,6 +54,8 @@ void	wait_childs(t_listpids **pids, t_data var_lst)
 	int			status;
 	t_listpids	*old;
 
+	if (!*pids)
+		return (free(pids));
 	while (*pids)
 	{
 		old = *pids;
@@ -47,7 +65,7 @@ void	wait_childs(t_listpids **pids, t_data var_lst)
 	}
 	free(pids);
 	if (WIFEXITED(status))
-		set_ret_code(ft_itoa(WEXITSTATUS(status)), var_lst);
+		set_value_env("?", ft_itoa(WEXITSTATUS(status)), var_lst);
 }
 
 int	do_heredocs(t_list **lst_cmd)
@@ -94,10 +112,10 @@ void	do_exec(t_data var_lst, char **env)
 	g_signal_handle = 1;
 	if (!do_heredocs(lst_cmd))
 	{
-		make_pipe(lst_cmd, env, list_pids, &fd_old);
+		make_pipe(var_lst, env, list_pids, &fd_old);
 		wait_childs(list_pids, var_lst);
 	}
 	else
-		set_ret_code(ft_itoa(130), var_lst);
+		set_value_env("?", ft_itoa(130), var_lst);
 	g_signal_handle = 0;
 }

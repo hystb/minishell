@@ -1,7 +1,7 @@
 #---------------------------------------------------#
 CC 			= cc
 
-CFLAGS 		= -Wall -Wextra -Werror #-fsanitize=address -g3 
+CFLAGS 		= -fsanitize=address -g3 #-Wall -Wextra -Werror 
 
 OFLAGS		= -lreadline -ltinfo
 
@@ -14,6 +14,7 @@ main.c\
 builtins/echo.c\
 builtins/export.c\
 builtins/pwd.c\
+builtins/cd.c\
 builtins/builtins.c\
 exec/do_exec.c\
 exec/do_pipe.c\

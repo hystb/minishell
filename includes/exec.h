@@ -46,9 +46,12 @@ int		do_heredoc(char *limiter); //bcause it's returning a fd;
 void	make_redir_inside_aux(t_list *cmd, int *fd_target);
 
 /* execution */
-void	do_builtins(t_list	**cmds, char **env);
+int		is_builtins(t_list	**cmds);
+int		do_builtins(t_data data);
+void	set_value_env(char *key, char *value, t_data var_lst);
+char	*get_item_env(t_data data, char *key);
 char	*get_path(char *cmd, char **env);
-void	make_pipe(t_list **cmds, char **env, t_listpids **pids, int *fd_in);
+void	make_pipe(t_data data, char **env, t_listpids **pids, int *fd_in);
 void	do_exec(t_data var_lst, char **env);
 char	*get_next_line(int fd);
 

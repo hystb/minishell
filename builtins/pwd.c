@@ -12,7 +12,7 @@
 
 #include "../includes/builtins.h"
 
-void	pwd(void)
+int	pwd(void)
 {
 	char *path;
 
@@ -20,9 +20,9 @@ void	pwd(void)
 	if(!path)
 	{
 		perror("path not found\n");
-		exit(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	ft_printf("%s\n", path);
 	free(path);
-	exit(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
