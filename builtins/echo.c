@@ -32,7 +32,7 @@ int	is_option(char *arg, int *c)
 	return (0);
 }
 
-void	echo(char **args)
+int	echo(char **args)
 {
 	int	i;
 	int	res;
@@ -56,4 +56,5 @@ void	echo(char **args)
 	}
 	if (!new_line)
 		printf("\n");
+	return (EXIT_SUCCESS);
 }

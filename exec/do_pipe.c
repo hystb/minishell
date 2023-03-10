@@ -13,7 +13,6 @@
 #include "../includes/exec.h"
 #include "../includes/minishell.h"
 
-
 void	add_pids(pid_t value, t_listpids **list)
 {
 	t_listpids	*new;
@@ -40,8 +39,7 @@ void	make_command(t_list	**cmds, char **env)
 	char	*path;
 	int		exec;
 
-	make_redir_inside(*cmds);
-	if (!(*cmds)->content[0])
+	if (!(*cmds)->content[0] || is_builtins(cmds))
 		return ;
 	path = get_path((char *)(*cmds)->content[0], env);
 	if (!path)
@@ -54,12 +52,6 @@ void	make_command(t_list	**cmds, char **env)
 
 void	do_child(t_list **cmds, char **env, int *fd_in, int tube[2])
 {
-	if ((*cmds)->fd_heredoc == 130)
-	{
-		close(tube[0]);
-		close(tube[1]);
-		exit(130);
-	}
 	if ((*cmds)->previous)
 	{
 		dup2(*fd_in, STDIN_FILENO);
@@ -87,11 +79,13 @@ void	do_parent(t_list **cmds, int *fd_in, int tube[2])
 		(*cmds) = (*cmds)->next;
 }
 
-void	make_pipe(t_list **cmds, char **env, t_listpids **pids, int *fd_in)
+void	make_pipe(t_data data, char **env, t_listpids **pids, int *fd_in)
 {
 	pid_t		pid;
+	t_list		**cmds;
 	int			tube[2];
 
+	cmds = data.cmd_lst;
 	while (*cmds)
 	{
 		if (pipe(tube) == -1)
@@ -103,7 +97,8 @@ void	make_pipe(t_list **cmds, char **env, t_listpids **pids, int *fd_in)
 			do_child(cmds, env, fd_in, tube);
 		else
 		{
-			add_pids(pid, pids);
+			if (do_builtins(data) < 0)
+				add_pids(pid, pids);
 			if ((*cmds)->fd_heredoc)
 				close((*cmds)->fd_heredoc);
 			do_parent(cmds, fd_in, tube);

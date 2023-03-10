@@ -14,17 +14,36 @@
 #include "../includes/minishell.h"
 
 
-void	set_ret_code(char *code, t_data var_lst)
+char	*get_item_env(t_data data, char *key)
 {
 	t_env	*env;
 
+	env = *data.env_var;
+	while (env)
+	{
+		if (ft_strnstr(env->name_var, key, (ft_strlen(key) + 1)))
+		{
+			return (env->content_var);
+		}
+		env = env->next;
+	}
+	return (NULL);
+}
+
+void	set_value_env(char *key, char *value, t_data var_lst)
+{
+	t_env	*env;
+
+
+	if (!value)
+		write_error("Memory allocation error !");
 	env = *var_lst.env_var;
 	while (env)
 	{
-		if (ft_strnstr(env->name_var, "?", (ft_strlen("?") + 1)))
+		if (ft_strnstr(env->name_var, key, (ft_strlen(key) + 1)))
 		{
 			free(env->content_var);
-			env->content_var = code;
+			env->content_var = value;
 		}
 		env = env->next;
 	}
@@ -33,38 +52,49 @@ void	set_ret_code(char *code, t_data var_lst)
 void	wait_childs(t_listpids **pids, t_data var_lst)
 {
 	int			status;
-	char		*ret_code;
 	t_listpids	*old;
 
+	if (!*pids)
+		return (free(pids));
 	while (*pids)
 	{
 		old = *pids;
 		waitpid((*pids)->pid, &status, 0);
-		// printf("je viens d'attendre %d\n", (*pids)->pid);
 		*pids = (*pids)->next;
 		free(old);
 	}
 	free(pids);
 	if (WIFEXITED(status))
-	{
-		ret_code = ft_itoa(WEXITSTATUS(status));
-		if (!ret_code)
-			exit_error();
-		set_ret_code(ret_code, var_lst);
-	}
+		set_value_env("?", ft_itoa(WEXITSTATUS(status)), var_lst);
 }
 
-void	do_heredocs(t_list **lst_cmd)
+int	do_heredocs(t_list **lst_cmd)
 {
 	t_list	*temp;
+	int		val;
 
+	val = 0;
 	temp = *lst_cmd;
 	while (temp)
 	{
 		temp->fd_heredoc = 0;
 		make_redir_inside_aux(temp, &temp->fd_heredoc);
+		if (temp->fd_heredoc == -130)
+			val++;
 		temp = temp->next;
 	}
+	temp = *lst_cmd;
+	if (val)
+	{
+		while (temp)
+		{
+			if (temp->fd_heredoc)
+				close(temp->fd_heredoc);
+			temp = temp->previous;
+		}
+		return (1);
+	}
+	return (0);
 }
 
 void	do_exec(t_data var_lst, char **env)
@@ -80,8 +110,12 @@ void	do_exec(t_data var_lst, char **env)
 	*list_pids = NULL;
 	fd_old = 0;
 	g_signal_handle = 1;
-	do_heredocs(lst_cmd);
-	make_pipe(lst_cmd, env, list_pids, &fd_old);
-	wait_childs(list_pids, var_lst);
+	if (!do_heredocs(lst_cmd))
+	{
+		make_pipe(var_lst, env, list_pids, &fd_old);
+		wait_childs(list_pids, var_lst);
+	}
+	else
+		set_value_env("?", ft_itoa(130), var_lst);
 	g_signal_handle = 0;
 }

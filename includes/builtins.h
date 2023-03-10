@@ -19,7 +19,11 @@
 # include "../libft/libft.h"
 # include "../includes/minishell.h"
 
-void	pwd(void);
-int		ft_export(char	*data, t_data var);
-void	echo(char **args);
+int	pwd(void);
+int	ft_export(char	*data, t_data var);
+void	ft_exit(t_data data);
+int	echo(char **args);
+int	cd(t_data data, t_list *cmd);
+int	env(t_data data);
+
 #endif
