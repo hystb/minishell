@@ -56,4 +56,5 @@ void	echo(char **args)
 	}
 	if (!new_line)
 		printf("\n");
+	exit(EXIT_SUCCESS);
 }

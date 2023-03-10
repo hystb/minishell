@@ -35,12 +35,15 @@ void	add_pids(pid_t value, t_listpids **list)
 		*list = new;
 }
 
+
+
 void	make_command(t_list	**cmds, char **env)
 {
 	char	*path;
 	int		exec;
 
 	make_redir_inside(*cmds);
+	do_builtins(cmds, env);
 	if (!(*cmds)->content[0])
 		return ;
 	path = get_path((char *)(*cmds)->content[0], env);

@@ -14,6 +14,7 @@ main.c\
 builtins/echo.c\
 builtins/export.c\
 builtins/pwd.c\
+builtins/builtins.c\
 exec/do_exec.c\
 exec/do_pipe.c\
 exec/do_heredoc.c\

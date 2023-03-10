@@ -24,4 +24,5 @@ void	pwd(void)
 	}
 	ft_printf("%s\n", path);
 	free(path);
+	exit(EXIT_SUCCESS);
 }
