@@ -9,7 +9,7 @@ int	env(t_data data)
 
 	temp = *(data.env_var);
 	i = 0;
-	while (temp->next)
+	while (temp)
 	{
 		printf("%s=%s\n", temp->name_var, temp->content_var);
 		temp = temp->next;
