@@ -39,6 +39,7 @@ void	make_command(t_list	**cmds, char **env)
 	char	*path;
 	int		exec;
 
+	make_redir_inside(*cmds);
 	if (!(*cmds)->content[0] || is_builtins(cmds))
 		return ;
 	path = get_path((char *)(*cmds)->content[0], env);
