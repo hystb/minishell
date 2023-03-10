@@ -38,6 +38,8 @@ int	do_builtins(t_data data)
 		val = cd(data, *cmds);
 	else if (!ft_strncmp(arg, "pwd", ft_strlen(arg)))
 		val = pwd();
+	else if (!ft_strncmp(arg, "env", ft_strlen(arg)))
+		val = env(data);
 	if (val >= 0)
 		set_value_env("?" ,ft_itoa(val), data);
 	return (val);

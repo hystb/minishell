@@ -15,6 +15,7 @@ builtins/echo.c\
 builtins/export.c\
 builtins/pwd.c\
 builtins/cd.c\
+builtins/env.c\
 builtins/builtins.c\
 exec/do_exec.c\
 exec/do_pipe.c\
