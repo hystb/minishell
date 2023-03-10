@@ -18,6 +18,8 @@ int		is_builtins(t_list	**cmds)
 		return (1);
 	else if (!ft_strncmp(arg, "env", ft_strlen(arg)))
 		return (1);
+	else if (!ft_strncmp(arg, "exit", ft_strlen(arg)))
+		return (1);
 	return (0);
 }
 
@@ -40,6 +42,8 @@ int	do_builtins(t_data data)
 		val = pwd();
 	else if (!ft_strncmp(arg, "env", ft_strlen(arg)))
 		val = env(data);
+	else if (!ft_strncmp(arg, "exit", ft_strlen(arg)))
+		ft_exit(data);
 	if (val >= 0)
 		set_value_env("?" ,ft_itoa(val), data);
 	return (val);
