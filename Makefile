@@ -15,6 +15,7 @@ builtins/echo.c\
 builtins/export.c\
 builtins/pwd.c\
 builtins/cd.c\
+builtins/unset.c\
 builtins/env.c\
 builtins/exit.c\
 builtins/builtins.c\
@@ -26,6 +27,7 @@ exec/gnl_main.c\
 exec/gnl_utils.c\
 exec/redirections_cases.c\
 exec/redirections.c\
+exec/env_utils.c\
 exit/exit_error.c\
 exit/exit_lst.c\
 pars/env_lst.c\
@@ -76,5 +78,5 @@ re:	fclean
 	$(MAKE) -C $(LIBFT_DIR) re
 	$(MAKE) all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re lib
 #---------------------------------------------------#

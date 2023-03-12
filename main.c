@@ -41,16 +41,16 @@ int	main(int argc, char **argv, char **envp)
 			do_exec(var_lst, envp);
 			// while ((it))
 			//  {
-			//  	i = 0;
-			//  	while ((it)->content[i])
-			//  	{
-			//  		ft_printf("%s\n", (it)->content[i]);
-			//  		i++;
-			//  	}
-			//  	ft_printf("current : %p\n", it);
-			//  	ft_printf("prev : %p\n", (it)->previous);
-			//  	ft_printf("next : %p\n", (it)->next);
-			//  	it = (it)->next;
+			 	// i = 0;
+			 	// while ((it)->content[i])
+			 	// {
+			 		// ft_printf("%s\n", (it)->content[i]);
+			 		// i++;
+			 	// }
+			 	// ft_printf("current : %p\n", it);
+			 	// ft_printf("prev : %p\n", (it)->previous);
+			 	// ft_printf("next : %p\n", (it)->next);
+			 	// it = (it)->next;
 			// }
 			*var_lst.cmd_lst = tmp;
 			ft_lstclear(var_lst.cmd_lst, del_free_content);

@@ -13,42 +13,6 @@
 #include "../includes/exec.h"
 #include "../includes/minishell.h"
 
-
-char	*get_item_env(t_data data, char *key)
-{
-	t_env	*env;
-
-	env = *data.env_var;
-	while (env)
-	{
-		if (ft_strnstr(env->name_var, key, (ft_strlen(key) + 1)))
-		{
-			return (env->content_var);
-		}
-		env = env->next;
-	}
-	return (NULL);
-}
-
-void	set_value_env(char *key, char *value, t_data var_lst)
-{
-	t_env	*env;
-
-
-	if (!value)
-		write_error("Memory allocation error !");
-	env = *var_lst.env_var;
-	while (env)
-	{
-		if (ft_strnstr(env->name_var, key, (ft_strlen(key) + 1)))
-		{
-			free(env->content_var);
-			env->content_var = value;
-		}
-		env = env->next;
-	}
-}
-
 void	wait_childs(t_listpids **pids, t_data var_lst)
 {
 	int			status;
@@ -100,12 +64,12 @@ int	do_heredocs(t_list **lst_cmd)
 void	do_exec(t_data var_lst, char **env)
 {
 	t_list		**lst_cmd;
+	t_listpids	**list_pids;
 	int			fd_old;
 
 	lst_cmd = var_lst.cmd_lst;
 	if (!(*lst_cmd)->content[0])
 		return ;
-	t_listpids	**list_pids;
 	list_pids = malloc(sizeof(t_listpids *));
 	*list_pids = NULL;
 	fd_old = 0;
