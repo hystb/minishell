@@ -40,6 +40,10 @@ int	do_builtins(t_data data)
 		val = cd(data, *cmds);
 	else if (!ft_strncmp(arg, "pwd", ft_strlen(arg)))
 		val = pwd();
+	else if (!ft_strncmp(arg, "export", ft_strlen(arg)))
+		val = ft_export(data, (char **)(*cmds)->content);
+	else if (!ft_strncmp(arg, "unset", ft_strlen(arg)))
+		val = unset(data, (char **)(*cmds)->content);
 	else if (!ft_strncmp(arg, "env", ft_strlen(arg)))
 		val = env(data);
 	else if (!ft_strncmp(arg, "exit", ft_strlen(arg)))
