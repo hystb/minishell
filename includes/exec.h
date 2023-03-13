@@ -51,6 +51,7 @@ int		do_builtins(t_data data);
 int		args_len(char **args);
 void	set_value_env(char *key, char *value, t_data var_lst);
 void	delete_item_env(t_env *env, char *key);
+int		get_env_lenght(t_data data);
 char	*get_item_env(t_data data, char *key);
 char	*get_path(char *cmd, char **env);
 void	make_pipe(t_data data, char **env, t_listpids **pids, int *fd_in);

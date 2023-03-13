@@ -24,6 +24,7 @@ int		ft_export(t_data data, char **args);
 void	ft_exit(t_data data);
 int		echo(char **args);
 int		cd(t_data data, t_list *cmd);
+int		do_export_nargs(t_data data);
 int		env(t_data data);
 int		unset(t_data data, char **vars);
 #endif

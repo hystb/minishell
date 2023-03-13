@@ -81,10 +81,15 @@ int	ft_export(t_data data, char **args)
 
 	val = 0;
 	i = 1;
-	while (args[i])
+	if (args_len(args) == 1)
+		val += do_export_nargs(data);
+	else
 	{
-		val += do_export(data, args[i]);
-		i++;
+		while (args[i])
+		{
+			val += do_export(data, args[i]);
+			i++;
+		}
 	}
 	return (val);
 }
