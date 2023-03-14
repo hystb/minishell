@@ -42,8 +42,8 @@ void	not_found_error(char *cmd);
 void	make_redir_inside(t_list *cmd);
 int		do_input(char *path);
 int		do_writing_file(char *path, int mode);
-int		do_heredoc(char *limiter); //bcause it's returning a fd;
-void	make_redir_inside_aux(t_list *cmd, int *fd_target);
+int		do_heredoc(char *limiter, t_data data); //bcause it's returning a fd;
+void	make_redir_inside_aux(t_list *cmd, int *fd_target, t_data data);
 
 /* execution */
 int		is_builtins(t_list	**cmds);
@@ -51,6 +51,7 @@ int		do_builtins(t_data data);
 int		args_len(char **args);
 void	set_value_env(char *key, char *value, t_data var_lst);
 void	delete_item_env(t_env *env, char *key);
+int		get_env_lenght(t_data data);
 char	*get_item_env(t_data data, char *key);
 char	*get_path(char *cmd, char **env);
 void	make_pipe(t_data data, char **env, t_listpids **pids, int *fd_in);

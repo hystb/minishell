@@ -2,6 +2,21 @@
 #include "../includes/exec.h"
 #include "../includes/minishell.h"
 
+int		get_env_lenght(t_data data)
+{
+	int		lenght;
+	t_env	*env;
+
+	lenght = 0;
+	env = *data.env_var;
+	while (env)
+	{
+		env = env->next;
+		lenght++;
+	}
+	return (lenght);
+}
+
 char	*get_item_env(t_data data, char *key)
 {
 	t_env	*env;

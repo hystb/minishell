@@ -32,7 +32,7 @@ void	wait_childs(t_listpids **pids, t_data var_lst)
 		set_value_env("?", ft_itoa(WEXITSTATUS(status)), var_lst);
 }
 
-int	do_heredocs(t_list **lst_cmd)
+int	do_heredocs(t_list **lst_cmd, t_data data)
 {
 	t_list	*temp;
 	int		val;
@@ -42,7 +42,7 @@ int	do_heredocs(t_list **lst_cmd)
 	while (temp)
 	{
 		temp->fd_heredoc = 0;
-		make_redir_inside_aux(temp, &temp->fd_heredoc);
+		make_redir_inside_aux(temp, &temp->fd_heredoc, data);
 		if (temp->fd_heredoc == -130)
 			val++;
 		temp = temp->next;
@@ -74,7 +74,7 @@ void	do_exec(t_data var_lst, char **env)
 	*list_pids = NULL;
 	fd_old = 0;
 	g_signal_handle = 1;
-	if (!do_heredocs(lst_cmd))
+	if (!do_heredocs(lst_cmd, var_lst))
 	{
 		make_pipe(var_lst, env, list_pids, &fd_old);
 		wait_childs(list_pids, var_lst);

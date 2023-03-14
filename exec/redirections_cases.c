@@ -49,15 +49,10 @@ void	aux_inside_out(char **args, int mode, int i)
 	clean_up_redir(args, i);
 }
 
-void	aux_inside_in(char **args, int mode, int i)
+void	aux_inside_in(char **args, int i)
 {
-	if (mode)
-		do_heredoc(args[i + 1]);
-	else
-	{
-		if (do_input(args[i + 1]))
-			exit(EXIT_FAILURE); //handle leaks here
-	}
+	if (do_input(args[i + 1]))
+		exit(EXIT_FAILURE); //handle leaks here
 	clean_up_redir(args, i);
 }
 
@@ -76,7 +71,7 @@ void	make_redir_inside(t_list *cmd)
 	while (args[i])
 	{
 		if (ft_strncmp(args[i], "<", 1) == 0)
-			aux_inside_in(args, 0, i);
+			aux_inside_in(args, i);
 		else if (ft_strncmp(args[i], ">>", 2) == 0)
 			aux_inside_out(args, 1, i);
 		else if (ft_strncmp(args[i], ">", 1) == 0)
@@ -98,7 +93,7 @@ void	put_tab(char **tab)
 	}
 }
 
-void	make_redir_inside_aux(t_list *cmd, int *fd_target)
+void	make_redir_inside_aux(t_list *cmd, int *fd_target, t_data data)
 {
 	char	**args;
 	int		i;
@@ -115,7 +110,7 @@ void	make_redir_inside_aux(t_list *cmd, int *fd_target)
 		{
 			if (*fd_target)
 				close(*fd_target);
-			*fd_target = do_heredoc(args[i + 1]);
+			*fd_target = do_heredoc(args[i + 1], data);
 			clean_up_redir(args, i);
 		}
 		else

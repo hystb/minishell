@@ -13,6 +13,7 @@ SRCS		= \
 main.c\
 builtins/echo.c\
 builtins/export.c\
+builtins/export_nargs.c\
 builtins/pwd.c\
 builtins/cd.c\
 builtins/unset.c\
