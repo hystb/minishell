@@ -1,5 +1,4 @@
 
-#include "../includes/exec.h"
 #include "../includes/minishell.h"
 
 int		get_env_lenght(t_data data)

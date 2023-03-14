@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/exec.h"
 #include "../includes/minishell.h"
 
 void	wait_childs(t_listpids **pids, t_data var_lst)

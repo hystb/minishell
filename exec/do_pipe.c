@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/exec.h"
 #include "../includes/minishell.h"
 
 void	add_pids(pid_t value, t_listpids **list)

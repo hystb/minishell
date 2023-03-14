@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/exec.h"
 
 char	*make_input(char *promp_name, t_data var_lst)
 {

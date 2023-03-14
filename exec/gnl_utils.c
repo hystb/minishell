@@ -1,4 +1,4 @@
-#include "../includes/gnl.h"
+#include "../includes/minishell.h"
 
 unsigned int	next_line_len(char *buffer)
 {

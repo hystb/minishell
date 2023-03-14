@@ -38,5 +38,7 @@ int	unset(t_data data, char **vars)
 			delete_item_env(env, vars[i]);
 		i++;
 	}
-	return (val);
+	if (val)
+		return (1);
+	return (0);
 }

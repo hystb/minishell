@@ -1,5 +1,4 @@
 
-#include "../includes/exec.h"
 #include "../includes/minishell.h"
 
 void	check_free(char *a, char *b)
@@ -63,7 +62,7 @@ void	do_heredoc_child(char *limiter, int fd[2], t_data data)
 		}
 		str = tmp;
 		write(fd[1], str, ft_strlen(str));
-		if (str[ft_strlen(str)] != '\n')
+		if (str[ft_strlen(str) - 1] != '\n')
 			write(fd[1], "\n", 1);
 		free(str);
 	}
