@@ -24,3 +24,5 @@ void	del_free_content(void **content)
 	}
 	free(content);
 }
+
+void	free_list

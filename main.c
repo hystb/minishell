@@ -28,6 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	g_signal_handle = 0;
 	config_signal();
 	var_lst.env_var = put_env(envp, var_lst);
+	var_lst.lst_pids = NULL;
 	while (1)
 	{
 		input = make_input("minishell -> ", var_lst);
@@ -38,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 			replace_env_var(var_lst);
 			// t_list *it;
 			// it = *var_lst.cmd_lst;
-			do_exec(var_lst, envp);
+			do_exec(var_lst);
 			// while ((it))
 			//  {
 			 	// i = 0;

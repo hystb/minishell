@@ -1,7 +1,7 @@
 #---------------------------------------------------#
 CC 			= cc
 
-CFLAGS 		=# -fsanitize=address -g3 #-Wall -Wextra -Werror 
+CFLAGS 		= -Wall -Wextra -Werror #-fsanitize=address -g3 
 
 OFLAGS		= -lreadline -ltinfo
 
@@ -29,6 +29,7 @@ exec/gnl_utils.c\
 exec/redirections_cases.c\
 exec/redirections.c\
 exec/env_utils.c\
+exec/env_utils_aux.c\
 exit/exit_error.c\
 exit/exit_lst.c\
 pars/env_lst.c\

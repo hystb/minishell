@@ -23,4 +23,7 @@ int		cd(t_data data, t_list *cmd);
 int		do_export_nargs(t_data data);
 int		env(t_data data);
 int		unset(t_data data, char **vars);
+
+void	free_tab(char **tab);
+
 #endif

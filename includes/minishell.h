@@ -52,8 +52,9 @@ typedef struct s_env
 
 typedef struct s_data
 {
-	t_env	**env_var;
-	t_list	**cmd_lst;
+	t_env		**env_var;
+	t_list		**cmd_lst;
+	t_listpids	**lst_pids;
 }			t_data;
 
 extern int	g_signal_handle;

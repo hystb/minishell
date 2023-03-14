@@ -50,8 +50,10 @@ void	make_command(t_list	**cmds, char **env)
 	free(path);
 }
 
-void	do_child(t_list **cmds, char **env, int *fd_in, int tube[2])
+void	do_child(t_list **cmds, t_data data, int *fd_in, int tube[2])
 {
+	char **env;
+
 	if ((*cmds)->previous)
 	{
 		dup2(*fd_in, STDIN_FILENO);
@@ -61,7 +63,11 @@ void	do_child(t_list **cmds, char **env, int *fd_in, int tube[2])
 		dup2(tube[1], STDOUT_FILENO);
 	close(tube[1]);
 	close(tube[0]);
+	env = get_env_from_lst(data);
+	if (!env)
+		write_error("Memory allocation error !");
 	make_command(cmds, env);
+	free_tab(env);
 	exit(EXIT_SUCCESS);
 }
 
@@ -79,7 +85,7 @@ void	do_parent(t_list **cmds, int *fd_in, int tube[2])
 		(*cmds) = (*cmds)->next;
 }
 
-void	make_pipe(t_data data, char **env, t_listpids **pids, int *fd_in)
+void	make_pipe(t_data data, t_listpids **pids, int *fd_in)
 {
 	pid_t		pid;
 	t_list		**cmds;
@@ -94,7 +100,7 @@ void	make_pipe(t_data data, char **env, t_listpids **pids, int *fd_in)
 		if (pid == -1)
 			exit_error();
 		if (pid == 0)
-			do_child(cmds, env, fd_in, tube);
+			do_child(cmds, data, fd_in, tube);
 		else
 		{
 			if (do_builtins(data) < 0)
