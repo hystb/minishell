@@ -1,7 +1,7 @@
 #---------------------------------------------------#
 CC 			= cc
 
-CFLAGS 		= -fsanitize=address -g3 #-Wall -Wextra -Werror 
+CFLAGS 		=# -fsanitize=address -g3 #-Wall -Wextra -Werror 
 
 OFLAGS		= -lreadline -ltinfo
 
