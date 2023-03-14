@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/exec.h"
 #include "../includes/minishell.h"
 
 /* try to open file and put in on stdin */

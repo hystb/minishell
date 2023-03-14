@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
-#include "includes/exec.h"
-#include "includes/builtins.h"
 
+
+// faire les env avec les trucs
 int	g_signal_handle;
 
 int	main(int argc, char **argv, char **envp)

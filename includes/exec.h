@@ -13,19 +13,7 @@
 #ifndef EXEC_H
 # define EXEC_H
 
-/* about pipex */
-# include <unistd.h>
-# include <stddef.h>
-# include <stdlib.h>
-# include <string.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <sys/wait.h>
-# include "../libft/libft.h"
-# include "minishell.h"
+#include "minishell.h"
 
 typedef	struct s_listpids
 {

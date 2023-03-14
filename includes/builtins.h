@@ -13,11 +13,7 @@
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-# include <unistd.h>
-# include <stdio.h>
-# include <errno.h>
-# include "../libft/libft.h"
-# include "../includes/minishell.h"
+#include "minishell.h"
 
 int		pwd(void);
 int		ft_export(t_data data, char **args);

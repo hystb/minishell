@@ -91,5 +91,7 @@ int	ft_export(t_data data, char **args)
 			i++;
 		}
 	}
-	return (val);
+	if (val)
+		return (1);
+	return (0);
 }

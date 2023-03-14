@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/exec.h"
 #include "../includes/minishell.h"
 
 void	clean_up_redir(char **args, int i)

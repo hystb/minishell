@@ -1,12 +1,9 @@
 #ifndef GNL_H
 # define GNL_H
 
-# include <stdlib.h>
-# include <stddef.h>
-# include <stdio.h>
-# include <unistd.h>
-
 # define BUFFER_SIZE 1
+
+#include "minishell.h"
 
 char	*get_next_line(int fd);
 char	*read_the_line(char *buffer, int *end_file, int fd);

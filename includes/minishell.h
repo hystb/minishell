@@ -13,12 +13,18 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-/* do some stuff there */
 # include "../libft/libft.h"
 # include <stdio.h>
+# include <unistd.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
+# include <stddef.h>
+# include <stdlib.h>
+# include <string.h>
+# include <fcntl.h>
+# include <sys/wait.h>
 # include <signal.h>
 
 # define NEWLINE_ERROR "minishell: syntax error near \
@@ -99,5 +105,9 @@ char	*is_quote(char *input);
 void	replace_quote(t_data var_lst);
 int		end_env(int start, char *arg);
 void	replace_pipe_in_quote(char ***map);
+
+# include "builtins.h"
+# include "gnl.h"
+# include "exec.h"
 
 #endif
