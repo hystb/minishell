@@ -1,7 +1,5 @@
 
 #include "../includes/minishell.h"
-#include "../includes/builtins.h"
-#include "../includes/exec.h"
 
 void	free_tab(char **tab)
 {
@@ -72,7 +70,7 @@ int	do_export_nargs(t_data data)
 	if (!args)
 	{
 		free_tab(args);
-		write_error("Memory Allocation error !");
+		write_error("Memory Allocation error !", data);
 	}
 	sort_tab(args);
 	i = 0;

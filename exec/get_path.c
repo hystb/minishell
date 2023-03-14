@@ -13,7 +13,7 @@
 #include "../includes/minishell.h"
 
 /* free split data */
-void	free_split(char **tab, int exit)
+void	free_split(char **tab, int exit, t_data data)
 {
 	int	i;
 
@@ -25,7 +25,7 @@ void	free_split(char **tab, int exit)
 	}
 	free(tab);
 	if (exit == 1)
-		write_error("Memory allocation error !");
+		write_error("Memory allocation error !", data);
 }
 
 /* free s2 before join */
@@ -38,7 +38,7 @@ char	*ft_str_fjoin(char *s1, char *s2)
 	return (res);
 }
 
-char	**get_splited_env(char **env)
+char	**get_splited_env(char **env, t_data data)
 {
 	char	**splited;
 
@@ -48,12 +48,12 @@ char	**get_splited_env(char **env)
 		return (NULL);
 	splited = ft_split((*env) + 5, ':');
 	if (splited[0] == NULL)
-		free_split(splited, 1);
+		free_split(splited, 1, data);
 	return (splited);
 }
 
 /* get the path of the command, return null if not found */
-char	*get_path(char *cmd, char **env)
+char	*get_path(char *cmd, char **env, t_data data)
 {
 	int		i;
 	char	**splited;
@@ -62,22 +62,22 @@ char	*get_path(char *cmd, char **env)
 	i = 0;
 	if (access(cmd, F_OK) == 0)
 		return (ft_strdup(cmd));
-	splited = get_splited_env(env);
+	splited = get_splited_env(env, data);
 	while (splited && splited[i])
 	{
 		joined = ft_strjoin(ft_strdup(splited[i]), ft_strjoin(ft_strdup("/"), \
 		ft_strdup(cmd)));
 		if (!joined)
-			free_split(splited, 1);
+			free_split(splited, 1, data);
 		if (access(joined, F_OK) == 0)
 		{
-			free_split(splited, 0);
+			free_split(splited, 0, data);
 			return (joined);
 		}
 		free(joined);
 		i++;
 	}
 	if (splited)
-		free_split(splited, 0);
+		free_split(splited, 0, data);
 	return (NULL);
 }

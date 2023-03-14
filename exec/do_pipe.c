@@ -12,14 +12,14 @@
 
 #include "../includes/minishell.h"
 
-void	add_pids(pid_t value, t_listpids **list)
+void	add_pids(pid_t value, t_listpids **list, t_data data)
 {
 	t_listpids	*new;
 	t_listpids	*i;
 
 	new = malloc(sizeof(t_listpids));
 	if (!new)
-		write_error("Memory allocation error !");
+		write_error("Memory allocation error !", data);
 	new->pid = value;
 	new->next = NULL;
 	i = *list;
@@ -33,21 +33,21 @@ void	add_pids(pid_t value, t_listpids **list)
 		*list = new;
 }
 
-void	make_command(t_list	**cmds, char **env)
+void	make_command(t_list	**cmds, char **env, t_data data)
 {
 	char	*path;
 	int		exec;
 
-	make_redir_inside(*cmds);
+	make_redir_inside(*cmds, data);
 	if (!(*cmds)->content[0] || is_builtins(cmds))
 		return ;
-	path = get_path((char *)(*cmds)->content[0], env);
+	path = get_path((char *)(*cmds)->content[0], env, data);
 	if (!path)
-		not_found_error((char *)(*cmds)->content[0]);
+		not_found_error((char *)(*cmds)->content[0], data);
 	exec = execve(path, (char **)(*cmds)->content, env);
-	if (exec < 0)
-		exit_error();
 	free(path);
+	if (exec < 0)
+		exit_error(data);
 }
 
 void	do_child(t_list **cmds, t_data data, int *fd_in, int tube[2])
@@ -65,8 +65,8 @@ void	do_child(t_list **cmds, t_data data, int *fd_in, int tube[2])
 	close(tube[0]);
 	env = get_env_from_lst(data);
 	if (!env)
-		write_error("Memory allocation error !");
-	make_command(cmds, env);
+		write_error("Memory allocation error !", data);
+	make_command(cmds, env, data);
 	free_tab(env);
 	exit(EXIT_SUCCESS);
 }
@@ -95,16 +95,16 @@ void	make_pipe(t_data data, t_listpids **pids, int *fd_in)
 	while (*cmds)
 	{
 		if (pipe(tube) == -1)
-			exit_error();
+			exit_error(data);
 		pid = fork();
 		if (pid == -1)
-			exit_error();
+			exit_error(data);
 		if (pid == 0)
 			do_child(cmds, data, fd_in, tube);
 		else
 		{
 			if (do_builtins(data) < 0)
-				add_pids(pid, pids);
+				add_pids(pid, pids, data);
 			if ((*cmds)->fd_heredoc)
 				close((*cmds)->fd_heredoc);
 			do_parent(cmds, fd_in, tube);

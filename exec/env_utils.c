@@ -38,7 +38,7 @@ void	add_value_env(char *key, char *value, t_data data)
 
 	item = malloc(sizeof(*item));
 	if (!item)
-		return ;// malloc error;
+		write_error("Memory allocation error !", data);
 	item->previous = NULL;
 	item->next = NULL;
 	item->content_var = value;
@@ -51,7 +51,7 @@ void	set_value_env(char *key, char *value, t_data var_lst)
 	t_env	*env;
 
 	if (!value)
-		write_error("Memory allocation error !");
+		write_error("Memory allocation error !", var_lst);
 	env = *var_lst.env_var;
 	while (env)
 	{

@@ -1,6 +1,4 @@
-#include "../includes/builtins.h"
 #include "../includes/minishell.h"
-#include "../includes/exec.h"
 
 int	got_equal(char *str)
 {

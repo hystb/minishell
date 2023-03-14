@@ -29,7 +29,7 @@ int	do_input(char *path)
 }
 
 /* write in a file depending on the file mode opening */
-int	do_writing_file(char *path, int mode)
+int	do_writing_file(char *path, int mode, t_data data)
 {
 	int		fd_out;
 
@@ -38,6 +38,6 @@ int	do_writing_file(char *path, int mode)
 	else
 		fd_out = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd_out == -1)
-		exit_error();
+		exit_error(data);
 	return (fd_out);
 }

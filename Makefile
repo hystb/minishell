@@ -47,7 +47,7 @@ OBJ_DIR 	= .obj
 
 OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
-INCLUDES 	= includes
+INCLUDES 	= includes/
 #---------------------------------------------------#
 LIBFT_DIR	= libft/
 

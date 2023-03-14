@@ -1,7 +1,5 @@
 
-#include "../includes/exec.h"
 #include "../includes/minishell.h"
-
 int	env(t_data data)
 {
 	t_env 	*temp;
