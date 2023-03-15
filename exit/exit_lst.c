@@ -24,3 +24,23 @@ void	del_free_content(void **content)
 	}
 	free(content);
 }
+
+void	free_pids(t_listpids **pids)
+{
+	t_listpids *i;
+
+	i = *pids;
+	while (i)
+	{
+		free(i);
+		i = i->next;
+	}
+	free(pids);
+}
+
+void	free_data(t_data data)
+{
+	free_pids(data.lst_pids);
+	ft_lstclear(data.cmd_lst, del_free_content);
+	free_env_var(data.env_var);
+}

@@ -60,7 +60,7 @@ int	do_heredocs(t_list **lst_cmd, t_data data)
 	return (0);
 }
 
-void	do_exec(t_data var_lst, char **env)
+void	do_exec(t_data var_lst)
 {
 	t_list		**lst_cmd;
 	t_listpids	**list_pids;
@@ -75,7 +75,7 @@ void	do_exec(t_data var_lst, char **env)
 	g_signal_handle = 1;
 	if (!do_heredocs(lst_cmd, var_lst))
 	{
-		make_pipe(var_lst, env, list_pids, &fd_old);
+		make_pipe(var_lst, list_pids, &fd_old);
 		wait_childs(list_pids, var_lst);
 	}
 	else

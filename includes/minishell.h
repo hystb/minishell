@@ -42,6 +42,12 @@ typedef struct s_cmds
 	int	db_quote_f;
 }		t_cmds;
 
+typedef	struct s_listpids
+{
+	pid_t				pid;
+	struct	s_listpids	*next;
+}				t_listpids;
+
 typedef struct s_env
 {
 	char			*name_var;
@@ -52,12 +58,14 @@ typedef struct s_env
 
 typedef struct s_data
 {
-	t_env	**env_var;
-	t_list	**cmd_lst;
+	t_env		**env_var;
+	t_list		**cmd_lst;
+	t_listpids	**lst_pids;
 }			t_data;
 
 extern int	g_signal_handle;
 
+/* parsing */
 t_list	**put_input_lst(char **input);
 void	put_in_lst(char *input, t_list **cmd, t_cmds data_cmd);
 void	split_map(char ***map_cmd, char *input, t_cmds data);
@@ -106,8 +114,45 @@ int		end_env(int start, char *arg);
 void	replace_pipe_in_quote(char ***map);
 char	*is_quote(char *in, int i, char c);
 
-# include "builtins.h"
-# include "gnl.h"
-# include "exec.h"
+/* builtins */
+int		pwd(void);
+int		ft_export(t_data data, char **args);
+void	ft_exit(t_data data);
+int		echo(char **args);
+int		cd(t_data data, t_list *cmd);
+int		do_export_nargs(t_data data);
+int		env(t_data data);
+int		unset(t_data data, char **vars);
+void	free_tab(char **tab);
+
+/* error */
+void	exit_error(t_data data);
+void	write_error(char *str, t_data data);
+void	not_found_error(char *cmd, t_data data);
+void	free_data(t_data data);
+
+/* redirections */
+void	make_redir_inside(t_list *cmd, t_data data);
+int		do_input(char *path);
+int		do_writing_file(char *path, int mode, t_data data);
+int		do_heredoc(char *limiter, t_data data); 
+void	make_redir_inside_aux(t_list *cmd, int *fd_target, t_data data);
+
+/* env lst */
+void	set_value_env(char *key, char *value, t_data var_lst);
+void	delete_item_env(t_env *env, char *key);
+int		get_env_lenght(t_data data);
+char	**get_env_from_lst(t_data data);
+char	*get_item_env(t_data data, char *key);
+
+/* execution */
+int		is_builtins(t_list	**cmds);
+int		do_builtins(t_data data);
+int		args_len(char **args);
+char	*get_path(char *cmd, char **env, t_data data);
+void	make_pipe(t_data data, t_listpids **pids, int *fd_in);
+char	*get_next_line(int fd);
+void	do_exec(t_data var_lst);
 
 #endif
+

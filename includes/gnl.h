@@ -1,9 +1,9 @@
 #ifndef GNL_H
 # define GNL_H
 
-# define BUFFER_SIZE 1
+# include "../libft/libft.h"
 
-#include "minishell.h"
+# define BUFFER_SIZE 1
 
 char	*get_next_line(int fd);
 char	*read_the_line(char *buffer, int *end_file, int fd);

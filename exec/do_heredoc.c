@@ -94,10 +94,10 @@ int	do_heredoc(char *limiter, t_data data)
 
 	limiter = ft_strjoin(ft_strdup(limiter), ft_strdup("\n"));
 	if (pipe(fd) == -1)
-		exit_error();
+		exit_error(data);
 	pid = fork();
 	if (pid == -1)
-		exit_error();
+		exit_error(data);
 	if (pid == 0)
 		do_heredoc_child(limiter, fd, data);
 	else

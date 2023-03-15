@@ -1,5 +1,4 @@
 
-#include "../includes/exec.h"
 #include "../includes/minishell.h"
 
 int	go_to(t_data data, char *dest)

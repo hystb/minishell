@@ -12,22 +12,25 @@
 
 #include "../includes/minishell.h"
 
-void	exit_error(void)
+void	exit_error(t_data data)
 {
 	perror("");
+	free_data(data);
 	exit(EXIT_FAILURE);
 }
 
-void	not_found_error(char *cmd)
+void	not_found_error(char *cmd, t_data data)
 {
 	write(2, "minishell: ", 11);
 	write(2, cmd, ft_strlen(cmd));
 	write(2, ": command not found\n", 21);
+	free_data(data);
 	exit(127);
 }
 
-void	write_error(char *str)
+void	write_error(char *str, t_data data)
 {
 	write(2, str, ft_strlen(str));
+	free_data(data);
 	exit(EXIT_FAILURE);
 }

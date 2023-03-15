@@ -1,5 +1,4 @@
-#include "../includes/exec.h"
-#include "../includes/builtins.h"
+#include "../includes/minishell.h"
 
 int		is_builtins(t_list	**cmds)
 {

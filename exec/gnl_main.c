@@ -1,4 +1,4 @@
-#include "../includes/minishell.h"
+#include "../includes/gnl.h"
 
 char	*get_next_line(int fd)
 {
