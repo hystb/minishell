@@ -18,15 +18,17 @@ void	replace_env_var(t_data var_lst)
 	int		i;
 	char	*new_content;
 	int		j;
+	int		k;
 
 	tmp = *var_lst.cmd_lst;
 	j = 0;
+	k = -1;
 	while (tmp)
 	{
 		i = 0;
 		while (tmp->content != NULL && tmp->content[i])
 		{
-			new_content = is_env_vars(tmp->content[i], var_lst, j);
+			new_content = is_env_vars(tmp->content[i], var_lst, j, k);
 			if (new_content)
 				tmp->content[i] = new_content;
 			i++;
@@ -36,26 +38,26 @@ void	replace_env_var(t_data var_lst)
 	replace_quote(var_lst);
 }
 
-char	*is_env_vars(char *arg, t_data var_lst, int j)
+char	*is_env_vars(char *arg, t_data var_lst, int j, int i)
 {
 	int		is_sp_quote;
-	int		i;
 	char	*var;
 
 	is_sp_quote = 0;
-	i = -1;
 	while (arg[++i])
 	{
+		if (arg[i] == '"' && is_sp_quote == 0)
+			is_sp_quote = 3;
+		else if (arg[i] == '"' && is_sp_quote == 3)
+			is_sp_quote = 0;
 		if (arg[i] == '\'' && is_sp_quote == 0)
 			is_sp_quote = 1;
 		else if (arg[i] == '\'' && is_sp_quote == 1)
 			is_sp_quote = 0;
-		if (arg[i] == '$' && is_sp_quote == 0)
+		if (arg[i] == '$' && (is_sp_quote == 0 || is_sp_quote == 3))
 		{
 			j = i + 1;
-			while (arg[i] != ' ' && arg[i] != '\f' && arg[i] != '\n'
-				&& arg[i] != '\t' && arg[i] != '\v' && arg[i] != '\r'
-				&& arg[i] && arg[i] != '"')
+			while (arg[i] != ' ' && arg[i] && arg[i] != '"' && arg[i] != '\'')
 				i++;
 			var = ft_substr(arg, j, i - j);
 			var = sub_env_var(var, arg, j - 1, var_lst);

@@ -81,7 +81,7 @@ char	*make_input(char *promp_name, t_data var_lst);
 void	config_signal(void);
 void	handle_signal(int sig);
 t_env	**put_env(char **envp, t_data var_lst);
-char	*is_env_vars(char *arg, t_data var_lst, int j);
+char	*is_env_vars(char *arg, t_data var_lst, int j, int i);
 void	jump_next_pipe(int *last_pipe, int *last_splited, char **splited);
 char	*sub_env_var(char *var, char *arg, int start, t_data var_lst);
 int		have_sign(char *str);
@@ -101,10 +101,10 @@ char	*print_less_error(char *in, int i, char *res);
 void	replace_comment(char *in, int i);
 char	*control_pipe(char *in, int i);
 char	*replace_tab_and_printable(char *in);
-char	*is_quote(char *input);
 void	replace_quote(t_data var_lst);
 int		end_env(int start, char *arg);
 void	replace_pipe_in_quote(char ***map);
+char	*is_quote(char *in, int i, char c);
 
 # include "builtins.h"
 # include "gnl.h"
