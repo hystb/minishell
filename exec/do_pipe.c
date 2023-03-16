@@ -3,44 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   do_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ethaaalpha <ethaaalpha@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/07 14:28:10 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/16 15:49:52 by ethaaalpha       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	add_pids(pid_t value, t_listpids **list, t_data data)
-{
-	t_listpids	*new;
-	t_listpids	*i;
-
-	new = malloc(sizeof(t_listpids));
-	if (!new)
-		write_error("Memory allocation error !", data);
-	new->pid = value;
-	new->next = NULL;
-	i = *list;
-	if (i)
-	{
-		while (i->next)
-			i = i->next;
-		i->next = new;
-	}
-	else
-		*list = new;
-}
-
 void	make_command(t_list	**cmds, char **env, t_data data)
 {
 	char	*path;
+	int		val;
 	int		exec;
 
 	make_redir_inside(*cmds, data);
-	if (!(*cmds)->content[0] || is_builtins(cmds))
+	if (!(*cmds)->content[0])
 		return ;
+	if (is_builtins(cmds))
+	{
+		val = do_builtins(data);
+		free_data(data);
+		exit (val);
+	}
 	path = get_path((char *)(*cmds)->content[0], env, data);
 	if (!path)
 		not_found_error((char *)(*cmds)->content[0], data);
@@ -52,7 +38,7 @@ void	make_command(t_list	**cmds, char **env, t_data data)
 
 void	do_child(t_list **cmds, t_data data, int *fd_in, int tube[2])
 {
-	char **env;
+	char	**env;
 
 	if ((*cmds)->previous)
 	{
@@ -85,6 +71,39 @@ void	do_parent(t_list **cmds, int *fd_in, int tube[2])
 		(*cmds) = (*cmds)->next;
 }
 
+int	make_only(t_data data, t_listpids **pids, int *fd_in)
+{
+	t_list	**cmds;
+	int		val;
+	int		old_out;
+	int		old_in;
+
+	cmds = data.cmd_lst;
+	if (is_builtins(cmds))
+	{
+		old_out = dup(STDOUT_FILENO);
+		old_in = dup(STDIN_FILENO);
+		if (old_in < 0 || old_in < 0)
+			quit_simple(data, 1);
+		else
+		{
+			make_redir_inside(*cmds, data);
+			val = do_builtins(data);
+			if (dup2(old_out, STDOUT_FILENO) == -1 || \
+			dup2(old_in, STDIN_FILENO) == -1)
+				quit_simple(data, 1);
+			else
+			{
+				close(old_in);
+				close(old_out);
+				set_value_env("?", ft_itoa(val), data);
+			}
+		}
+	}
+	else
+		make_pipe(data, pids, fd_in);
+}
+
 void	make_pipe(t_data data, t_listpids **pids, int *fd_in)
 {
 	pid_t		pid;
@@ -103,8 +122,7 @@ void	make_pipe(t_data data, t_listpids **pids, int *fd_in)
 			do_child(cmds, data, fd_in, tube);
 		else
 		{
-			if (do_builtins(data) < 0)
-				add_pids(pid, pids, data);
+			add_pids(pid, pids, data);
 			if ((*cmds)->fd_heredoc)
 				close((*cmds)->fd_heredoc);
 			do_parent(cmds, fd_in, tube);

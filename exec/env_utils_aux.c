@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_utils_aux.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ethaaalpha <ethaaalpha@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
+/*   Updated: 2023/03/16 15:33:52 by ethaaalpha       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-char **get_env_from_lst(t_data data)
+char	**get_env_from_lst(t_data data)
 {
-	char 	**res;
+	char	**res;
 	int		i;
 	t_env	*env;
 
@@ -13,7 +25,8 @@ char **get_env_from_lst(t_data data)
 	i = 0;
 	while (env)
 	{
-		res[i] = ft_strjoin(ft_strdup(env->name_var), ft_strjoin(ft_strdup("="), ft_strdup(env->content_var)));
+		res[i] = ft_strjoin(ft_strdup(env->name_var), \
+		ft_strjoin(ft_strdup("="), ft_strdup(env->content_var)));
 		if (!res[i])
 		{
 			res[i] = NULL;

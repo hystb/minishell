@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ethaaalpha <ethaaalpha@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/07 14:33:41 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/16 15:42:14 by ethaaalpha       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ void	do_exec(t_data var_lst)
 	g_signal_handle = 1;
 	if (!do_heredocs(lst_cmd, var_lst))
 	{
-		make_pipe(var_lst, list_pids, &fd_old);
+		if (!(*lst_cmd)->next)
+			make_only(var_lst, list_pids, &fd_old);
+		else
+			make_pipe(var_lst, list_pids, &fd_old);
 		wait_childs(list_pids, var_lst);
 	}
 	else

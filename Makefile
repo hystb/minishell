@@ -30,6 +30,7 @@ exec/redirections_cases.c\
 exec/redirections.c\
 exec/env_utils.c\
 exec/env_utils_aux.c\
+exec/utils.c\
 exit/exit_error.c\
 exit/exit_lst.c\
 pars/env_lst.c\
@@ -80,5 +81,5 @@ re:	fclean
 	$(MAKE) -C $(LIBFT_DIR) re
 	$(MAKE) all
 
-.PHONY: all clean fclean re lib
+.PHONY: all lib fclean fclean re
 #---------------------------------------------------#

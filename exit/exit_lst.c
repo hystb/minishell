@@ -29,6 +29,8 @@ void	free_pids(t_listpids **pids)
 {
 	t_listpids *i;
 
+	if (!pids)
+		return ;
 	i = *pids;
 	while (i)
 	{

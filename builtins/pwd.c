@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ethaaalpha <ethaaalpha@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:34:28 by nmilan            #+#    #+#             */
-/*   Updated: 2023/02/20 14:54:13 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/16 15:19:37 by ethaaalpha       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	pwd(void)
 {
-	char *path;
+	char	*path;
 
 	path = getcwd(NULL, 0);
-	if(!path)
+	if (!path)
 	{
 		perror("path not found\n");
 		return (EXIT_FAILURE);

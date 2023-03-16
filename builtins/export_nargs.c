@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export_nargs.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ethaaalpha <ethaaalpha@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
+/*   Updated: 2023/03/16 15:25:14 by ethaaalpha       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -46,7 +57,8 @@ void	sort_tab(char **tab)
 	{
 		while (tab[i])
 		{
-			if (tab[i + 1] && ft_strncmp(tab[i], tab[i + 1], ft_strlen(tab[i])) > 0)
+			if (tab[i + 1] && \
+			ft_strncmp(tab[i], tab[i + 1], ft_strlen(tab[i])) > 0)
 			{	
 				sorted = 1;
 				tmp = tab[i];
@@ -80,6 +92,6 @@ int	do_export_nargs(t_data data)
 			printf("declare -x %s=%s\n", args[i], get_item_env(data, args[i]));
 		i++;
 	}
-	free_tab(args);	
+	free_tab(args);
 	return (0);
 }

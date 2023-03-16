@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_cases.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ethaaalpha <ethaaalpha@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:05:21 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/07 14:09:05 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/16 15:36:42 by ethaaalpha       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void	aux_inside_out(char **args, int mode, int i, t_data data)
 	clean_up_redir(args, i);
 }
 
-void	aux_inside_in(char **args, int i)
+void	aux_inside_in(char **args, int i, t_data data)
 {
 	if (do_input(args[i + 1]))
-		exit(EXIT_FAILURE); //handle leaks here
+		exit_error(data);
 	clean_up_redir(args, i);
 }
 
@@ -70,25 +70,13 @@ void	make_redir_inside(t_list *cmd, t_data data)
 	while (args[i])
 	{
 		if (ft_strncmp(args[i], "<", 1) == 0)
-			aux_inside_in(args, i);
+			aux_inside_in(args, i, data);
 		else if (ft_strncmp(args[i], ">>", 2) == 0)
 			aux_inside_out(args, 1, i, data);
 		else if (ft_strncmp(args[i], ">", 1) == 0)
 			aux_inside_out(args, 0, i, data);
 		else
 			i++;
-	}
-}
-
-void	put_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		puts(tab[i]);
-		i++;
 	}
 }
 

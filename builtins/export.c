@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ethaaalpha <ethaaalpha@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
+/*   Updated: 2023/03/16 15:25:19 by ethaaalpha       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	got_equal(char *str)
@@ -14,10 +26,10 @@ int	got_equal(char *str)
 	return (0);
 }
 
-int check_str(char *str)
+int	check_str(char *str)
 {
 	int	i;
-	
+
 	i = 0;
 	while (str[i])
 	{
