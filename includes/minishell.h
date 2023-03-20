@@ -130,7 +130,7 @@ void	exit_error(t_data data);
 void	write_error(char *str, t_data data);
 void	not_found_error(char *cmd, t_data data);
 void	free_data(t_data data);
-void	quit_simple(t_data data, int ret_exit);
+int	quit_simple(t_data data, int ret_exit);
 
 /* redirections */
 void	make_redir_inside(t_list *cmd, t_data data);
