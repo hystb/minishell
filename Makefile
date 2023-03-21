@@ -1,7 +1,7 @@
 #---------------------------------------------------#
 CC 			= cc
 
-CFLAGS 		= -fsanitize=address -g3 -Wall -Wextra -Werror
+CFLAGS 		= #-fsanitize=address -g3 -Wall -Wextra -Werror
 
 OFLAGS		= -lreadline -ltinfo
 
@@ -64,7 +64,7 @@ all: lib
 $(NAME): $(OBJS) $(INCLUDES)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I $(INCLUDES) $(OFLAGS) $(LIBFT_EXEC)
 
-$(OBJ_DIR)/%.o : %.c Makefile $(HEADERS)
+$(OBJ_DIR)/%.o : %.c Makefile $(HEADERS) $(LIBFT_EXEC)
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 
