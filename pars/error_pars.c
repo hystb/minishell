@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:22:33 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/21 11:23:45 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/21 14:01:47 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*many_sign(char *in)
 		else if (in[i] == '>')
 			count_more++;
 		if ((in[i] == '<' || in[i] == '>') && (count_less > 1
-				|| count_more > 1 || (count_more == 1 && count_less == 1)))	
+				|| count_more > 1 || (count_more == 1 && count_less == 1)))
 			return (print_less_more_error(in, i + 1));
 		else if (count_more + count_less >= 3)
 		{
