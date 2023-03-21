@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:23:03 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/07 14:30:04 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/21 16:46:26 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char	*is_quote(char *in, int i, char c)
 	int		index;
 	char	*tmp;
 
+	if (!in)
+		return (NULL);
 	while (in[++i])
 	{
 		if (in[i] == '\'' || in[i] == '"')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:09:42 by ebillon           #+#    #+#             */
-/*   Updated: 2022/11/11 11:09:43 by ebillon          ###   ########lyon.fr   */
+/*   Updated: 2023/03/21 16:56:32 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if ((!s1 || !s2) || (!s1 && !s2))
 	{
 		if (s1)
+		{
+			if (!s2)
+				return ((char *)s1);
 			free ((char *)s1);
+		}
 		if (s2)
 			free((char *)s2);
 		return (NULL);

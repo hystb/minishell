@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 12:12:25 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/21 13:06:01 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/21 16:51:44 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ void	replace_env_var(t_data var_lst)
 		i = 0;
 		while (tmp->content != NULL && tmp->content[i])
 		{
+			//ft_printf("%s\n",tmp->content[i]);
 			new_content = is_env_vars(tmp->content[i], var_lst, j, k);
 			if (new_content)
 				tmp->content[i] = new_content;
+			//ft_printf("%s\n",tmp->content[i]);
 			i++;
 		}
 		tmp = tmp->next;
@@ -77,13 +79,10 @@ char	*sub_env_var(char *var, char *arg, int start, t_data var_lst)
 		return (NULL);
 	end = end_env(start, arg);
 	new_content = find_env_var(var, var_lst);
-	if (!new_content)
-	{
-		free(var);
-		return (NULL);
-	}
 	new_arg = ft_strjoin(ft_strjoin(ft_substr(arg, 0, start), new_content), \
 	ft_substr(arg, end, ft_strlen(arg)));
+	if (!new_arg)
+		new_arg = ft_strdup("\0");
 	free(arg);
 	free(var);
 	if (!new_arg)
