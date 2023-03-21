@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ethaaalpha <ethaaalpha@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/16 15:47:26 by ethaaalpha       ###   ########.fr       */
+/*   Updated: 2023/03/21 13:01:06 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 unexpected token 'newline'\n"
 # define PIPE_ERROR "minishell: syntax error near unexpected token '|'\n"
 # define UNCOMP_ERROR "minishell: syntax error near unexpected token '"
+# define ERROR_QUOTE "minishell: not close quote\n"
 
 typedef struct s_cmds
 {
@@ -68,13 +69,13 @@ extern int	g_signal_handle;
 /* parsing */
 t_list	**put_input_lst(char **input);
 void	put_in_lst(char *input, t_list **cmd, t_cmds data_cmd);
-void	split_map(char ***map_cmd, char *input, t_cmds data);
+void	split_map(char ***map_cmd, char *input);
 void	prepare_input(char *input, t_cmds *data_cmd);
 void	make_map_pipe(char ***map_cmd, char **splited, int end, int start);
 void	make_map(char ***map_cmd, char **splited, int end, int start);
 int		last_pipe(char **splited, int i);
 char	**ft_split_quote(char const *s, char c);
-void	prepare_split(char *input);
+void	prepare_split(char **input, char c, int i, int index);
 void	change_space(char *str, int end, int start, int type);
 void	change_split(char **splited);
 int		ft_tablen(char ***map);
@@ -100,7 +101,7 @@ void	make_node_env(char *env, int split, t_env **env_var);
 void	free_env_var(t_env **env);
 void	replace_env_var(t_data var_lst);
 char	*find_env_var(char *var, t_data var_lst);
-char	*input_error(char *in);
+char	*input_error(char *in, t_data var_lst);
 char	*sign_error(char *in, int space, int i);
 char	*print_less_more_error(char *in, int i);
 char	*many_sign(char *in);

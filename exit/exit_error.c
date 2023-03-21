@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 15:41:16 by ebillon           #+#    #+#             */
-/*   Updated: 2023/02/20 13:05:12 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/21 12:25:36 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	exit_error(t_data data)
 {
 	perror("");
 	free_data(data);
-	rl_clear_history();
 	exit(EXIT_FAILURE);
 }
 
