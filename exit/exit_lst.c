@@ -27,15 +27,19 @@ void	del_free_content(void **content)
 
 void	free_pids(t_listpids **pids)
 {
-	t_listpids	*i;
+	t_listpids *tmp;
+	t_listpids *old;
 
 	if (!pids)
 		return ;
-	i = *pids;
-	while (i)
+	if (!*pids)
+		return (free(pids));
+	tmp = *pids;
+	while(tmp)
 	{
-		free(i);
-		i = i->next;
+		old = tmp;
+		tmp = tmp->next;
+		free(old);
 	}
 	free(pids);
 }

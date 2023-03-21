@@ -14,19 +14,15 @@
 
 void	wait_childs(t_listpids **pids, t_data var_lst)
 {
+	t_listpids	*tmp;
 	int			status;
-	t_listpids	*old;
 
-	if (!*pids)
-		return (free(pids));
-	while (*pids)
+	tmp = *pids;
+	while (tmp)
 	{
-		old = *pids;
-		waitpid((*pids)->pid, &status, 0);
-		*pids = (*pids)->next;
-		free(old);
+		waitpid(tmp->pid, &status, 0);
+		tmp = tmp->next;
 	}
-	free(pids);
 	if (WIFEXITED(status))
 		set_value_env("?", ft_itoa(WEXITSTATUS(status)), var_lst);
 }
@@ -60,6 +56,17 @@ int	do_heredocs(t_list **lst_cmd, t_data data)
 	return (0);
 }
 
+t_listpids	**malloc_pids(t_data var_lst)
+{
+	t_listpids	**list_pids;
+
+	list_pids = malloc(sizeof(t_listpids *));
+	if (!list_pids)
+		write_error("Memory allocation error !", var_lst);
+	*list_pids = NULL;
+	return (list_pids);
+}
+
 void	do_exec(t_data var_lst, t_list **lst_cmd, int fd_old, t_list *tmp)
 {
 	t_listpids	**list_pids;
@@ -67,10 +74,7 @@ void	do_exec(t_data var_lst, t_list **lst_cmd, int fd_old, t_list *tmp)
 	if (!(*lst_cmd)->content[0] || !*lst_cmd)
 		return ;
 	tmp = *lst_cmd;
-	list_pids = malloc(sizeof(t_listpids *));
-	if (!list_pids)
-		write_error("Memory allocation error !", var_lst);
-	*list_pids = NULL;
+	list_pids = malloc_pids(var_lst);
 	g_signal_handle = 1;
 	if (!do_heredocs(lst_cmd, var_lst))
 	{
@@ -85,6 +89,7 @@ void	do_exec(t_data var_lst, t_list **lst_cmd, int fd_old, t_list *tmp)
 	}
 	else
 		set_value_env("?", ft_strdup("130"), var_lst);
+	free_pids(list_pids);
 	*lst_cmd = tmp;
 	g_signal_handle = 0;
 }
