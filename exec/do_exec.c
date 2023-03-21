@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/21 13:39:26 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/21 13:54:31 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	do_exec(t_data var_lst, t_list **lst_cmd)
 	t_listpids	**list_pids;
 	int			fd_old;
 
-	if (!(*lst_cmd)->content[0])
+	if (!(*lst_cmd)->content[0] || !*lst_cmd)
 		return ;
 	list_pids = malloc(sizeof(t_listpids *));
 	if (!list_pids)
