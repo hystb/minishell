@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:29:22 by nmilan            #+#    #+#             */
-/*   Updated: 2023/01/25 17:23:07 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/21 13:52:52 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	replace_pipe_in_quote(char ***map)
 	int	k;
 
 	i = 0;
-	while (map[i])
+	while (map && map[i])
 	{
 		j = 0;
 		while (map[i][j])
