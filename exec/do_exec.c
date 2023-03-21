@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/21 13:54:31 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/21 14:57:54 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,17 @@ int	do_heredocs(t_list **lst_cmd, t_data data)
 	return (0);
 }
 
-void	do_exec(t_data var_lst, t_list **lst_cmd)
+void	do_exec(t_data var_lst, t_list **lst_cmd, int fd_old, t_list *tmp)
 {
 	t_listpids	**list_pids;
-	int			fd_old;
 
 	if (!(*lst_cmd)->content[0] || !*lst_cmd)
 		return ;
+	tmp = *lst_cmd;
 	list_pids = malloc(sizeof(t_listpids *));
 	if (!list_pids)
 		write_error("Memory allocation error !", var_lst);
 	*list_pids = NULL;
-	fd_old = 0;
 	g_signal_handle = 1;
 	if (!do_heredocs(lst_cmd, var_lst))
 	{
@@ -86,5 +85,6 @@ void	do_exec(t_data var_lst, t_list **lst_cmd)
 	}
 	else
 		set_value_env("?", ft_strdup("130"), var_lst);
+	*lst_cmd = tmp;
 	g_signal_handle = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/21 12:17:52 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:02:57 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,14 @@ int	cd(t_data data, t_list *cmds)
 
 	args = (char **)cmds->content;
 	if (args_len(args) == 1)
+	{
 		path = get_item_env(data, "HOME");
+		if (!path)
+		{
+			write(2, "minishell: cd: HOME not set\n", 29);
+			return (1);
+		}
+	}
 	else if (!ft_strncmp(args[1], "-", ft_strlen(args[1])))
 		path = get_item_env(data, "OLDPWD");
 	else
