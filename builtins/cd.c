@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ethaaalpha <ethaaalpha@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/16 15:31:18 by ethaaalpha       ###   ########.fr       */
+/*   Updated: 2023/03/21 12:17:52 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	go_to(t_data data, char *dest)
 		return (1);
 	}
 	set_value_env("OLDPWD", ft_strdup(path_old), data);
+	set_value_env("PWD", ft_strdup(dest), data);
 	return (0);
 }
 

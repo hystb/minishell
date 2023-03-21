@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ethaaalpha <ethaaalpha@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/16 15:25:51 by ethaaalpha       ###   ########.fr       */
+/*   Updated: 2023/03/21 11:18:43 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	set_value_env(char *key, char *value, t_data var_lst)
 	add_value_env(key, value, var_lst);
 }
 
-void delete_item_env(t_env *env, char *key)
+void	delete_item_env(t_env *env, char *key)
 {
 	while (env)
 	{

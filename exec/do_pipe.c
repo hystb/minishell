@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ethaaalpha <ethaaalpha@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/16 15:49:52 by ethaaalpha       ###   ########.fr       */
+/*   Updated: 2023/03/21 12:17:01 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,15 @@ void	do_child(t_list **cmds, t_data data, int *fd_in, int tube[2])
 
 	if ((*cmds)->previous)
 	{
-		dup2(*fd_in, STDIN_FILENO);
+		if (dup2(*fd_in, STDIN_FILENO) == -1)
+			perror("");
 		close(*fd_in);
 	}
 	if ((*cmds)->next)
-		dup2(tube[1], STDOUT_FILENO);
+	{
+		if (dup2(tube[1], STDOUT_FILENO) == -1)
+			perror("");
+	}
 	close(tube[1]);
 	close(tube[0]);
 	env = get_env_from_lst(data);
