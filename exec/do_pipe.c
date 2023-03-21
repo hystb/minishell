@@ -54,6 +54,7 @@ void	do_child(t_list **cmds, t_data data, int *fd_in, int tube[2])
 		write_error("Memory allocation error !", data);
 	make_command(cmds, env, data);
 	free_tab(env);
+	free_data(data);
 	exit(EXIT_SUCCESS);
 }
 
@@ -84,21 +85,15 @@ int	make_only(t_data data, t_listpids **pids, int *fd_in)
 		old_out = dup(STDOUT_FILENO);
 		old_in = dup(STDIN_FILENO);
 		if (old_in < 0 || old_in < 0)
-			quit_simple(data, 1);
-		else
-		{
-			make_redir_inside(*cmds, data);
-			val = do_builtins(data);
-			if (dup2(old_out, STDOUT_FILENO) == -1 || \
-			dup2(old_in, STDIN_FILENO) == -1)
-				quit_simple(data, 1);
-			else
-			{
-				close(old_in);
-				close(old_out);
-				set_value_env("?", ft_itoa(val), data);
-			}
-		}
+			return (quit_simple(data, 1));
+		make_redir_inside(*cmds, data);
+		val = do_builtins(data);
+		if (dup2(old_out, STDOUT_FILENO) == -1 || \
+		dup2(old_in, STDIN_FILENO) == -1)
+			return (quit_simple(data, 1));
+		close(old_in);
+		close(old_out);
+		set_value_env("?", ft_itoa(val), data);
 	}
 	else
 		make_pipe(data, pids, fd_in);

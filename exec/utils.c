@@ -50,8 +50,9 @@ void	add_pids(pid_t value, t_listpids **list, t_data data)
 		*list = new;
 }
 
-void	quit_simple(t_data data, int ret_exit)
+int	quit_simple(t_data data, int ret_exit)
 {
 	perror("");
 	set_value_env("?", ft_itoa(ret_exit), data);
+	return (1);
 }

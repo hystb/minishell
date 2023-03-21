@@ -27,7 +27,7 @@ void	del_free_content(void **content)
 
 void	free_pids(t_listpids **pids)
 {
-	t_listpids *i;
+	t_listpids	*i;
 
 	if (!pids)
 		return ;

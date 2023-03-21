@@ -16,6 +16,7 @@ void	exit_error(t_data data)
 {
 	perror("");
 	free_data(data);
+	rl_clear_history();
 	exit(EXIT_FAILURE);
 }
 
