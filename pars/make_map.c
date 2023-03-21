@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 12:50:53 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/06 15:39:55 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/21 13:50:20 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	make_map_pipe(char ***map_cmd, char **splited, int end, int start)
 	pipe = malloc(sizeof(char *) * 2);
 	if (!cmd || !pipe)
 	{
-		//put exit funct
-		exit(1);
+		map_cmd[i] = NULL;
+		return ;
 	}
 	while (start < end)
 	{
@@ -61,15 +61,15 @@ void	make_map(char ***map_cmd, char **splited, int end, int start)
 	j = 0;
 	i = 0;
 	cmd = malloc(sizeof(char *) * ((end - start) + 2));
-	if (!cmd)
-	{
-		//put exit funct
-		exit(1);
-	}
 	if (start > 0)
 	{
-		while (map_cmd[i])
+		while (map_cmd && map_cmd[i])
 			i++;
+	}
+	if (!cmd)
+	{
+		map_cmd[i] = NULL;
+		return ;
 	}
 	while (start <= end)
 	{
