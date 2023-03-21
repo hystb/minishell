@@ -1,7 +1,7 @@
 #---------------------------------------------------#
 CC 			= cc
 
-CFLAGS 		= -fsanitize=address -g3 #-Wall -Wextra -Werror
+CFLAGS 		= -Wall -Wextra -Werror
 
 OFLAGS		= -lreadline -ltinfo
 
@@ -49,6 +49,8 @@ OBJ_DIR 	= .obj
 OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 INCLUDES 	= includes/
+
+HEADERS		= includes/gnl.h includes/minishell.h
 #---------------------------------------------------#
 LIBFT_DIR	= libft/
 
@@ -62,7 +64,7 @@ all: lib
 $(NAME): $(OBJS) $(INCLUDES)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I $(INCLUDES) $(OFLAGS) $(LIBFT_EXEC)
 
-$(OBJ_DIR)/%.o : %.c Makefile $(INCLUDES)
+$(OBJ_DIR)/%.o : %.c Makefile $(HEADERS)
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 

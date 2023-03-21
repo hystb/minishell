@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/21 11:21:22 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/21 13:35:44 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	do_builts_funct(t_data data, t_list **cmds, char *arg)
 		return (env(data));
 	else if (!ft_strncmp(arg, "exit", ft_strlen(arg)))
 		ft_exit(data);
+	return (0);
 }
 
 int	do_builtins(t_data data)
