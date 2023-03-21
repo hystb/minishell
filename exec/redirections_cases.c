@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_cases.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ethaaalpha <ethaaalpha@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:05:21 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/16 15:36:42 by ethaaalpha       ###   ########.fr       */
+/*   Updated: 2023/03/21 13:11:49 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	aux_inside_out(char **args, int mode, int i, t_data data)
 		fd_temp = do_writing_file(args[i + 1], 1, data);
 	else
 		fd_temp = do_writing_file(args[i + 1], 0, data);
-	dup2(fd_temp, STDOUT_FILENO);
+	if (dup2(fd_temp, STDOUT_FILENO) == 1)
+		perror("");
 	close(fd_temp);
 	clean_up_redir(args, i);
 }
@@ -64,7 +65,8 @@ void	make_redir_inside(t_list *cmd, t_data data)
 	args = (char **)cmd->content;
 	if (cmd->fd_heredoc)
 	{
-		dup2(cmd->fd_heredoc, STDIN_FILENO);
+		if (dup2(cmd->fd_heredoc, STDIN_FILENO) == -1)
+			perror("");
 		close(cmd->fd_heredoc);
 	}
 	while (args[i])
