@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ethaaalpha <ethaaalpha@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/16 15:42:14 by ethaaalpha       ###   ########.fr       */
+/*   Updated: 2023/03/21 13:39:26 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,28 +60,31 @@ int	do_heredocs(t_list **lst_cmd, t_data data)
 	return (0);
 }
 
-void	do_exec(t_data var_lst)
+void	do_exec(t_data var_lst, t_list **lst_cmd)
 {
-	t_list		**lst_cmd;
 	t_listpids	**list_pids;
 	int			fd_old;
 
-	lst_cmd = var_lst.cmd_lst;
 	if (!(*lst_cmd)->content[0])
 		return ;
 	list_pids = malloc(sizeof(t_listpids *));
+	if (!list_pids)
+		write_error("Memory allocation error !", var_lst);
 	*list_pids = NULL;
 	fd_old = 0;
 	g_signal_handle = 1;
 	if (!do_heredocs(lst_cmd, var_lst))
 	{
 		if (!(*lst_cmd)->next)
-			make_only(var_lst, list_pids, &fd_old);
+		{
+			if (make_only(var_lst, list_pids, &fd_old))
+				set_value_env("?", ft_strdup("1"), var_lst);
+		}
 		else
 			make_pipe(var_lst, list_pids, &fd_old);
 		wait_childs(list_pids, var_lst);
 	}
 	else
-		set_value_env("?", ft_itoa(130), var_lst);
+		set_value_env("?", ft_strdup("130"), var_lst);
 	g_signal_handle = 0;
 }

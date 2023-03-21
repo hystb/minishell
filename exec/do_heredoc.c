@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ethaaalpha <ethaaalpha@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/16 15:32:00 by ethaaalpha       ###   ########.fr       */
+/*   Updated: 2023/03/21 13:33:06 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	heredoc_loop(char *str, t_data data, int fd[2])
 	tmp = check_var(str, data, 0, -1);
 	while (ft_strncmp(tmp, str, ft_strlen(tmp)))
 	{
-			str = tmp;
-			tmp = check_var(str, data, 0, -1);
+		str = tmp;
+		tmp = check_var(str, data, 0, -1);
 	}
 	str = tmp;
 	write(fd[1], str, ft_strlen(str));

@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/21 12:17:01 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/21 13:37:26 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	make_only(t_data data, t_listpids **pids, int *fd_in)
 	}
 	else
 		make_pipe(data, pids, fd_in);
+	return (0);
 }
 
 void	make_pipe(t_data data, t_listpids **pids, int *fd_in)

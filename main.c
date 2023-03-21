@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/21 13:00:11 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/21 13:39:45 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 			if (!var_lst.cmd_lst)
 				continue ;
 			replace_env_var(var_lst);
-			do_exec(var_lst);
+			do_exec(var_lst, var_lst.cmd_lst);
 			ft_lstclear(var_lst.cmd_lst, del_free_content);
 			free (var_lst.cmd_lst);
 		}

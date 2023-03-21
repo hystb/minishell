@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/21 13:01:06 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/21 13:39:35 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	exit_error(t_data data);
 void	write_error(char *str, t_data data);
 void	not_found_error(char *cmd, t_data data);
 void	free_data(t_data data);
-int	quit_simple(t_data data, int ret_exit);
+int		quit_simple(t_data data, int ret_exit);
 
 /* redirections */
 void	make_redir_inside(t_list *cmd, t_data data);
@@ -158,6 +158,6 @@ char	*get_path(char *cmd, char **env, t_data data);
 int		make_only(t_data data, t_listpids **pids, int *fd_in);
 void	make_pipe(t_data data, t_listpids **pids, int *fd_in);
 char	*get_next_line(int fd);
-void	do_exec(t_data var_lst);
+void	do_exec(t_data var_lst, t_list **lst_cmd);
 
 #endif
