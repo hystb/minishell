@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:51:19 by nmilan            #+#    #+#             */
-/*   Updated: 2023/01/30 16:35:36 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/21 12:50:41 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,7 @@ char	*realloc_input(char *input, int i)
 	j = i + 1;
 	res = malloc(sizeof(char) * (ft_strlen(input) + 3));
 	if (!res)
-	{
-		//error to put
-		exit (1);
-	}
+		return (NULL);
 	ft_strlcpy(res, input, i + 1);
 	res[j - 1] = ' ';
 	res[j++] = '|';

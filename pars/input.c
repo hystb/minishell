@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/07 14:05:00 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/21 12:20:38 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ char	*make_input(char *promp_name, t_data var_lst)
 	if (!input)
 	{
 		free_env_var(var_lst.env_var);
+		rl_clear_history();
 		ft_putstr_fd("\nexit\n", 2);
-		exit(1);
+		exit(0);
 	}
 	if (ft_strlen(input) > 0)
 		add_history(input);
-	input = input_error(input);
+	input = input_error(input, var_lst);
 	return (input);
 }
 

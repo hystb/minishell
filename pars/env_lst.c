@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:22:23 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/07 14:22:26 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/21 12:33:06 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	env_add_back(t_env **lst, t_env *new)
 	t_env	*tmp;
 
 	tmp = *lst;
+	if (!new)
+		return ;
 	if (!*lst)
 	{
 		*lst = new;
@@ -47,12 +49,8 @@ void	free_env_var(t_env **env)
 	t_env	*tmp;
 	t_env	*lst;
 
-	/*if (!*env)
-	{
-		if (env)
-			free(env);
+	if (!env)
 		return ;
-	}*/
 	lst = *env;
 	while (lst)
 	{
@@ -68,6 +66,8 @@ void	free_env_var(t_env **env)
 t_env	**put_env(char **envp, t_data var_lst)
 {
 	var_lst.env_var = make_env_in_lst(envp);
+	if (!var_lst.env_var)
+		exit(1);
 	return (var_lst.env_var);
 }
 
@@ -79,9 +79,7 @@ t_env	**make_env_in_lst(char **envp)
 
 	env_var = malloc(sizeof(t_env *));
 	if (!env_var)
-	{
-		//add malloc protect
-	}
+		return (NULL);
 	*env_var = NULL;
 	i = 0;
 	while (envp[i])

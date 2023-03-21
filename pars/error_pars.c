@@ -6,13 +6,13 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:22:33 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/07 14:22:35 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/21 11:23:45 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*input_error(char *in)
+char	*input_error(char *in, t_data var_lst)
 {
 	int		i;
 
@@ -35,6 +35,8 @@ char	*input_error(char *in)
 	in = sign_error(in, i, -1);
 	replace_comment(in, i);
 	in = control_pipe(in, i);
+	if (!in)
+		set_value_env("?", ft_strdup("2"), var_lst);
 	return (in);
 }
 

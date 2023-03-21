@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 12:12:25 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/07 14:24:20 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/21 13:06:01 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ char	*sub_env_var(char *var, char *arg, int start, t_data var_lst)
 	char	*new_arg;
 	int		end;
 
+	if (!var)
+		return (NULL);
 	end = end_env(start, arg);
 	new_content = find_env_var(var, var_lst);
 	if (!new_content)
@@ -84,6 +86,8 @@ char	*sub_env_var(char *var, char *arg, int start, t_data var_lst)
 	ft_substr(arg, end, ft_strlen(arg)));
 	free(arg);
 	free(var);
+	if (!new_arg)
+		return (NULL);
 	return (new_arg);
 }
 
