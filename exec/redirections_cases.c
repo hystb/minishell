@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirections_cases.c                               :+:      :+:    :+:   */
+/*   _cases.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -43,7 +43,7 @@ void	aux_inside_out(char **args, int mode, int i, t_data data)
 		fd_temp = do_writing_file(args[i + 1], 1, data);
 	else
 		fd_temp = do_writing_file(args[i + 1], 0, data);
-	if (dup2(fd_temp, STDOUT_FILENO) == 1)
+	if (dup2(fd_temp, STDOUT_FILENO) == -1)
 		perror("");
 	close(fd_temp);
 	clean_up_redir(args, i);
