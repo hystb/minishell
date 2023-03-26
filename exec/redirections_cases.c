@@ -49,14 +49,15 @@ void	aux_inside_out(char **args, int mode, int i, t_data data)
 	clean_up_redir(args, i);
 }
 
-void	aux_inside_in(char **args, int i, t_data data)
+int	aux_inside_in(char **args, int i)
 {
 	if (do_input(args[i + 1]))
-		exit_error(data);
+		return (1);
 	clean_up_redir(args, i);
+	return (0);
 }
 
-void	make_redir_inside(t_list *cmd, t_data data)
+int	make_redir_inside(t_list *cmd, t_data data)
 {
 	char	**args;
 	int		i;
@@ -72,7 +73,10 @@ void	make_redir_inside(t_list *cmd, t_data data)
 	while (args[i])
 	{
 		if (ft_strncmp(args[i], "<", 1) == 0)
-			aux_inside_in(args, i, data);
+		{
+			if (aux_inside_in(args, i))
+				return (1);
+		}
 		else if (ft_strncmp(args[i], ">>", 2) == 0)
 			aux_inside_out(args, 1, i, data);
 		else if (ft_strncmp(args[i], ">", 1) == 0)
@@ -80,6 +84,7 @@ void	make_redir_inside(t_list *cmd, t_data data)
 		else
 			i++;
 	}
+	return (0);
 }
 
 void	make_redir_inside_aux(t_list *cmd, int *fd_target, t_data data)

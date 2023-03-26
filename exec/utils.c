@@ -67,3 +67,11 @@ int	quit_simple(t_data data, int ret_exit)
 	set_value_env("?", ft_itoa(ret_exit), data);
 	return (1);
 }
+
+int quit_redir(int a, int b)
+{
+	perror("");
+	close(a);
+	close(b);
+	return (1);
+}

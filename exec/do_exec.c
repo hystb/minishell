@@ -18,6 +18,8 @@ void	wait_childs(t_listpids **pids, t_data var_lst)
 	int			status;
 
 	tmp = *pids;
+	if (!tmp)
+		return ;
 	while (tmp)
 	{
 		waitpid(tmp->pid, &status, 0);

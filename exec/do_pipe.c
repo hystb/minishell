@@ -18,7 +18,8 @@ void	make_command(t_list	**cmds, char **env, t_data data)
 	int		val;
 	int		exec;
 
-	make_redir_inside(*cmds, data);
+	if (make_redir_inside(*cmds, data))
+		exit_error(data);
 	if (!(*cmds)->content[0])
 		return ;
 	if (is_builtins(cmds))
@@ -90,7 +91,8 @@ int	make_only(t_data data, t_listpids **pids, int *fd_in)
 		old_in = dup(STDIN_FILENO);
 		if (old_in < 0 || old_in < 0)
 			return (quit_simple(data, 1));
-		make_redir_inside(*cmds, data);
+		if (make_redir_inside(*cmds, data))
+			return (quit_redir(old_out, old_in));
 		val = do_builtins(data);
 		if (dup2(old_out, STDOUT_FILENO) == -1 || \
 		dup2(old_in, STDIN_FILENO) == -1)
