@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/27 15:23:38 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/27 17:25:29 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ char	*print_less_more_error(char *in, int i);
 char	*many_sign(char *in);
 void	print_undefine(char *s1, char *s2, char *s3, char c);
 char	*print_less_error(char *in, int i, char *res);
-void	replace_comment(char *in, int i);
 char	*control_pipe(char *in, int i);
 char	*replace_tab_and_printable(char *in);
 void	replace_quote(t_data var_lst);
@@ -116,6 +115,8 @@ void	replace_pipe_in_quote(char ***map);
 char	*is_quote(char *in, int i, char c);
 void	change_quote(char *in);
 void	restore_quote(t_data var_lst);
+char	*get_var(char *arg, t_data var_lst, int j, int i);
+void	is_env_synthax(char *in, int j, int *i);
 
 /* builtins */
 int		pwd(void);
@@ -154,6 +155,7 @@ char	*get_item_env(t_data data, char *key);
 
 /* execution */
 int		is_builtins(t_list	**cmds);
+int		is_blank(char *str);
 void	add_pids(pid_t value, t_listpids **list, t_data data);
 int		do_builtins(t_data data);
 int		do_parent_builtins(t_data data);

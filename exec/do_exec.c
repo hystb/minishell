@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/27 14:28:53 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/27 17:25:54 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	do_exec(t_data var_lst, t_list **lst_cmd, int fd_old, t_list *tmp)
 {
 	t_listpids	**list_pids;
 
-	if (!(*lst_cmd)->content[0] || !*lst_cmd)
+	if (!*lst_cmd || !(*lst_cmd)->content[0] || is_blank((*lst_cmd)->content[0]))
 		return ;
 	tmp = *lst_cmd;
 	list_pids = malloc_pids(var_lst);

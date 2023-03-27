@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 13:43:17 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/27 14:40:32 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/27 17:25:15 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,6 @@ void	add_pids(pid_t value, t_listpids **list, t_data data)
 		*list = new;
 }
 
-int	quit_simple(t_data data, int ret_exit)
-{
-	perror("");
-	set_value_env("?", ft_itoa(ret_exit), data);
-	return (1);
-}
-
-int	quit_redir(int a, int b)
-{
-	perror("");
-	close(a);
-	close(b);
-	return (1);
-}
-
 int	ft_strcmp(char *a, char *b)
 {
 	int	i;
@@ -88,4 +73,11 @@ int	ft_strcmp(char *a, char *b)
 		i++;
 	}
 	return (a[i] - b[i]);
+}
+
+int	is_blank(char *str)
+{
+	if (!str[0])
+		return (1);
+	return (0);
 }

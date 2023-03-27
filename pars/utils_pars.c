@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:29:22 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/21 13:52:52 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/27 16:02:26 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,4 @@ void	print_undefine(char *s1, char *s2, char *s3, char c)
 		ft_putchar_fd(c, 2);
 	ft_putstr_fd(s3, 2);
 	return ;
-}
-
-int	end_env(int start, char *arg)
-{
-	while (arg[start] && arg[start] != ' '
-		&& arg[start] != '\'' && arg[start] != '"')
-	{
-		start++;
-	}
-	return (start);
 }

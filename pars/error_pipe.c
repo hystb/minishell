@@ -6,37 +6,11 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:22:39 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/07 14:22:42 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/27 16:33:11 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	replace_comment(char *in, int i)
-{
-	while (in && in[i])
-	{
-		if (in[i] == '#')
-		{
-			while (in[i] != '\0')
-			{
-				in[i++] = ' ';
-				if (!in[i])
-					return ;
-			}
-		}
-		if (in[i] == ':')
-		{
-			while (in[i] && in[i] != '|')
-				in[i++] = ' ';
-			if (in[i] == '\0')
-				return ;
-			if (in[i] == '|')
-				in[i] = ' ';
-		}
-		i++;
-	}
-}
 
 char	*control_pipe(char *in, int i)
 {

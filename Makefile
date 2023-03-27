@@ -42,7 +42,8 @@ pars/put_lst.c\
 pars/replace_env.c\
 pars/replace_quote.c\
 pars/space_pipe.c\
-pars/utils_pars.c
+pars/utils_pars.c\
+pars/env_aux.c
 
 OBJ_DIR 	= .obj
 

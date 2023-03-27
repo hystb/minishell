@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_lst.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:52:06 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/21 14:46:14 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/27 17:24:33 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,3 +56,4 @@ void	free_data(t_data data)
 	}
 	free_env_var(data.env_var);
 }
+

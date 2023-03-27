@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 15:41:16 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/21 12:25:36 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/27 17:24:40 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,19 @@ void	write_error(char *str, t_data data)
 	free_data(data);
 	exit(EXIT_FAILURE);
 }
+
+int	quit_simple(t_data data, int ret_exit)
+{
+	perror("");
+	set_value_env("?", ft_itoa(ret_exit), data);
+	return (1);
+}
+
+int	quit_redir(int a, int b)
+{
+	perror("");
+	close(a);
+	close(b);
+	return (1);
+}
+

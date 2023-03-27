@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:22:33 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/27 13:25:39 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/27 16:33:43 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ char	*input_error(char *in, t_data var_lst)
 	in = replace_tab_and_printable(in);
 	in = many_sign(in);
 	in = sign_error(in, i, -1);
-	replace_comment(in, i);
 	in = control_pipe(in, i);
 	if (!in)
 		set_value_env("?", ft_strdup("2"), var_lst);
@@ -52,7 +51,8 @@ char	*sign_error(char *in, int space, int i)
 				space++;
 				i++;
 			}
-			if (space > 0 && (in[i + 1] == '<' || in[i + 1] == '>' || in[i + 1] == '|'))
+			if (space > 0 && (in[i + 1] == '<' || in[i + 1] == '>'
+					|| in[i + 1] == '|'))
 			{
 				print_undefine(UNCOMP_ERROR, NULL, "'\n", in[i + 1]);
 				return (free(in), NULL);
