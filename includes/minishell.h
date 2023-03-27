@@ -133,10 +133,12 @@ void	exit_error(t_data data);
 void	write_error(char *str, t_data data);
 void	not_found_error(char *cmd, t_data data);
 void	free_data(t_data data);
+void	free_pids(t_listpids **pids);
+int		quit_redir(int a, int b);
 int		quit_simple(t_data data, int ret_exit);
 
 /* redirections */
-void	make_redir_inside(t_list *cmd, t_data data);
+int		make_redir_inside(t_list *cmd, t_data data);
 int		do_input(char *path);
 int		do_writing_file(char *path, int mode, t_data data);
 int		do_heredoc(char *limiter, t_data data);

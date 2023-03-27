@@ -19,10 +19,7 @@ int	do_input(char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-	{
-		perror("");
 		return (1);
-	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 	return (0);

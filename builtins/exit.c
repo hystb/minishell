@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/21 15:20:26 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/27 13:41:24 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_syntaxe(char *arg)
 			write(2, "minishell: exit: ", 18);
 			write(2, arg, ft_strlen(arg));
 			write(2, ": numeric argument required\n", 29);
-			return (1);
+			return (2);
 		}
 		i++;
 	}
