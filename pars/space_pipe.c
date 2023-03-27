@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:51:19 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/21 12:50:41 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/27 15:17:17 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@ char	*add_space_pipe(char *input)
 	i = 0;
 	if (need_space(input))
 		return (input);
-	while (input[i])
+	while (input && input[i])
 	{
 		if (input[i] == '|')
 		{
 			input = realloc_input(input, i);
 			i++;
 		}
-		i++;
+		if (input[i])
+			i++;
 	}
 	return (input);
 }
@@ -40,6 +41,8 @@ int	need_space(char *input)
 	{
 		if (i > 0 && input[i] == '|' && (input[i - 1] != ' '
 				|| input[i + 1] != ' '))
+			return (0);
+		if (input[i] == '$')
 			return (0);
 		i++;
 	}

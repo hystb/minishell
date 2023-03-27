@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 12:12:25 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/27 13:15:36 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/27 14:34:19 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*is_env_vars(char *arg, t_data var_lst, int j, int i)
 		if (arg[i] == '$' && (is_sp_quote == 0 || is_sp_quote == 3))
 		{
 			j = i + 1;
-			while (arg[i] != ' ' && arg[i] && arg[i] != '"' && arg[i] != '\'')
+			while (arg[i] != ' ' && arg[i] && arg[i] != '"' && arg[i] != '\'' && arg[i] != '$')
 				i++;
 			var = ft_substr(arg, j, i - j);
 			var = sub_env_var(var, arg, j - 1, var_lst);
@@ -100,8 +100,9 @@ char	*find_env_var(char *var, t_data var_lst)
 	res = NULL;
 	while (env)
 	{
-		if (ft_strnstr(env->name_var, var, (ft_strlen(var) + 1)))
+		if (ft_strnstr(env->name_var, var, (ft_strlen(env->name_var) + 1)))
 		{
+			i = 0;
 			res = ft_strdup(env->content_var);
 			while (res && res[i])
 			{
