@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/21 11:21:35 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/27 13:04:29 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,25 @@ void	sort_tab(char **tab)
 	}
 }
 
+void	print_line(char *arg, t_data data)
+{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	printf("declare -x %s=\"", arg);
+	temp = get_item_env(data, arg);
+	while (temp[i])
+	{
+		if (temp[i] == '\"')
+			printf("\\\"");
+		else
+			printf("%c", temp[i]);
+		i++;
+	}
+	printf("\"\n");
+}
+
 int	do_export_nargs(t_data data)
 {
 	char	**args;
@@ -89,7 +108,7 @@ int	do_export_nargs(t_data data)
 	while (args[i])
 	{
 		if (ft_strncmp(args[i], "?", ft_strlen(args[i])))
-			printf("declare -x %s=%s\n", args[i], get_item_env(data, args[i]));
+			print_line(args[i], data);
 		i++;
 	}
 	free_tab(args);
