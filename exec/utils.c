@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 13:43:17 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/21 13:43:22 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/27 14:40:32 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,24 @@ int	quit_simple(t_data data, int ret_exit)
 	return (1);
 }
 
-int quit_redir(int a, int b)
+int	quit_redir(int a, int b)
 {
 	perror("");
 	close(a);
 	close(b);
 	return (1);
+}
+
+int	ft_strcmp(char *a, char *b)
+{
+	int	i;
+
+	i = 0;
+	while (a[i])
+	{
+		if (a[i] != b[i])
+			break ;
+		i++;
+	}
+	return (a[i] - b[i]);
 }

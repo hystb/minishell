@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/27 15:17:32 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/27 15:23:38 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,5 +163,5 @@ int		make_only(t_data data, t_listpids **pids, int *fd_in);
 void	make_pipe(t_data data, t_listpids **pids, int *fd_in);
 char	*get_next_line(int fd);
 void	do_exec(t_data var_lst, t_list **lst_cmd, int fd_old, t_list *tmp);
-
+int		ft_strcmp(char *a, char *b);
 #endif

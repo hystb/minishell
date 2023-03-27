@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/21 11:21:39 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/27 14:09:47 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	check_str(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if ((!ft_isalnum(str[i])) && str[i] != '_')
+		if (((!ft_isalnum(str[i])) && str[i] != '_')
+			|| (i == 0 && ft_isdigit(str[i])))
 		{
 			write(STDERR_FILENO, "minishell: export: `", 20);
 			write(STDERR_FILENO, &str[i], 1);
