@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/21 14:58:06 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/27 13:04:57 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ void	replace_quote(t_data var_lst);
 int		end_env(int start, char *arg);
 void	replace_pipe_in_quote(char ***map);
 char	*is_quote(char *in, int i, char c);
+void	change_quote(char *in);
+void	restore_quote(t_data var_lst);
 
 /* builtins */
 int		pwd(void);

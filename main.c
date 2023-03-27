@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/21 14:58:23 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/27 13:08:18 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data				var_lst;
 
 	g_signal_handle = 0;
+	var_lst.cmd_lst = NULL;
 	config_signal();
 	var_lst.env_var = put_env(envp, var_lst);
 	var_lst.lst_pids = NULL;

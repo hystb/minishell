@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:23:03 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/21 16:46:26 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/27 13:19:21 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,37 @@ char	*is_quote(char *in, int i, char c)
 		}
 	}
 	return (in);
+}
+
+void	restore_quote(t_data var_lst)
+{
+	t_list	*tmp;
+	int		i;
+
+	tmp = *var_lst.cmd_lst;
+	while (tmp)
+	{
+		i = 0;
+		while (tmp->content && tmp->content[i])
+		{
+			change_quote(tmp->content[i]);
+			i++;
+		}
+		tmp = tmp->next;
+	}
+}
+
+void	change_quote(char *in)
+{
+	int	i;
+
+	i = 0;
+	while (in && in[i])
+	{
+		if (in[i] == -3)
+			in[i] = '\'';
+		if (in[i] == -4)
+			in[i] = '"';
+		i++;
+	}
 }
