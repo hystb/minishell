@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 12:46:49 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/06 16:03:07 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/27 14:58:52 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*get_path(char *cmd, char **env, t_data data)
 	char	*joined;
 
 	i = 0;
-	if (access(cmd, F_OK) == 0)
+	if (access(cmd, X_OK) == 0)
 		return (ft_strdup(cmd));
 	splited = get_splited_env(env, data);
 	while (splited && splited[i])
@@ -69,7 +69,7 @@ char	*get_path(char *cmd, char **env, t_data data)
 		ft_strdup(cmd)));
 		if (!joined)
 			free_split(splited, 1, data);
-		if (access(joined, F_OK) == 0)
+		if (access(joined, X_OK) == 0)
 		{
 			free_split(splited, 0, data);
 			return (joined);

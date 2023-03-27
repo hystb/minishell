@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/21 13:35:44 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/27 14:42:24 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,38 +17,38 @@ int	is_builtins(t_list	**cmds)
 	char	*arg;
 
 	arg = (char *)(*cmds)->content[0];
-	if (!ft_strncmp(arg, "echo", ft_strlen(arg)))
+	if (!ft_strcmp(arg, "echo"))
 		return (1);
-	else if (!ft_strncmp(arg, "cd", ft_strlen(arg)))
+	else if (!ft_strcmp(arg, "cd"))
 		return (1);
-	else if (!ft_strncmp(arg, "pwd", ft_strlen(arg)))
+	else if (!ft_strcmp(arg, "pwd"))
 		return (1);
-	else if (!ft_strncmp(arg, "export", ft_strlen(arg)))
+	else if (!ft_strcmp(arg, "export"))
 		return (1);
-	else if (!ft_strncmp(arg, "unset", ft_strlen(arg)))
+	else if (!ft_strcmp(arg, "unset"))
 		return (1);
-	else if (!ft_strncmp(arg, "env", ft_strlen(arg)))
+	else if (!ft_strcmp(arg, "env"))
 		return (1);
-	else if (!ft_strncmp(arg, "exit", ft_strlen(arg)))
+	else if (!ft_strcmp(arg, "exit"))
 		return (1);
 	return (0);
 }
 
 int	do_builts_funct(t_data data, t_list **cmds, char *arg)
 {
-	if (!ft_strncmp(arg, "echo", ft_strlen(arg)))
+	if (!ft_strcmp(arg, "echo"))
 		return (echo((char **)(*cmds)->content));
-	else if (!ft_strncmp(arg, "cd", ft_strlen(arg)))
+	else if (!ft_strcmp(arg, "cd"))
 		return (cd(data, *cmds));
-	else if (!ft_strncmp(arg, "pwd", ft_strlen(arg)))
+	else if (!ft_strcmp(arg, "pwd"))
 		return (pwd());
-	else if (!ft_strncmp(arg, "export", ft_strlen(arg)))
+	else if (!ft_strcmp(arg, "export"))
 		return (ft_export(data, (char **)(*cmds)->content));
-	else if (!ft_strncmp(arg, "unset", ft_strlen(arg)))
+	else if (!ft_strcmp(arg, "unset"))
 		return (unset(data, (char **)(*cmds)->content));
-	else if (!ft_strncmp(arg, "env", ft_strlen(arg)))
+	else if (!ft_strcmp(arg, "env"))
 		return (env(data));
-	else if (!ft_strncmp(arg, "exit", ft_strlen(arg)))
+	else if (!ft_strcmp(arg, "exit"))
 		ft_exit(data);
 	return (0);
 }
