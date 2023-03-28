@@ -66,7 +66,7 @@ int	aux_inside_in(char **args, int i)
 
 	target = args[i + 1];
 	if (args[i][1])
-		target = args[i] + 2;
+		target = args[i] + 1;
 	if (do_input(target))
 		return (1);
 	clean_up_redir(args, i);
