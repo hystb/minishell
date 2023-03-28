@@ -60,12 +60,12 @@ LIBFT_NAME	= libftprintf.a
 LIBFT_EXEC	= $(addprefix $(LIBFT_DIR), $(LIBFT_NAME))
 #---------------------------------------------------#
 all: lib
-	$(MAKE) -j $(NAME)
+	$(MAKE) $(NAME)
 
-$(NAME): $(OBJS) $(INCLUDES)
+$(NAME): $(OBJS) $(INCLUDES) $(LIBFT_EXEC)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I $(INCLUDES) $(OFLAGS) $(LIBFT_EXEC)
 
-$(OBJ_DIR)/%.o : %.c Makefile $(HEADERS) $(LIBFT_EXEC)
+$(OBJ_DIR)/%.o : %.c Makefile $(HEADERS)
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 

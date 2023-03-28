@@ -60,7 +60,7 @@ INCLUDES 	= libft.h
 #---------------------------------------------------#
 
 all: 
-	$(MAKE) -j $(NAME)
+	$(MAKE) $(NAME)
 
 $(NAME): $(OBJ_DIR) $(SRCS) $(OBJS) $(INCLUDES) 
 	ar rc $(NAME) $(OBJS) 
