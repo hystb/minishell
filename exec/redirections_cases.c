@@ -37,12 +37,23 @@ void	clean_up_redir(char **args, int i)
 
 void	aux_inside_out(char **args, int mode, int i, t_data data)
 {
-	int	fd_temp;
+	int		fd_temp;
+	char	*target;
 
 	if (mode)
-		fd_temp = do_writing_file(args[i + 1], 1, data);
+	{
+		target = args[i + 1];
+		if (args[i][2])
+			target = args[i] + 2;
+		fd_temp = do_writing_file(target, 1, data);
+	}
 	else
-		fd_temp = do_writing_file(args[i + 1], 0, data);
+	{
+		target = args[i + 1];
+		if (args[i][1])
+			target = args[i] + 1;
+		fd_temp = do_writing_file(target, 0, data);
+	}
 	if (dup2(fd_temp, STDOUT_FILENO) == -1)
 		perror("");
 	close(fd_temp);
@@ -51,7 +62,12 @@ void	aux_inside_out(char **args, int mode, int i, t_data data)
 
 int	aux_inside_in(char **args, int i)
 {
-	if (do_input(args[i + 1]))
+	char	*target;
+
+	target = args[i + 1];
+	if (args[i][1])
+		target = args[i] + 2;
+	if (do_input(target))
 		return (1);
 	clean_up_redir(args, i);
 	return (0);
