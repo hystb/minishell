@@ -3,38 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils_aux.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/21 13:42:54 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/28 16:23:53 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	**get_env_from_lst(t_data data)
+char	**get_env_from_lst(t_data data, int i)
 {
 	char	**res;
-	int		i;
 	t_env	*env;
 
 	env = *data.env_var;
 	res = malloc((sizeof(char *)) * (get_env_lenght(data) + 1));
 	if (!res)
 		return (NULL);
-	i = 0;
 	while (env)
 	{
-		res[i] = ft_strjoin(ft_strdup(env->name_var), \
-		ft_strjoin(ft_strdup("="), ft_strdup(env->content_var)));
-		if (!res[i])
+		if (ft_strncmp(env->name_var, "?", ft_strlen(env->name_var)))
 		{
-			res[i] = NULL;
-			free_tab(res);
-			return (NULL);
-		}
+			res[i] = ft_strjoin(ft_strdup(env->name_var), \
+			ft_strjoin(ft_strdup("="), ft_strdup(env->content_var)));
+			if (!res[i])
+			{
+				res[i] = NULL;
+				free_tab(res);
+				return (NULL);
+			}
+			i++;
+		}	
 		env = env->next;
-		i++;
 	}
 	res[i] = NULL;
 	return (res);

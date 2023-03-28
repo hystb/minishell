@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/28 12:37:09 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/28 16:24:16 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	do_child(t_list **cmds, t_data data, int *fd_in, int tube[2])
 	}
 	close(tube[1]);
 	close(tube[0]);
-	env = get_env_from_lst(data);
+	env = get_env_from_lst(data, 0);
 	if (!env)
 		write_error("Memory allocation error !", data);
 	make_command(cmds, env, data);

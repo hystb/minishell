@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/21 15:02:57 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/28 16:26:07 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	go_to(t_data data, char *dest)
 		return (1);
 	}
 	set_value_env("OLDPWD", ft_strdup(path_old), data);
-	set_value_env("PWD", ft_strdup(dest), data);
+	set_value_env("PWD", getcwd(NULL, 0), data);
 	return (0);
 }
 

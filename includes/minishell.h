@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/28 14:30:32 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/28 16:24:06 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ char	*check_var(char *arg, t_data var_lst, int j, int i);
 void	set_value_env(char *key, char *value, t_data var_lst);
 void	delete_item_env(t_env *env, char *key);
 int		get_env_lenght(t_data data);
-char	**get_env_from_lst(t_data data);
+char	**get_env_from_lst(t_data data, int i);
 char	*get_item_env(t_data data, char *key);
 
 /* execution */

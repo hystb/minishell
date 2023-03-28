@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/21 12:20:38 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/28 16:21:54 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,23 @@
 
 char	*make_input(char *promp_name, t_data var_lst)
 {
-	char		*input;
+	char	*input;
+	int		res;
 
 	g_signal_handle = 0;
 	input = readline(promp_name);
+	if (g_signal_handle == -1)
+	{
+		set_value_env("?", ft_itoa(130), var_lst);
+		g_signal_handle = 0;
+	}
 	if (!input)
 	{
+		res = ft_atoi(get_item_env(var_lst, "?"));
 		free_env_var(var_lst.env_var);
 		rl_clear_history();
 		ft_putstr_fd("\nexit\n", 2);
-		exit(0);
+		exit(res);
 	}
 	if (ft_strlen(input) > 0)
 		add_history(input);
@@ -49,13 +56,14 @@ void	handle_signal(int sig)
 {
 	if (sig == SIGINT)
 	{
-		if (g_signal_handle == 0)
+		if (g_signal_handle == 0 || g_signal_handle == -1)
 		{
 			write(STDIN_FILENO, "^C", 2);
 			rl_replace_line("", 0);
 			rl_on_new_line();
 			write(STDIN_FILENO, "\n", 1);
 			rl_redisplay();
+			g_signal_handle = -1;
 		}
 		if (g_signal_handle == 1)
 			rl_redisplay();
