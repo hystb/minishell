@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/27 13:41:24 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/28 14:04:52 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_exit(t_data data)
 	char	**args;
 
 	args = (char **)(*data.cmd_lst)->content;
-	val = 0;
+	val = ft_atoi(get_item_env(data, "?"));
 	if (args_len(args) == 2)
 		val = check_syntaxe(args[1]);
 	if (args_len(args) > 2)
