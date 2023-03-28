@@ -104,6 +104,7 @@ int	make_redir_inside(t_list *cmd, t_data data, int i)
 void	make_redir_inside_aux(t_list *cmd, int *fd_target, t_data data)
 {
 	char	**args;
+	char	*target;
 	int		i;
 
 	if (!cmd)
@@ -118,7 +119,10 @@ void	make_redir_inside_aux(t_list *cmd, int *fd_target, t_data data)
 		{
 			if (*fd_target)
 				close(*fd_target);
-			*fd_target = do_heredoc(args[i + 1], data);
+			target = args[i + 1];
+			if (args[i][2])
+				target = args[i] + 2;
+			*fd_target = do_heredoc(target, data);
 			clean_up_redir(args, i);
 		}
 		else

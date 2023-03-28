@@ -6,7 +6,7 @@
 /*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/27 14:42:24 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/28 14:23:34 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	is_builtins(t_list	**cmds)
 	char	*arg;
 
 	arg = (char *)(*cmds)->content[0];
+	if (!arg)
+		return (0);
 	if (!ft_strcmp(arg, "echo"))
 		return (1);
 	else if (!ft_strcmp(arg, "cd"))
