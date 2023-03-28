@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:22:39 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/27 16:33:11 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/28 14:30:55 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,23 @@ char	*control_pipe(char *in, int i)
 				return (NULL);
 			}
 		}
+		i++;
+	}
+	return (in);
+}
+
+char	*empty_before_pipe(char *in, int i, int is_content)
+{
+	while (in && in[i])
+	{
+		if (in[i] == '|' && is_content == 0)
+		{
+			free(in);
+			ft_putstr_fd(PIPE_ERROR, 2);
+			return (NULL);
+		}
+		if (in[i] != ' ')
+			is_content = 1;
 		i++;
 	}
 	return (in);

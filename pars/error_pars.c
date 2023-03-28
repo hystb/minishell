@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:22:33 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/27 16:33:43 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/28 14:30:10 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	*input_error(char *in, t_data var_lst)
 	in = many_sign(in);
 	in = sign_error(in, i, -1);
 	in = control_pipe(in, i);
+	in = empty_before_pipe(in, 0, 0);
 	if (!in)
 		set_value_env("?", ft_strdup("2"), var_lst);
 	return (in);

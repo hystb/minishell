@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:58:37 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/27 13:08:18 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/28 14:16:25 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,21 @@ void	define_basic(t_data data, int argc, char **argv)
 		lv = 0;
 	else
 		lv = ft_atoi(get_item_env(data, "SHLVL"));
+	if (lv < 1)
+		lv = 0;
+	if (lv > 998)
+	{
+		lv = 0;
+		write(STDIN_FILENO, SHLVL_ERROR, 58);
+	}
 	set_value_env("PWD", getcwd(NULL, 0), data);
 	set_value_env("SHLVL", ft_itoa(lv + 1), data);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	char				*input;
-	t_data				var_lst;
+	char	*input;
+	t_data	var_lst;
 
 	g_signal_handle = 0;
 	var_lst.cmd_lst = NULL;

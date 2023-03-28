@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/28 12:36:53 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/28 14:30:32 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ unexpected token 'newline'\n"
 # define PIPE_ERROR "minishell: syntax error near unexpected token '|'\n"
 # define UNCOMP_ERROR "minishell: syntax error near unexpected token '"
 # define ERROR_QUOTE "minishell: not close quote\n"
+# define SHLVL_ERROR "minishell: warning: shell level too high, resetting to 1\n"
 
 typedef struct s_cmds
 {
@@ -117,6 +118,7 @@ void	change_quote(char *in);
 void	restore_quote(t_data var_lst);
 char	*get_var(char *arg, t_data var_lst, int j, int i);
 void	is_env_synthax(char *in, int j, int *i);
+char	*empty_before_pipe(char *in, int i, int is_content);
 
 /* builtins */
 int		pwd(void);
