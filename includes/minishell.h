@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/27 17:25:29 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/28 12:36:53 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int		quit_redir(int a, int b);
 int		quit_simple(t_data data, int ret_exit);
 
 /* redirections */
-int		make_redir_inside(t_list *cmd, t_data data);
+int		make_redir_inside(t_list *cmd, t_data data, int i);
 int		do_input(char *path);
 int		do_writing_file(char *path, int mode, t_data data);
 int		do_heredoc(char *limiter, t_data data);

@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 12:12:25 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/27 17:19:08 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/28 12:32:13 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*sub_env_var(char *var, char *arg, int start, t_data var_lst)
 	if (!var)
 		return (NULL);
 	end = start + 1;
-	is_env_synthax(arg, start , &end);
+	is_env_synthax(arg, start + 1, &end);
 	if (var[0] != -5)
 		new_content = find_env_var(var, var_lst);
 	else

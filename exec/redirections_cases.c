@@ -57,12 +57,10 @@ int	aux_inside_in(char **args, int i)
 	return (0);
 }
 
-int	make_redir_inside(t_list *cmd, t_data data)
+int	make_redir_inside(t_list *cmd, t_data data, int i)
 {
 	char	**args;
-	int		i;
 
-	i = 0;
 	args = (char **)cmd->content;
 	if (cmd->fd_heredoc)
 	{

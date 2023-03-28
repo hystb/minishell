@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:52:06 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/27 17:24:33 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/28 12:35:29 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ void	del_free_content(void **content)
 
 void	free_pids(t_listpids **pids)
 {
-	t_listpids *tmp;
-	t_listpids *old;
+	t_listpids	*tmp;
+	t_listpids	*old;
 
 	if (!pids)
 		return ;
 	if (!*pids)
 		return (free(pids));
 	tmp = *pids;
-	while(tmp)
+	while (tmp)
 	{
 		old = tmp;
 		tmp = tmp->next;
@@ -56,4 +56,3 @@ void	free_data(t_data data)
 	}
 	free_env_var(data.env_var);
 }
-

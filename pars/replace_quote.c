@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:23:03 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/27 16:22:08 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/28 13:09:21 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ void	replace_quote(t_data var_lst)
 		while (tmp->content != NULL && tmp->content[i])
 		{
 			new_content = is_quote(tmp->content[i], j, c);
-			if (ft_strncmp(new_content, tmp->content[i], \
-			ft_strlen(tmp->content[i])))
-				tmp->content[i] = new_content;
+			tmp->content[i] = new_content;
 			i++;
 		}
 		tmp = tmp->next;
@@ -43,8 +41,6 @@ char	*is_quote(char *in, int i, char c)
 	int		index;
 	char	*tmp;
 
-	if (!in)
-		return (NULL);
 	while (in[++i])
 	{
 		if (in[i] == '\'' || in[i] == '"')

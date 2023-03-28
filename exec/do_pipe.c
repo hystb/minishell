@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/27 14:42:52 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/28 12:37:09 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	make_command(t_list	**cmds, char **env, t_data data)
 	int		val;
 	int		exec;
 
-	if (make_redir_inside(*cmds, data))
+	if (make_redir_inside(*cmds, data, 0))
 		exit_error(data);
 	if (!(*cmds)->content[0])
 		return ;
@@ -91,7 +91,7 @@ int	make_only(t_data data, t_listpids **pids, int *fd_in)
 		old_in = dup(STDIN_FILENO);
 		if (old_in < 0 || old_in < 0)
 			return (quit_simple(data, 1));
-		if (make_redir_inside(*cmds, data))
+		if (make_redir_inside(*cmds, data, 0))
 			return (quit_redir(old_out, old_in));
 		val = do_builtins(data);
 		if (dup2(old_out, STDOUT_FILENO) == -1 || \
