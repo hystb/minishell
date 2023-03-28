@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:07:01 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/21 13:51:58 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/28 14:45:37 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ void	prepare_split(char **input, char c, int i, int index)
 	}
 	if (c)
 	{
+		free(input[0]);
 		input[0] = NULL;
 		ft_putstr_fd(ERROR_QUOTE, 2);
 	}
