@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/28 16:24:06 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/29 13:53:10 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ void	restore_quote(t_data var_lst);
 char	*get_var(char *arg, t_data var_lst, int j, int i);
 void	is_env_synthax(char *in, int j, int *i);
 char	*empty_before_pipe(char *in, int i, int is_content);
+char	*space_sign(char *input, int i);
+
 
 /* builtins */
 int		pwd(void);
@@ -145,6 +147,9 @@ int		make_redir_inside(t_list *cmd, t_data data, int i);
 int		do_input(char *path);
 int		do_writing_file(char *path, int mode, t_data data);
 int		do_heredoc(char *limiter, t_data data);
+char	*rechange_target(char *str);
+char	*realloc_sp_sign(char *input, char c, int i);
+char	*realloc_db_sign(char *input, char c, int i);
 void	make_redir_inside_aux(t_list *cmd, int *fd_target, t_data data);
 char	*check_var(char *arg, t_data var_lst, int j, int i);
 
@@ -156,6 +161,7 @@ char	**get_env_from_lst(t_data data, int i);
 char	*get_item_env(t_data data, char *key);
 
 /* execution */
+void	change_negative(char **tab);
 int		is_builtins(t_list	**cmds);
 int		is_blank(char *str);
 void	add_pids(pid_t value, t_listpids **list, t_data data);

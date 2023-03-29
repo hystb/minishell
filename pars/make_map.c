@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 12:50:53 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/21 13:50:20 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/29 12:58:31 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,16 +93,18 @@ void	change_space(char *str, int end, int start, int type)
 				str[start] = 28;
 			if (str[start] == ' ')
 				str[start] = 31;
-			start++;
+			if (str[start] == '<')
+				str[start] = -6;
+			if (str[start++] == '>')
+				str[start - 1] = -7;
 		}
 	}
 	else
 	{
-		while (str[i])
+		while (str[i++])
 		{
-			if (str[i] == 31)
-				str[i] = ' ';
-			i++;
+			if (str[i - 1] == 31)
+				str[i - 1] = ' ';
 		}
 	}
 }

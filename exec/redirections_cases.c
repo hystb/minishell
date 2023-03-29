@@ -42,16 +42,16 @@ void	aux_inside_out(char **args, int mode, int i, t_data data)
 
 	if (mode)
 	{
-		target = args[i + 1];
+		target = rechange_target(args[i + 1]);
 		if (args[i][2])
-			target = args[i] + 2;
+			target = rechange_target(args[i] + 2);
 		fd_temp = do_writing_file(target, 1, data);
 	}
 	else
 	{
-		target = args[i + 1];
+		target = rechange_target(args[i + 1]);
 		if (args[i][1])
-			target = args[i] + 1;
+			target = rechange_target(args[i] + 1);
 		fd_temp = do_writing_file(target, 0, data);
 	}
 	if (dup2(fd_temp, STDOUT_FILENO) == -1)
@@ -64,9 +64,9 @@ int	aux_inside_in(char **args, int i)
 {
 	char	*target;
 
-	target = args[i + 1];
+	target = rechange_target(args[i + 1]);
 	if (args[i][1])
-		target = args[i] + 1;
+		target = rechange_target(args[i] + 1);
 	if (do_input(target))
 		return (1);
 	clean_up_redir(args, i);
@@ -119,9 +119,9 @@ void	make_redir_inside_aux(t_list *cmd, int *fd_target, t_data data)
 		{
 			if (*fd_target)
 				close(*fd_target);
-			target = args[i + 1];
+			target = rechange_target(args[i + 1]);
 			if (args[i][2])
-				target = args[i] + 2;
+				target = rechange_target(args[i] + 2);
 			*fd_target = do_heredoc(target, data);
 			clean_up_redir(args, i);
 		}

@@ -31,6 +31,7 @@ exec/redirections.c\
 exec/env_utils.c\
 exec/env_utils_aux.c\
 exec/utils.c\
+exec/char_edit.c\
 exit/exit_error.c\
 exit/exit_lst.c\
 pars/env_lst.c\

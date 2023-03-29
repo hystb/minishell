@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/28 14:23:34 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/29 13:09:18 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	is_builtins(t_list	**cmds)
 
 int	do_builts_funct(t_data data, t_list **cmds, char *arg)
 {
+	change_negative((char **)(*cmds)->content);
 	if (!ft_strcmp(arg, "echo"))
 		return (echo((char **)(*cmds)->content));
 	else if (!ft_strcmp(arg, "cd"))
