@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/28 16:23:53 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/29 14:58:49 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,16 @@ char	**get_env_from_lst(t_data data, int i)
 	}
 	res[i] = NULL;
 	return (res);
+}
+
+int	tab_size(char **str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (i);
+	while (str[i])
+		i++;
+	return (i);
 }

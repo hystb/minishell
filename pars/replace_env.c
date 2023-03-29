@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 12:12:25 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/28 12:32:13 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/29 15:13:14 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	replace_env_var(t_data var_lst)
 	}
 	replace_quote(var_lst);
 	restore_quote(var_lst);
+	split_env(var_lst);
 }
 
 char	*is_env_vars(char *arg, t_data var_lst, int j, int i)
@@ -73,7 +74,7 @@ char	*sub_env_var(char *var, char *arg, int start, t_data var_lst)
 	end = start + 1;
 	is_env_synthax(arg, start + 1, &end);
 	if (var[0] != -5)
-		new_content = find_env_var(var, var_lst);
+		new_content = find_env_var(var, var_lst, 0);
 	else
 		new_content = ft_strdup(var);
 	new_arg = ft_strjoin(ft_strjoin(ft_substr(arg, 0, start), new_content), \
@@ -87,18 +88,16 @@ char	*sub_env_var(char *var, char *arg, int start, t_data var_lst)
 	return (new_arg);
 }
 
-char	*find_env_var(char *var, t_data var_lst)
+char	*find_env_var(char *var, t_data var_lst, int i)
 {
 	t_env	*env;
 	char	*res;
-	int		i;
 
 	env = *var_lst.env_var;
-	i = 0;
 	res = NULL;
 	while (env)
 	{
-		if (ft_strnstr(env->name_var, var, (ft_strlen(env->name_var) + 1)))
+		if (ft_strnstr(env->name_var, var, (ft_strlen(env->name_var))))
 		{
 			i = 0;
 			res = ft_strdup(env->content_var);
@@ -108,6 +107,8 @@ char	*find_env_var(char *var, t_data var_lst)
 					res[i] = -3;
 				if (res[i] == '"')
 					res[i] = -4;
+				if (res[i] == ' ')
+					res[i] = -8;
 				i++;
 			}
 		}

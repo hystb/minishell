@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 13:43:17 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/28 13:44:06 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/29 15:18:30 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,12 @@ int	is_blank(char *str)
 	if (!str[0])
 		return (1);
 	return (0);
+}
+
+char	**free_env_case(char **a, char **b, char **res, int j)
+{
+	res[j] = NULL;
+	free(a);
+	free(b);
+	return (res);
 }

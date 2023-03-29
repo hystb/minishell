@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:01:15 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/28 12:34:12 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/29 15:19:42 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,48 @@ void	is_env_synthax(char *in, int j, int *i)
 		else
 			return ;
 	}
+}
+
+void	split_env(t_data var_lst)
+{
+	t_list	*tmp;
+	char	**new_content;
+
+	tmp = *var_lst.cmd_lst;
+	while (tmp)
+	{
+		new_content = split_negativ((char **)tmp->content, -1, -1, 0);
+		if (new_content)
+			tmp->content = (void **)new_content;
+		if (!new_content)
+			tmp = tmp->next;
+	}
+}
+
+char	**split_negativ(char **content, int i, int j, int k)
+{
+	char	**splited;
+	char	**res;
+
+	while (content[++i])
+	{
+		if (is_space(content[i]))
+		{
+			splited = ft_split(content[i], -8);
+			res = malloc(sizeof(char *) * (tab_size(splited) + \
+			tab_size(content) + 1));
+			if (!res)
+				return (NULL);
+			while (++j < i)
+				res[j] = content[j];
+			k = 0;
+			while (splited[k])
+				res[j++] = splited[k++];
+			free(content[i]);
+			while (content[++i])
+				res[j++] = content[i];
+			return (free_env_case(splited, content, res, j));
+		}
+	}
+	return (NULL);
 }

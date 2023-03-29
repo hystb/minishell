@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/29 13:53:10 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/29 15:21:06 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	env_add_back(t_env **lst, t_env *new);
 void	make_node_env(char *env, int split, t_env **env_var);
 void	free_env_var(t_env **env);
 void	replace_env_var(t_data var_lst);
-char	*find_env_var(char *var, t_data var_lst);
+char	*find_env_var(char *var, t_data var_lst, int i);
 char	*input_error(char *in, t_data var_lst);
 char	*sign_error(char *in, int space, int i);
 char	*print_less_more_error(char *in, int i);
@@ -120,7 +120,11 @@ char	*get_var(char *arg, t_data var_lst, int j, int i);
 void	is_env_synthax(char *in, int j, int *i);
 char	*empty_before_pipe(char *in, int i, int is_content);
 char	*space_sign(char *input, int i);
-
+char	**split_negativ(char **content, int i, int j, int k);
+void	split_env(t_data var_lst);
+int		is_space(char *in);
+int		tab_size(char **str);
+char	**free_env_case(char **a, char **b, char **res, int j);
 
 /* builtins */
 int		pwd(void);

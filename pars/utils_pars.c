@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:29:22 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/29 13:12:58 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/29 14:34:36 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,28 @@ void	print_undefine(char *s1, char *s2, char *s3, char c)
 		ft_putchar_fd(c, 2);
 	ft_putstr_fd(s3, 2);
 	return ;
+}
+
+int	is_space(char *in)
+{
+	int		i;
+	char	c;
+	int		count;
+
+	i = 0;
+	c = 0;
+	count = 0;
+	while (in && in[i])
+	{
+		if ((in[i] == '\'' || in[i] == '"') && c == 0)
+			c = in[i];
+		else if ((in[i] == '\'' || in[i] == '"') && c != 0)
+			c = 0;
+		if (in[i] == -8 && c == 0)
+			count++;
+		if (in[i] == -8 && c != 0)
+			in[i] = ' ';
+		i++;
+	}
+	return (count);
 }
