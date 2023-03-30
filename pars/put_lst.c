@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:07:01 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/29 13:52:43 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/30 14:59:40 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_list	**put_input_lst(char **input)
 	}
 	*cmd = NULL;
 	prepare_input(input[0], &data_cmd);
-	prepare_split(input, 0, 0, 0);
+	prepare_split(input, 0, 0, -1);
 	if (!input[0])
 	{
 		free (cmd);
@@ -131,7 +131,7 @@ void	prepare_split(char **input, char c, int i, int index)
 			else if (input[0][i] == c)
 				c = 0;
 		}		
-		if (index != 0 && c == 0)
+		if (index != -1 && c == 0)
 		{
 			change_space(input[0], i, index, 1);
 			index = 0;

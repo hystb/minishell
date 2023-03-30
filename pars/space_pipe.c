@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:51:19 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/29 15:20:34 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/30 15:27:02 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,13 @@ char	*space_sign(char *input, int i)
 			i++;
 	}
 	return (input);
+}
+
+char	is_quote_in_sign(char c, char in)
+{
+	if ((in == '\'' || in == '"') && c == 0)
+		c = in;
+	else if (in == c && c != 0)
+		c = 0;
+	return (c);
 }

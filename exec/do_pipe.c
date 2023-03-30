@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/29 13:05:48 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/30 14:24:38 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	make_command(t_list	**cmds, char **env, t_data data)
 		free_data(data);
 		exit (val);
 	}
+	change_negative((char **)(*cmds)->content);
 	path = get_path((char *)(*cmds)->content[0], env, data);
 	if (!path)
 		not_found_error((char *)(*cmds)->content[0], data);
-	change_negative((char **)(*cmds)->content);
 	exec = execve(path, (char **)(*cmds)->content, env);
 	free(path);
 	if (exec < 0)

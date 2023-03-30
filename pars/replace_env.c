@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 12:12:25 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/29 15:13:14 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/30 12:56:01 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ void	replace_env_var(t_data var_lst)
 	char	*new_content;
 
 	tmp = *var_lst.cmd_lst;
+	new_content = NULL;
 	while (tmp)
 	{
 		i = 0;
-		while (tmp->content != NULL && tmp->content[i])
+		while (tmp && tmp->content != NULL && tmp->content[i])
 		{
 			new_content = is_env_vars(tmp->content[i], var_lst, 0, -1);
 			if (new_content)

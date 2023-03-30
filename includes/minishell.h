@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/29 15:21:06 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/30 15:27:37 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	del_free_content(void **content);
 char	*make_input(char *promp_name, t_data var_lst);
 void	config_signal(void);
 void	handle_signal(int sig);
+char	is_quote_in_sign(char c, char in);
 t_env	**put_env(char **envp, t_data var_lst);
 char	*is_env_vars(char *arg, t_data var_lst, int j, int i);
 void	jump_next_pipe(int *last_pipe, int *last_splited, char **splited);
@@ -103,9 +104,9 @@ void	free_env_var(t_env **env);
 void	replace_env_var(t_data var_lst);
 char	*find_env_var(char *var, t_data var_lst, int i);
 char	*input_error(char *in, t_data var_lst);
-char	*sign_error(char *in, int space, int i);
+char	*sign_error(char *in, int space, int i, char c);
 char	*print_less_more_error(char *in, int i);
-char	*many_sign(char *in);
+char	*many_sign(char *in, int count_less, int count_more, int c);
 void	print_undefine(char *s1, char *s2, char *s3, char c);
 char	*print_less_error(char *in, int i, char *res);
 char	*control_pipe(char *in, int i);

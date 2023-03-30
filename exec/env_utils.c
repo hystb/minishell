@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/21 14:34:31 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/03/30 15:07:53 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,10 @@ void	delete_item_env(t_env *env, char *key)
 	{
 		if (!ft_strncmp(env->name_var, key, ft_strlen(env->name_var)))
 		{
-			env->previous->next = env->next;
-			env->next->previous = env->previous;
+			if (env->previous)
+				env->previous->next = env->next;
+			if (env->next)
+				env->next->previous = env->previous;
 			free(env->content_var);
 			free(env->name_var);
 			free(env);

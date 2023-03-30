@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:22:33 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/28 14:30:10 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/30 15:27:20 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ char	*input_error(char *in, t_data var_lst)
 	}
 	i = 0;
 	in = replace_tab_and_printable(in);
-	in = many_sign(in);
-	in = sign_error(in, i, -1);
+	in = many_sign(in, 0, 0, 0);
+	in = sign_error(in, i, -1, 0);
 	in = control_pipe(in, i);
 	in = empty_before_pipe(in, 0, 0);
 	if (!in)
@@ -40,12 +40,13 @@ char	*input_error(char *in, t_data var_lst)
 	return (in);
 }
 
-char	*sign_error(char *in, int space, int i)
+char	*sign_error(char *in, int space, int i, char c)
 {
 	while (in && in[++i])
 	{
 		space = 0;
-		if (in[i] == '<' || in[i] == '>')
+		c = is_quote_in_sign(c, in[i]);
+		if ((in[i] == '<' || in[i] == '>') && c == 0)
 		{
 			while (in[i + 1] == ' ')
 			{
@@ -68,23 +69,23 @@ char	*sign_error(char *in, int space, int i)
 	return (in);
 }
 
-char	*many_sign(char *in)
+char	*many_sign(char *in, int count_less, int count_more, int c)
 {
-	int		count_less;
-	int		count_more;
 	int		i;
 
-	count_less = 0;
-	count_more = 0;
 	i = 0;
 	while (in && in[i])
 	{
-		if (in[i] == '<')
+		if ((in[i] == '\'' || in[i] == '"') && c == 0)
+			c = in[i];
+		else if (in[i] == c && c != 0)
+			c = 0;
+		if (in[i] == '<' && c == 0)
 			count_less++;
-		else if (in[i] == '>')
+		else if (in[i] == '>' && c == 0)
 			count_more++;
-		if ((in[i] == '<' || in[i] == '>') && (count_less > 1
-				|| count_more > 1 || (count_more == 1 && count_less == 1)))
+		if ((in[i] == '<' || in[i] == '>') && (count_less > 1 || count_more > 1
+				|| (count_more == 1 && count_less == 1)) && c == 0)
 			return (print_less_more_error(in, i + 1));
 		else if (count_more + count_less >= 3)
 		{
