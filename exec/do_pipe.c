@@ -24,7 +24,7 @@ void	make_command(t_list	**cmds, char **env, t_data data)
 		return ;
 	if (is_builtins(cmds))
 	{
-		val = do_builtins(data);
+		val = do_builtins(data, NULL);
 		free_data(data);
 		exit (val);
 	}
@@ -82,24 +82,23 @@ int	make_only(t_data data, t_listpids **pids, int *fd_in)
 {
 	t_list	**cmds;
 	int		val;
-	int		old_out;
-	int		old_in;
+	int		fd[2];
 
 	cmds = data.cmd_lst;
 	if (is_builtins(cmds))
 	{
-		old_out = dup(STDOUT_FILENO);
-		old_in = dup(STDIN_FILENO);
-		if (old_in < 0 || old_in < 0)
+		fd[0] = dup(STDOUT_FILENO);
+		fd[1] = dup(STDIN_FILENO);
+		if (fd[0] < 0 || fd[1] < 0)
 			return (quit_simple(data, 1));
 		if (make_redir_inside(*cmds, data, 0))
-			return (quit_redir(old_out, old_in));
-		val = do_builtins(data);
-		if (dup2(old_out, STDOUT_FILENO) == -1 || \
-		dup2(old_in, STDIN_FILENO) == -1)
+			return (quit_redir(fd[0], fd[1]));
+		val = do_builtins(data, fd);
+		if (dup2(fd[0], STDOUT_FILENO) == -1 || \
+		dup2(fd[1], STDIN_FILENO) == -1)
 			return (quit_simple(data, 1));
-		close(old_in);
-		close(old_out);
+		close(fd[1]);
+		close(fd[0]);
 		set_value_env("?", ft_itoa(val), data);
 	}
 	else

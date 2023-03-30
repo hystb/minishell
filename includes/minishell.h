@@ -130,7 +130,7 @@ char	**free_env_case(char **a, char **b, char **res, int j);
 /* builtins */
 int		pwd(void);
 int		ft_export(t_data data, char **args);
-void	ft_exit(t_data data);
+void	ft_exit(t_data data, int duplicate[2]);
 int		echo(char **args);
 int		cd(t_data data, t_list *cmd);
 int		do_export_nargs(t_data data);
@@ -170,7 +170,7 @@ void	change_negative(char **tab);
 int		is_builtins(t_list	**cmds);
 int		is_blank(char *str);
 void	add_pids(pid_t value, t_listpids **list, t_data data);
-int		do_builtins(t_data data);
+int		do_builtins(t_data data, int duplicate[2]);
 int		do_parent_builtins(t_data data);
 int		args_len(char **args);
 char	*get_path(char *cmd, char **env, t_data data);

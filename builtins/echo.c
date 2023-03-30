@@ -50,11 +50,11 @@ int	echo(char **args)
 	}
 	while (args[i])
 	{
-		printf("%s", args[i++]);
+		write(STDOUT_FILENO, args[i], ft_strlen(args[i++]));
 		if (args[i])
-			printf(" ");
+			write(STDOUT_FILENO, " ", 1);
 	}
 	if (!new_line)
-		printf("\n");
+		write(STDOUT_FILENO, "\n", 1);
 	return (EXIT_SUCCESS);
 }

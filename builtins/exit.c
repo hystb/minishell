@@ -69,11 +69,16 @@ int	check_syntaxe(char *arg)
 	return (ft_atoi(arg));
 }
 
-void	ft_exit(t_data data)
+void	ft_exit(t_data data, int duplicate[2])
 {
 	int		val;
 	char	**args;
 
+	if (duplicate)
+	{
+		close(duplicate[0]);
+		close(duplicate[1]);
+	}
 	args = (char **)(*data.cmd_lst)->content;
 	val = ft_atoi(get_item_env(data, "?"));
 	if (args_len(args) == 2)

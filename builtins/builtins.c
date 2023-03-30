@@ -36,27 +36,30 @@ int	is_builtins(t_list	**cmds)
 	return (0);
 }
 
-int	do_builts_funct(t_data data, t_list **cmds, char *arg)
+int	do_builts_funct(t_data data, char *arg, int duplicate[2])
 {
-	change_negative((char **)(*cmds)->content);
+	t_list	*cmds;
+
+	cmds = *data.cmd_lst;
+	change_negative((char **)cmds->content);
 	if (!ft_strcmp(arg, "echo"))
-		return (echo((char **)(*cmds)->content));
+		return (echo((char **)cmds->content));
 	else if (!ft_strcmp(arg, "cd"))
-		return (cd(data, *cmds));
+		return (cd(data, cmds));
 	else if (!ft_strcmp(arg, "pwd"))
 		return (pwd());
 	else if (!ft_strcmp(arg, "export"))
-		return (ft_export(data, (char **)(*cmds)->content));
+		return (ft_export(data, (char **)cmds->content));
 	else if (!ft_strcmp(arg, "unset"))
-		return (unset(data, (char **)(*cmds)->content));
+		return (unset(data, (char **)cmds->content));
 	else if (!ft_strcmp(arg, "env"))
 		return (env(data));
 	else if (!ft_strcmp(arg, "exit"))
-		ft_exit(data);
+		ft_exit(data, duplicate);
 	return (0);
 }
 
-int	do_builtins(t_data data)
+int	do_builtins(t_data data, int duplicate[2])
 {
 	char	*arg;
 	t_list	**cmds;
@@ -67,7 +70,7 @@ int	do_builtins(t_data data)
 	if (!(*cmds)->content[0])
 		return (val);
 	arg = (char *)(*cmds)->content[0];
-	val = do_builts_funct(data, cmds, arg);
+	val = do_builts_funct(data, arg, duplicate);
 	if (val >= 0)
 		set_value_env("?", ft_itoa(val), data);
 	return (val);
