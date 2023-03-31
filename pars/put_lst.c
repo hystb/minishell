@@ -134,7 +134,7 @@ void	prepare_split(char **input, char c, int i, int index)
 		if (index != -1 && c == 0)
 		{
 			change_space(input[0], i, index, 1);
-			index = 0;
+			index = -1;
 		}
 		i++;
 	}
