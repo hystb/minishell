@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:31:44 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/30 14:40:48 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/03/31 12:55:48 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	echo(char **args)
 	}
 	while (args[i])
 	{
-		write(STDOUT_FILENO, args[i], ft_strlen(args[i++]));
+		write(STDOUT_FILENO, args[i], ft_strlen(args[i]));
+		i++;
 		if (args[i])
 			write(STDOUT_FILENO, " ", 1);
 	}
