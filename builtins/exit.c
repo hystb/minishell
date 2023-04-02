@@ -41,31 +41,35 @@ long long	ft_exit_atoi(const char *str)
 	return (res);
 }
 
+int	print_exit(char *str, int return_value)
+{
+	write(2, "minishell: exit: ", 18);
+	write(2, str, ft_strlen(str));
+	write(2, ": numeric argument required\n", 29);
+	return (2);
+}
+
 int	check_syntaxe(char *arg)
 {
 	int	i;
+	int	space_c;
 
 	i = 0;
+	space_c = 0;
 	if (arg[i] == '+' || arg[i] == '-')
 		i++;
 	while (arg[i])
 	{
-		if (arg[i] < '0' || arg[i] > '9')
-		{
-			write(2, "minishell: exit: ", 18);
-			write(2, arg, ft_strlen(arg));
-			write(2, ": numeric argument required\n", 29);
-			return (2);
-		}
+		if ((arg[i] < '0' || arg[i] > '9') && arg[i] != ' ')
+			return (print_exit(arg, 2));
+		if (arg[i] == ' ')
+			space_c++;
 		i++;
 	}
+	if (space_c == i)
+		return (print_exit(" ", 2));
 	if (ft_exit_atoi(arg) == -1)
-	{
-		write(2, "minishell: exit: ", 18);
-		write(2, arg, ft_strlen(arg));
-		write(2, ": numeric argument required\n", 29);
-		return (2);
-	}
+		return (print_exit(arg, 2));
 	return (ft_atoi(arg));
 }
 
