@@ -57,6 +57,8 @@ void	do_heredoc_child(char *limiter, int fd[2], t_data data)
 	}
 	check_free(str, limiter);
 	close(fd[1]);
+	free_heredocs(data.cmd_lst);
+	free_data(data);
 	exit(EXIT_SUCCESS);
 }
 

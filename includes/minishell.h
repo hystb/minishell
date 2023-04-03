@@ -143,6 +143,7 @@ void	exit_error(t_data data);
 void	write_error(char *str, t_data data);
 void	not_found_error(char *cmd, t_data data);
 void	free_data(t_data data);
+void	free_heredocs(t_list **cmds);
 void	free_pids(t_listpids **pids);
 int		quit_redir(int a, int b);
 int		quit_simple(t_data data, int ret_exit);

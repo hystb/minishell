@@ -59,6 +59,7 @@ void	do_child(t_list **cmds, t_data data, int *fd_in, int tube[2])
 	if (!env)
 		write_error("Memory allocation error !", data);
 	make_command(cmds, env, data);
+	free_heredocs(cmds);
 	free_tab(env);
 	free_data(data);
 	exit(EXIT_SUCCESS);
@@ -75,7 +76,11 @@ void	do_parent(t_list **cmds, int *fd_in, int tube[2])
 	close(tube[1]);
 	(*cmds) = (*cmds)->next;
 	while (*cmds && ft_strncmp((char *)(*cmds)->content[0], "|", 1) == 0)
+	{
+		if ((*cmds)->fd_heredoc)
+			close((*cmds)->fd_heredoc);
 		(*cmds) = (*cmds)->next;
+	}
 }
 
 int	make_only(t_data data, t_listpids **pids, int *fd_in)

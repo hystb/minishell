@@ -29,6 +29,18 @@ void	wait_childs(t_listpids **pids, t_data var_lst)
 		set_value_env("?", ft_itoa(WEXITSTATUS(status)), var_lst);
 }
 
+void	put_heredocs_val(t_list **list_cmd)
+{
+	t_list	*cmds;
+
+	cmds = *list_cmd;
+	while (cmds)
+	{
+		cmds->fd_heredoc = 0;
+		cmds = cmds->next;
+	}
+}
+
 int	do_heredocs(t_list **lst_cmd, t_data data)
 {
 	t_list	*temp;
@@ -36,12 +48,12 @@ int	do_heredocs(t_list **lst_cmd, t_data data)
 
 	val = 0;
 	temp = *lst_cmd;
+	put_heredocs_val(lst_cmd);
 	while (temp)
 	{
-		temp->fd_heredoc = 0;
 		make_redir_inside_aux(temp, &temp->fd_heredoc, data);
 		if (temp->fd_heredoc == -130)
-			val++;
+				val++;
 		temp = temp->next;
 	}
 	temp = *lst_cmd;

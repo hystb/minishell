@@ -56,3 +56,18 @@ void	free_data(t_data data)
 	}
 	free_env_var(data.env_var);
 }
+
+void	free_heredocs(t_list **cmds)
+{
+	t_list	*i;
+
+	if (!cmds || !*cmds)
+		return ;
+	i = *cmds;
+	while (i)
+	{
+		if (i->fd_heredoc)
+			close(i->fd_heredoc);
+		i = i->next;
+	}
+}
