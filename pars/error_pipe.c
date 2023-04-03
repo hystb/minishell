@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:22:39 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/28 14:30:55 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/04/03 14:32:34 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,23 @@ char	*empty_before_pipe(char *in, int i, int is_content)
 
 char	*replace_tab_and_printable(char *in)
 {
-	int	i;
+	int		i;
+	char	c;
 
 	i = 0;
+	c = 0;
 	while (in && in[i])
 	{
-		if (in[i] < 20 || in[i] >= 127)
+		if ((in[i] == '"' || in[i] == '\'') && c == 0)
+			c = in[i];
+		else if (in[i] == c && c != 0)
+			c = 0;
+		if (in[i] < 0 || in[i] >= 127)
 		{
 			free(in);
 			return (NULL);
 		}
-		if (in[i] == '	')
+		if (in[i] == '\t' && c == 0)
 			in[i] = ' ';
 		i++;
 	}

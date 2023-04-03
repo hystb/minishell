@@ -6,39 +6,11 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 13:43:17 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/29 15:18:30 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/04/03 14:59:54 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-char	*check_var(char *arg, t_data var_lst, int j, int i)
-{
-	int		is_sp_quote;
-	char	*var;
-
-	var = arg;
-	is_sp_quote = 0;
-	while (arg[++i])
-	{
-		if (arg[i] == '\'' && is_sp_quote == 0)
-			is_sp_quote = 1;
-		else if (arg[i] == '\'' && is_sp_quote == 1)
-			is_sp_quote = 0;
-		if (arg[i] == '$' && is_sp_quote == 0)
-		{
-			j = i + 1;
-			while (arg[i] != ' ' && arg[i] != '\f' && arg[i] != '\n'
-				&& arg[i] != '\t' && arg[i] != '\v' && arg[i] != '\r'
-				&& arg[i] && arg[i] != '"')
-				i++;
-			var = ft_substr(arg, j, i - j);
-			var = sub_env_var(var, arg, j - 1, var_lst);
-			return (var);
-		}
-	}
-	return (var);
-}
 
 void	add_pids(pid_t value, t_listpids **list, t_data data)
 {
@@ -90,4 +62,10 @@ char	**free_env_case(char **a, char **b, char **res, int j)
 	free(a);
 	free(b);
 	return (res);
+}
+
+void	restore_counter(int *a, int *b)
+{
+	*a = 0;
+	*b = 0;
 }

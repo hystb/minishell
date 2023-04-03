@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:31:44 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/31 12:55:48 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/04/03 15:40:40 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	is_option(char *arg, int *c)
+int	is_option(char *arg)
 {
 	int	i;
 
@@ -21,13 +21,10 @@ int	is_option(char *arg, int *c)
 		return (0);
 	i++;
 	if (!arg[i])
-	{
-		*c = *c + 1;
 		return (0);
-	}
 	while (arg[i] == 'n')
 		i++;
-	if (!arg[i] || arg[i] == ' ')
+	if (!arg[i])
 		return (1);
 	return (0);
 }
@@ -42,7 +39,7 @@ int	echo(char **args)
 	i = 1;
 	while (args[i])
 	{
-		res = is_option(args[i], &i);
+		res = is_option(args[i]);
 		if (!res)
 			break ;
 		i++;

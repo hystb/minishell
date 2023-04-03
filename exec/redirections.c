@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:23:42 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/30 14:33:15 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/04/03 15:16:44 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	do_input(char *path)
 }
 
 /* write in a file depending on the file mode opening */
-int	do_writing_file(char *path, int mode, t_data data)
+int	do_writing_file(char *path, int mode)
 {
 	int		fd_out;
 
@@ -35,6 +35,6 @@ int	do_writing_file(char *path, int mode, t_data data)
 	else
 		fd_out = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd_out == -1)
-		exit_error(data);
+		return (-1);
 	return (fd_out);
 }

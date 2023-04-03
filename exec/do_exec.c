@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/28 12:39:12 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/04/03 16:14:54 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	do_heredocs(t_list **lst_cmd, t_data data)
 	{
 		while (temp)
 		{
-			if (temp->fd_heredoc)
+			if (temp->fd_heredoc && temp->fd_heredoc != -130)
 				close(temp->fd_heredoc);
 			temp = temp->previous;
 		}

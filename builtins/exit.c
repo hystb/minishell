@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/31 13:29:30 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/04/03 11:59:18 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	print_exit(char *str, int return_value)
 	write(2, "minishell: exit: ", 18);
 	write(2, str, ft_strlen(str));
 	write(2, ": numeric argument required\n", 29);
-	return (2);
+	return (return_value);
 }
 
 int	check_syntaxe(char *arg)

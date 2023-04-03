@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:22:33 by nmilan            #+#    #+#             */
-/*   Updated: 2023/03/30 15:27:20 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/04/03 15:02:13 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ char	*many_sign(char *in, int count_less, int count_more, int c)
 {
 	int		i;
 
-	i = 0;
-	while (in && in[i])
+	i = -1;
+	while (in && in[++i])
 	{
 		if ((in[i] == '\'' || in[i] == '"') && c == 0)
 			c = in[i];
@@ -90,10 +90,10 @@ char	*many_sign(char *in, int count_less, int count_more, int c)
 		else if (count_more + count_less >= 3)
 		{
 			print_undefine(UNCOMP_ERROR, NULL, "'\n", in[i]);
-			free(in);
-			return (NULL);
+			return (free(in), NULL);
 		}
-		i++;
+		if (in[i] != '>' && in[i] != '<' && in[i] != ' ')
+			restore_counter(&count_less, &count_more);
 	}
 	return (in);
 }

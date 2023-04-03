@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/30 14:24:38 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/04/03 16:21:58 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	make_command(t_list	**cmds, char **env, t_data data)
 	int		val;
 	int		exec;
 
-	if (make_redir_inside(*cmds, data, 0))
+	if (make_redir_inside(*cmds, 0))
 		exit_error(data);
 	if (!(*cmds)->content[0])
 		return ;
@@ -91,7 +91,7 @@ int	make_only(t_data data, t_listpids **pids, int *fd_in)
 		fd[1] = dup(STDIN_FILENO);
 		if (fd[0] < 0 || fd[1] < 0)
 			return (quit_simple(data, 1));
-		if (make_redir_inside(*cmds, data, 0))
+		if (make_redir_inside(*cmds, 0))
 			return (quit_redir(fd[0], fd[1]));
 		val = do_builtins(data, fd);
 		if (dup2(fd[0], STDOUT_FILENO) == -1 || \

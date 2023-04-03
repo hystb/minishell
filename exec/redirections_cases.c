@@ -35,7 +35,7 @@ void	clean_up_redir(char **args, int i)
 	free(save);
 }
 
-void	aux_inside_out(char **args, int mode, int i, t_data data)
+int	aux_inside_out(char **args, int mode, int i)
 {
 	int		fd_temp;
 	char	*target;
@@ -45,19 +45,22 @@ void	aux_inside_out(char **args, int mode, int i, t_data data)
 		target = rechange_target(args[i + 1]);
 		if (args[i][2])
 			target = rechange_target(args[i] + 2);
-		fd_temp = do_writing_file(target, 1, data);
+		fd_temp = do_writing_file(target, 1);
 	}
 	else
 	{
 		target = rechange_target(args[i + 1]);
 		if (args[i][1])
 			target = rechange_target(args[i] + 1);
-		fd_temp = do_writing_file(target, 0, data);
+		fd_temp = do_writing_file(target, 0);
 	}
+	if (fd_temp == -1)
+		return (1);
 	if (dup2(fd_temp, STDOUT_FILENO) == -1)
 		perror("");
 	close(fd_temp);
 	clean_up_redir(args, i);
+	return (0);
 }
 
 int	aux_inside_in(char **args, int i)
@@ -73,9 +76,10 @@ int	aux_inside_in(char **args, int i)
 	return (0);
 }
 
-int	make_redir_inside(t_list *cmd, t_data data, int i)
+int	make_redir_inside(t_list *cmd, int i)
 {
 	char	**args;
+	int		val;
 
 	args = (char **)cmd->content;
 	if (cmd->fd_heredoc)
@@ -86,17 +90,17 @@ int	make_redir_inside(t_list *cmd, t_data data, int i)
 	}
 	while (args[i])
 	{
+		val = 0;
 		if (ft_strncmp(args[i], "<", 1) == 0)
-		{
-			if (aux_inside_in(args, i))
-				return (1);
-		}
+			val = aux_inside_in(args, i);
 		else if (ft_strncmp(args[i], ">>", 2) == 0)
-			aux_inside_out(args, 1, i, data);
+			val = aux_inside_out(args, 1, i);
 		else if (ft_strncmp(args[i], ">", 1) == 0)
-			aux_inside_out(args, 0, i, data);
+			val = aux_inside_out(args, 0, i);
 		else
 			i++;
+		if (val)
+			return (1);
 	}
 	return (0);
 }

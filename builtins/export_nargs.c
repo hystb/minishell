@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_nargs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/27 13:04:29 by ebillon          ###   ########.fr       */
+/*   Updated: 2023/04/03 14:22:18 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,22 @@ void	print_line(char *arg, t_data data)
 	char	*temp;
 
 	i = 0;
-	printf("declare -x %s=\"", arg);
 	temp = get_item_env(data, arg);
-	while (temp[i])
+	if (temp &&!temp[0])
+		printf("declare -x %s\n", arg);
+	else
 	{
-		if (temp[i] == '\"')
-			printf("\\\"");
-		else
-			printf("%c", temp[i]);
-		i++;
+		printf("declare -x %s=\"", arg);
+		while (temp[i])
+		{
+			if (temp[i] == '\"')
+				printf("\\\"");
+			else
+				printf("%c", temp[i]);
+			i++;
+		}
+		printf("\"\n");
 	}
-	printf("\"\n");
 }
 
 int	do_export_nargs(t_data data)

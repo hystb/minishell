@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/28 16:26:07 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/04/03 16:00:56 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ int	cd(t_data data, t_list *cmds)
 			return (1);
 		}
 	}
-	else if (!ft_strncmp(args[1], "-", ft_strlen(args[1])))
-		path = get_item_env(data, "OLDPWD");
 	else
 		path = args[1];
 	return (go_to(data, path));

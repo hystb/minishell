@@ -6,7 +6,7 @@
 /*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:39:36 by ebillon           #+#    #+#             */
-/*   Updated: 2023/03/30 15:27:37 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/04/03 15:17:35 by nmilan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,15 +148,14 @@ int		quit_redir(int a, int b);
 int		quit_simple(t_data data, int ret_exit);
 
 /* redirections */
-int		make_redir_inside(t_list *cmd, t_data data, int i);
+int		make_redir_inside(t_list *cmd, int i);
 int		do_input(char *path);
-int		do_writing_file(char *path, int mode, t_data data);
+int		do_writing_file(char *path, int mode);
 int		do_heredoc(char *limiter, t_data data);
 char	*rechange_target(char *str);
 char	*realloc_sp_sign(char *input, char c, int i);
 char	*realloc_db_sign(char *input, char c, int i);
 void	make_redir_inside_aux(t_list *cmd, int *fd_target, t_data data);
-char	*check_var(char *arg, t_data var_lst, int j, int i);
 
 /* env lst */
 void	set_value_env(char *key, char *value, t_data var_lst);
@@ -176,6 +175,7 @@ int		args_len(char **args);
 char	*get_path(char *cmd, char **env, t_data data);
 int		make_only(t_data data, t_listpids **pids, int *fd_in);
 void	make_pipe(t_data data, t_listpids **pids, int *fd_in);
+void	restore_counter(int *a, int *b);
 char	*get_next_line(int fd);
 void	do_exec(t_data var_lst, t_list **lst_cmd, int fd_old, t_list *tmp);
 int		ft_strcmp(char *a, char *b);
