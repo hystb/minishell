@@ -82,7 +82,7 @@ int	make_redir_inside(t_list *cmd, int i)
 	int		val;
 
 	args = (char **)cmd->content;
-	if (cmd->fd_heredoc)
+	if (cmd->fd_heredoc && cmd->fd_heredoc != -130)
 	{
 		if (dup2(cmd->fd_heredoc, STDIN_FILENO) == -1)
 			perror("");

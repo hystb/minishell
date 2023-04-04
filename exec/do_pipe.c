@@ -77,7 +77,7 @@ void	do_parent(t_list **cmds, int *fd_in, int tube[2])
 	(*cmds) = (*cmds)->next;
 	while (*cmds && ft_strncmp((char *)(*cmds)->content[0], "|", 1) == 0)
 	{
-		if ((*cmds)->fd_heredoc)
+		if ((*cmds)->fd_heredoc && (*cmds)->fd_heredoc != -130)
 			close((*cmds)->fd_heredoc);
 		(*cmds) = (*cmds)->next;
 	}
@@ -130,7 +130,7 @@ void	make_pipe(t_data data, t_listpids **pids, int *fd_in)
 		else
 		{
 			add_pids(pid, pids, data);
-			if ((*cmds)->fd_heredoc)
+			if ((*cmds)->fd_heredoc || (*cmds)->fd_heredoc != -130)
 				close((*cmds)->fd_heredoc);
 			do_parent(cmds, fd_in, tube);
 		}

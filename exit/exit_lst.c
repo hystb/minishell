@@ -66,7 +66,7 @@ void	free_heredocs(t_list **cmds)
 	i = *cmds;
 	while (i)
 	{
-		if (i->fd_heredoc)
+		if (i->fd_heredoc && i->fd_heredoc != 130)
 			close(i->fd_heredoc);
 		i = i->next;
 	}
