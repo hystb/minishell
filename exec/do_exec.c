@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:39:23 by ebillon           #+#    #+#             */
-/*   Updated: 2023/04/03 16:14:54 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/04/04 11:12:14 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,23 @@ void	put_heredocs_val(t_list **list_cmd)
 	}
 }
 
-int	do_heredocs(t_list **lst_cmd, t_data data)
+int	do_heredocs(t_list **lst_cmd, t_data data, int val)
 {
 	t_list	*temp;
-	int		val;
 
-	val = 0;
 	temp = *lst_cmd;
 	put_heredocs_val(lst_cmd);
 	while (temp)
 	{
 		make_redir_inside_aux(temp, &temp->fd_heredoc, data);
+		wait(NULL);
 		if (temp->fd_heredoc == -130)
-				val++;
+		{
+			val++;
+			break ;
+		}
 		temp = temp->next;
 	}
-	temp = *lst_cmd;
 	if (val)
 	{
 		while (temp)
@@ -65,9 +66,8 @@ int	do_heredocs(t_list **lst_cmd, t_data data)
 				close(temp->fd_heredoc);
 			temp = temp->previous;
 		}
-		return (1);
 	}
-	return (0);
+	return (val);
 }
 
 t_listpids	**malloc_pids(t_data var_lst)
@@ -91,7 +91,7 @@ void	do_exec(t_data var_lst, t_list **lst_cmd, int fd_old, t_list *tmp)
 	tmp = *lst_cmd;
 	list_pids = malloc_pids(var_lst);
 	g_signal_handle = 1;
-	if (!do_heredocs(lst_cmd, var_lst))
+	if (!do_heredocs(lst_cmd, var_lst, 0))
 	{
 		if (!(*lst_cmd)->next)
 		{

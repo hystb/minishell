@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmilan <nmilan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebillon <ebillon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:49:52 by ebillon           #+#    #+#             */
-/*   Updated: 2023/04/03 16:21:58 by nmilan           ###   ########.fr       */
+/*   Updated: 2023/04/04 11:05:52 by ebillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	make_pipe(t_data data, t_listpids **pids, int *fd_in)
 		else
 		{
 			add_pids(pid, pids, data);
-			if ((*cmds)->fd_heredoc || (*cmds)->fd_heredoc != -130)
+			if ((*cmds)->fd_heredoc && (*cmds)->fd_heredoc != -130)
 				close((*cmds)->fd_heredoc);
 			do_parent(cmds, fd_in, tube);
 		}
