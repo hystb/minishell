@@ -14,11 +14,14 @@
 
 char	*control_pipe(char *in, int i)
 {
-	int	is_write;
+	int		is_write;
+	char	c;
 
+	c = 0;
 	while (in && in[i])
 	{
-		if (in[i] == '|')
+		c = is_quote_in_sign(c, in[i]);
+		if (in[i] == '|' && c == 0)
 		{
 			i++;
 			is_write = 0;
